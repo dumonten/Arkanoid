@@ -412,6 +412,8 @@ namespace Arkanoid
         [[nodiscard]] gameState getGameState()const { return state; }
         ~Game();
     };
+
+
 }
 
 #endif //GAME_CLASSES_H

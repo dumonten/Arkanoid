@@ -33,7 +33,7 @@ void Arkanoid::TextField::setDefaultProperties()
     //
     clrNormal = clrClicked = clrHovered = sf::Color::White;
     clrBorder = sf::Color(102, 0, 102);
-    font.loadFromFile(totalProjectPath + "/fonts/arial.ttf");
+    font.loadFromFile(totalProjectPath + "/fonts/pixel.ttf");
     borderThickness = 0;
     text.setString(str = "Click me!");
     text.setFont(font);
@@ -79,8 +79,6 @@ Arkanoid::Button::Button(const std::string& name, sf::Vector2f s, sf::Vector2f p
     selfRect->setOutlineThickness(borderThickness = 0.02f*s.x);
 
     state = btnState::NORMAL;
-    sf::Font font;
-    font.loadFromFile(totalProjectPath + "/fonts/pixel.ttf");
     textfield = new TextField();
     textfield->setTextStyle(sf::Text::Bold);
     textfield->setCharSize(s.x * 0.08f);
