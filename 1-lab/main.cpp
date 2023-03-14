@@ -1,6 +1,16 @@
-#include <iostream>
+#include "game_classes.h"
 
-int main() {
-    std::cout << "Hello, World!" << std::endl;
+using namespace std;
+
+void closeWindow(sf::RenderWindow& w)
+{
+    w.close();
+}
+
+
+int main()
+{
+    Arkanoid::Game game;
+    game.start();
     return 0;
 }
