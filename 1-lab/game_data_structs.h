@@ -16,10 +16,20 @@ const std::string totalProjectPath = "/home/dumonten/Documents/GitHub/OOP-4-term
 const std::string settingsFileName = totalProjectPath + "settings.bin";
 const std::string historyFileName  = totalProjectPath + "history.bin";
 
-enum gameState  { ON, OFF, WAIT };
-enum difficulty { HARD, MEDIUM, LOW };
-enum blockState { CRASHED, MAX_ATTACKED, MID_ATTACKED, MIN_ATTACKED, NOT_ATTACKED };
-enum btnState   { PRESSED, NORMAL, HOVERED};
+enum GameState  { ON, OFF, WAIT };
+enum Difficulty { HARD, MEDIUM, LOW };
+enum BlockState { CRASHED, MAX_ATTACKED, MID_ATTACKED, MIN_ATTACKED, NOT_ATTACKED };
+enum BtnState   { PRESSED, NORMAL, HOVERED};
+enum EventType  {
+                    OPEN_SETTINGS,
+                    OPEN_START_MENU,
+                    OPEN_GAME_FIELD, QUIT,
+                    RES_FORWARD,
+                    RES_BACKWARD,
+                    DIFF_FORWARD,
+                    DIFF_BACKWARD,
+                    SAVE_SETTINGS
+                };
 
 
 typedef sf::Vector2f resolution;
@@ -35,11 +45,16 @@ const   std::vector<sf::Vector2f> mResolution
 };
 
 //StartMenu
-const uint32_t S_BUTTON_WIDTH     = 450;
-const uint32_t S_BUTTON_HEIGHT    = 60;
+const uint32_t S_BUTTON_WIDTH           = 450;
+const uint32_t S_BUTTON_HEIGHT          = 60;
 const uint32_t S_BUTTON_BORDERTHICKNESS = 1;
-const uint32_t S_MAINTEXT_SIZE    = 150;
-const uint32_t S_MAINTEXT_BORDERTHICKNESS = 6;
+const uint32_t S_TEXT_SIZE              = 150;
+const uint32_t S_TEXT_BORDERTHICKNESS   = 6;
 
+//Settings Menu
+const uint32_t ST_BUTTON_RADIUS          = 30;
+const uint32_t ST_BUTTON_BORDERTHICKNESS = 0;
+const uint32_t ST_TEXT_SIZE              = 60;
+const uint32_t ST_TEXT_BORDERTHICKNESS   = 0;
 
 #endif //GAME_DATA_STRUCTS_H

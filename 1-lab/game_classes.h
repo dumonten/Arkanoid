@@ -3,16 +3,33 @@
 
 #include <iostream>
 #include <vector>
+#include <queue>
 #include <fstream>
 #include "game_data_structs.h"
 
 namespace Arkanoid
 {
 
+    class EventObject
+    {
+    protected:
+        EventObject *ptrParent;
+        std::queue<EventType > eventsQueue;
+    private:
+        virtual void pushEvent(const EventType type) { eventsQueue.push(type); }
+    protected:
+        EventObject() { ptrParent = nullptr; }
+        EventObject(EventObject* ptr) { ptrParent = ptr; }
+        virtual void setParent(EventObject* ptr) { ptrParent = ptr; }
+        virtual void sendEvent(EventObject* obj, const EventType type) { obj->pushEvent(type); }
+        virtual void clearQueue();
+        virtual void eventsHadler() {}
+        virtual bool pollEvent(EventType& event);
+    };
+
     class DisplayObject : public sf::Drawable
     {
     protected:
-        sf::Shape    *selfRect;
         sf::Vector2f position, size, scaleSize, scalePosition;
         bool         visible{false};
     protected:
@@ -32,18 +49,27 @@ namespace Arkanoid
             size = {radius, radius};
             selfRect->setPosition(position = p);
         }
+        DisplayObject(float radius, uint16_t points, sf::Vector2f p)
+        {
+            selfRect = new sf::CircleShape(radius, points);
+            size = {radius, (float)points};
+            selfRect->setPosition(position = p);
+        }
     public:
+        sf::Shape    *selfRect;
         static sf::Vector2f getCenter(sf::FloatRect parentSize, sf::FloatRect childSize);
 
         virtual void setSize(sf::Vector2f sz)           {  ((sf::RectangleShape *)selfRect)->setSize(size = sz);                  }
         virtual void setSize(float radius)              { size = { radius, radius}; ((sf::CircleShape *)selfRect)->setRadius(radius); }
+        virtual void setSize(float radius,
+                             uint16_t points)           { size = { radius, (float )points}; ((sf::CircleShape *)selfRect)->setRadius(radius); ((sf::CircleShape *)selfRect)->setPointCount(points); }
 
         virtual void updateSizes(const sf::Vector2f parentSize)
         {
             setSize( {parentSize.x * scaleSize.x, parentSize.y * scaleSize.y} );
             setPosition( {parentSize.x * scalePosition.x, parentSize.y * scalePosition.y});
         }
-
+        virtual void rotate(float angle, bool isrotating);
         virtual sf::Vector2f getSize()     { return size; }
         virtual sf::Vector2f getPosition() { return position; }
         virtual void setPosition(sf::Vector2f ps)       { selfRect->setPosition(position = ps);}
@@ -150,6 +176,7 @@ namespace Arkanoid
         void setClrTextClicked(const sf::Color clr) { clrClicked = clr; }
         void setClrBorder(const sf::Color clr)      { clrBorder  = clr; }
 
+        bool isEmpty() { return str.empty(); };
         sf::Color getClrTextNormal()  { return clrNormal;  }
         sf::Color getClrHovered()     { return clrHovered; }
         sf::Color getClrTextClicked() { return clrClicked; }
@@ -164,19 +191,23 @@ namespace Arkanoid
         ~TextField();
     };
 
-    class Button : public DisplayObject
+    class Button : public DisplayObject, public EventObject
     {
     private:
         sf::Color  clrBgNormal, clrBgHovered, clrBgClicked, clrBorder;
-        btnState   state;
+        BtnState   state;
         TextField* textfield;
-        float     borderThickness;
-        void (*onClick)(sf::RenderWindow& w){};
+        float      borderThickness;
+        EventType  event;
     private:
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     public:
-        Button(const std::string& name, sf::Vector2f s, sf::Vector2f p);
-        void eventsHandler(sf::Event& e, sf::RenderWindow& window);
+        Button(const std::string& name, sf::Vector2f s, sf::Vector2f p, EventType evnt);
+        Button(EventObject *parent, const std::string& name, sf::Vector2f s, sf::Vector2f p, EventType evnt);
+        Button(const std::string& name, float radius, uint16_t points, sf::Vector2f p, EventType evnt);
+        Button(EventObject *parent, const std::string& name, float radius, uint16_t points, sf::Vector2f p, EventType evnt);
+
+        void update(sf::Event& e, sf::RenderWindow& window);
 
         void setColors(const sf::Color normal, const sf::Color hovered,
                        const sf::Color clicked, const sf::Color border)
@@ -185,11 +216,10 @@ namespace Arkanoid
         void setClrBgClicked(const sf::Color clr)   { clrBgClicked   = clr; }
         void setClrBgHovered(const sf::Color clr)   { clrBgHovered   = clr; }
         void setClrBorder(const sf::Color clr)      { clrBorder      = clr; }
-        void setOnClick(void (*ptrFunc)(sf::RenderWindow& w)) { onClick = ptrFunc; }
         void setDefaultProperties();
-        void setState(const btnState st)            { state = st;                                                                     }
+        void setState(const BtnState st)            { state = st;                                                                     }
         void setBorderThickness(const float th)     { borderThickness = th;  selfRect->setOutlineThickness(borderThickness); }
-        [[nodiscard]] btnState getState()const      { return state;                                                                  }
+        [[nodiscard]] BtnState getState()const      { return state;                                                                  }
         ~Button() override;
     };
 
@@ -210,7 +240,7 @@ namespace Arkanoid
         ~MessageBox() override;
     };
 
-    class Menu : public DisplayObject
+    class Menu : public DisplayObject, public EventObject
     {
     private:
         sf::RenderWindow*   window;
@@ -218,20 +248,23 @@ namespace Arkanoid
         sf::Texture         texture;
         std::vector<Button> buttons;
     public:
-        TextField           *textField;
+        std::vector<TextField>  textFields;
     public:
         Menu();
+        Menu(EventObject *parent, sf::Vector2f s, sf::Vector2f p, sf::Color color, const std::string& title);
         Menu(sf::Vector2f s, sf::Vector2f p, sf::Color color, const std::string& title);
         Menu(sf::Vector2f s, sf::Vector2f p, const std::string& background, const std::string& title);
 
+        void eventsHadler() override;
         void display() override;
-        void eventsHandler();
-        void addButton(const Button& btn)        { buttons.push_back(btn);                     }
-        void deleteButton(const uint32_t i)      { buttons.erase(buttons.begin() + i); }
+        void addTextField(const TextField& txt) { textFields.push_back(txt);                     }
+        void addButton(const Button& btn)      { buttons.push_back(btn);                        }
+        void deleteText(const uint32_t i)   { textFields.erase(textFields.begin() + i); }
+        void deleteButton(const uint32_t i) { buttons.erase(buttons.begin() + i);       }
+
 
         ~Menu() override;
     };
-
 
     class Platform : public MovableObject
     {
@@ -297,13 +330,13 @@ namespace Arkanoid
     private:
         uint16_t   numOfLives;
         Bonus*     bonus;
-        blockState state;
+        BlockState state;
     public:
         Block(const sf::Vector2f &p, const sf::Vector2f &s, const sf::Color &c, float sp, bool bonus);
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
         [[nodiscard]] uint16_t getLives()const      { return numOfLives;                   }
-        [[nodiscard]] uint16_t isCrashed()const     { return state == blockState::CRASHED; }
-        [[nodiscard]] blockState getState()const    { return  state;                       }
+        [[nodiscard]] uint16_t isCrashed()const     { return state == BlockState::CRASHED; }
+        [[nodiscard]] BlockState getState()const    { return  state;                       }
         [[nodiscard]] bool containsBonus()const     { return bonus;                        }
         void setLives(uint16_t lives) { numOfLives = lives;                  }
         void setBonus(Bonus bns)      { bonus = &bns;                        }
@@ -332,7 +365,7 @@ namespace Arkanoid
         Blocks();
         void addBlock(const Block& block)   { blocks.push_back(block);                  }
         void deleteBlock(const uint32_t i)  { blocks.erase(blocks.begin() + i); }
-        void  updateBonusPercentage(difficulty diff);
+        void  updateBonusPercentage(Difficulty diff);
         [[nodiscard]] float getBonusPercentage()const { return bonusPercentage; }
         ~Blocks();
     };
@@ -357,23 +390,33 @@ namespace Arkanoid
     {
     private:
         std::fstream file;
-        difficulty   diff;
+        Difficulty   diff;
         resolution   res;
-        Menu         wSettings;
+    public:
+        Menu         *wSettings;
     public:
         Settings();
-        Menu& getMenu() { return wSettings; }
+        std::string to_string(const Difficulty& diff) {
+            switch (diff)
+            {
+                case HARD:
+                    return "HARD";
+                case MEDIUM:
+                    return "MEDIUM";
+                case LOW:
+                    return "LOW";
+            }}
         void setResolution(const resolution r) { res = r;     }
-        void setDifficulty(const difficulty d) { diff = d;    }
+        void setDifficulty(const Difficulty d) { diff = d;    }
         resolution getResolution()const        { return res;  }
-        difficulty getDifficulty()const        { return diff; }
+        Difficulty getDifficulty()const        { return diff; }
         void saveSettings();
         void setDefaultSettings();
         void importSettings();
         ~Settings();
     };
 
-    class GameField : public DisplayObject
+    class GameField : public DisplayObject, public EventObject
     {
     private:
         sf::RenderWindow* wField;
@@ -383,6 +426,7 @@ namespace Arkanoid
         std::vector<DisplayObject *> objects;
     public:
         GameField(sf::Vector2f s, sf::Vector2f p);
+        GameField(EventObject *parent, sf::Vector2f s, sf::Vector2f p);
         void checkCollisions() override;
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
         void update();
@@ -390,14 +434,14 @@ namespace Arkanoid
         ~GameField() override;
     };
 
-    class Game
+    class Game : public EventObject
     {
     private:
         Menu *startMenu,
                 *restartMenu,
                 *waitMenu,
                 *endMenu;
-        gameState  state;
+        GameState  state;
         GameField  gameField;
         History    history;
         Statistics statistics;
@@ -408,11 +452,11 @@ namespace Arkanoid
     public:
         Game();
         void start();
-        void setGameState(const gameState st)       { state = st;   }
-        [[nodiscard]] gameState getGameState()const { return state; }
+        void setGameState(const GameState st)       { state = st;   }
+        [[nodiscard]] GameState getGameState()const { return state; }
+        void eventsHadler();
         ~Game();
     };
-
 
 }
 
