@@ -52,7 +52,8 @@ const uint32_t S_TEXT_SIZE              = 150;
 const uint32_t S_TEXT_BORDERTHICKNESS   = 6;
 
 //Settings Menu
-const uint32_t ST_BUTTON_RADIUS          = 30;
+const uint32_t ST_BUTTON_WIDTH           = 50;
+const uint32_t ST_BUTTON_HEIGHT          = 50;
 const uint32_t ST_BUTTON_BORDERTHICKNESS = 0;
 const uint32_t ST_TEXT_SIZE              = 60;
 const uint32_t ST_TEXT_BORDERTHICKNESS   = 0;

@@ -196,9 +196,10 @@ namespace Arkanoid
     private:
         sf::Color  clrBgNormal, clrBgHovered, clrBgClicked, clrBorder;
         BtnState   state;
-        TextField* textfield;
         float      borderThickness;
         EventType  event;
+    public:
+            TextField* textfield;
     private:
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     public:

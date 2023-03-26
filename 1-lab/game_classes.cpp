@@ -306,28 +306,6 @@ void Arkanoid::Menu::display()
                         o.update({(float) event.size.width, (float) event.size.height});
                     for (auto &o: buttons)
                         o.updateSizes({(float) event.size.width, (float) event.size.height});
-                    if (buttons.size() == 6)
-                    {
-                        std::cout << buttons[4].selfRect->getGlobalBounds().width << " x " << buttons[4].selfRect->getGlobalBounds().height << "\n";
-                    p1.setSize({buttons[4].selfRect->getGlobalBounds().width,
-                               buttons[4].selfRect->getGlobalBounds().height});
-                    p1.setPosition(buttons[4].selfRect->getPosition());
-                    p1.setFillColor(sf::Color::Yellow);
-
-                    p2.setSize({buttons[1].selfRect->getGlobalBounds().width,
-                                buttons[1].selfRect->getGlobalBounds().height});
-                    p2.setPosition(buttons[1].selfRect->getPosition());
-                    p2.setFillColor(sf::Color::Yellow);
-
-                    p3.setSize({buttons[2].selfRect->getGlobalBounds().width,
-                                buttons[2].selfRect->getGlobalBounds().height});
-                    p3.setPosition(buttons[2].selfRect->getPosition());
-                    p3.setFillColor(sf::Color::Yellow);
-
-                    p4.setSize({buttons[3].selfRect->getGlobalBounds().width,
-                                buttons[3].selfRect->getGlobalBounds().height});
-                    p4.setPosition(buttons[3].selfRect->getPosition());
-                    p4.setFillColor(sf::Color::Yellow);}
                     break;
                 case sf::Event::Closed:
                     window->close();
@@ -336,26 +314,9 @@ void Arkanoid::Menu::display()
                     break;
             }
         }
-        if (x == 0 && buttons.size() == 6)
-        {
-            buttons[0].rotate(-90, true);
-            buttons[1].rotate(90, true);
-            buttons[2].rotate(-90, true);
-            buttons[3].rotate(90, true);
-            x++;
-            buttons[0].setScales({ (float)window->getSize().x,  (float)window->getSize().y });
-            buttons[1].setScales({ (float)window->getSize().x,  (float)window->getSize().y });
-            buttons[2].setScales({ (float)window->getSize().x,  (float)window->getSize().y });
-            buttons[3].setScales({ (float)window->getSize().x,  (float)window->getSize().y });
-        }
-
         window->setView( *view );
         window->clear();
         window->draw(*selfRect);
-        window->draw(p1);
-        window->draw(p2);
-        window->draw(p3);
-        window->draw(p4);
         for (auto& o : textFields)
             window->draw(o);
         for (const auto& o: buttons)
@@ -696,17 +657,13 @@ void Arkanoid::Game::initMenus()
     btns.clear();
     btns =
             {
-                Button(settings.wSettings, "",     ST_BUTTON_RADIUS, 3, { resolutionTextField->getTextGetGlobal().left, 0.45f * wCenter.y}, EventType::RES_BACKWARD),
-                Button(settings.wSettings, "",     ST_BUTTON_RADIUS, 3, { resolutionField->getTextGetGlobal().left + resolutionField->getTextGetGlobal().width +  2*ST_BUTTON_RADIUS, 0.45f * wCenter.y }, EventType::RES_FORWARD),
-                Button(settings.wSettings, "",     ST_BUTTON_RADIUS, 3, { resolutionTextField->getTextGetGlobal().left, 0.85f * wCenter.y }, EventType::DIFF_BACKWARD),
-                Button(settings.wSettings, "",     ST_BUTTON_RADIUS, 3, { resolutionField->getTextGetGlobal().left + resolutionField->getTextGetGlobal().width +  2*ST_BUTTON_RADIUS , 0.85f * wCenter.y}, EventType::DIFF_FORWARD),
-                Button(settings.wSettings, "SAVE",     { S_BUTTON_WIDTH, S_BUTTON_HEIGHT }, { resolutionTextField->getTextGetGlobal().left + ST_BUTTON_RADIUS, 1.2f*wCenter.y}, EventType::SAVE_SETTINGS),
-                Button(settings.wSettings, "QUIT",     { S_BUTTON_WIDTH, S_BUTTON_HEIGHT }, { resolutionTextField->getTextGetGlobal().left + ST_BUTTON_RADIUS, 1.4f* wCenter.y}, EventType::SAVE_SETTINGS),
+                Button(settings.wSettings, "<",     { ST_BUTTON_WIDTH, ST_BUTTON_HEIGHT }, { resolutionTextField->getTextGetGlobal().left, 0.45f * wCenter.y} , EventType::RES_BACKWARD),
+                Button(settings.wSettings, ">",     { ST_BUTTON_WIDTH, ST_BUTTON_HEIGHT }, { resolutionField->getTextGetGlobal().left + resolutionField->getTextGetGlobal().width +  2*ST_BUTTON_HEIGHT, 0.45f * wCenter.y }, EventType::RES_FORWARD),
+                Button(settings.wSettings, "<",     { ST_BUTTON_WIDTH, ST_BUTTON_HEIGHT }, { resolutionTextField->getTextGetGlobal().left, 0.85f * wCenter.y }, EventType::DIFF_BACKWARD),
+                Button(settings.wSettings, ">",     { ST_BUTTON_WIDTH, ST_BUTTON_HEIGHT }, { resolutionField->getTextGetGlobal().left + resolutionField->getTextGetGlobal().width +  2*ST_BUTTON_HEIGHT , 0.85f * wCenter.y}, EventType::DIFF_FORWARD),
+                Button(settings.wSettings, "SAVE",     { S_BUTTON_WIDTH, S_BUTTON_HEIGHT }, { resolutionTextField->getTextGetGlobal().left + ST_BUTTON_HEIGHT, 1.2f*wCenter.y}, EventType::SAVE_SETTINGS),
+                Button(settings.wSettings, "QUIT",     { S_BUTTON_WIDTH, S_BUTTON_HEIGHT }, { resolutionTextField->getTextGetGlobal().left + ST_BUTTON_HEIGHT, 1.4f* wCenter.y}, EventType::SAVE_SETTINGS),
             };
-   /* btns[0].rotate(-90);
-    btns[1].rotate(90);
-    btns[2].rotate(-90);*/
- //   btns[3].rotate(90);
     for (auto & o : btns)
     {
         o.display();
