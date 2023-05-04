@@ -1,0 +1,47 @@
+settings: 1920x1000 LOW
+
+
+
+players: num: 1
+name: Player_1
+num_of_lives: 2
+score: 5
+num_of_bonuses: 0
+num_of_crashed_blocks: 0
+platform: 
+	position_x: 1255
+	position_y: 975
+	size_x: 250
+	size_y: 25
+	speed_x: 20
+	speed_y: 0
+	visibility: 1
+
+
+
+balls: num: 1
+position_x: 1449.25
+position_y: 630
+size_x: 17.5
+size_y: 17.5
+speed_x: 3
+speed_y: -10
+visibility: 1
+
+
+
+blocks: num: 2
+position_x: 213.333
+position_y: 159.985
+size_x: 640
+size_y: 199.97
+lives: 2
+visibility: 1
+
+position_x: 1066.67
+position_y: 159.985
+size_x: 640
+size_y: 199.97
+lives: 1
+visibility: 1
+
