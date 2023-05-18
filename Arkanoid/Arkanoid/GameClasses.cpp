@@ -1,25 +1,9 @@
 #include "GameClasses.hpp"
 
+std::mt19937_64 rng;
+std::uniform_real_distribution<double> unif(0, 100);
+std::vector<sf::Clock> clocks;
 /*---------------------------------------------------------------------/*---------------------------------------------------------------------MovableObject*/
-void Arkanoid::MovableObject::randomlyChangeSpeed()
-{
-    if (speed.x != 0)
-    {
-        while (speed.x > MAX_SPEED.x)
-        {
-            float boundX = (((float)10 / 1920 - (float)speed.x / 2) * ((float)rand() / RAND_MAX)) + (float)10 / 1920;
-            speed.x = ((float)rand() / RAND_MAX) + boundX;
-        }
-    }
-    if (speed.y != 0)
-    {
-        while (speed.y > MAX_SPEED.y)
-        {
-            float boundY = (((float)10 / 1080 - (float)speed.y / 2) * ((float)rand() / RAND_MAX)) + (float)10 / 1080;
-            speed.y = ((float)rand() / RAND_MAX) + boundY;
-        }
-     }
-}
 /*---------------------------------------------------------------------/*---------------------------------------------------------------------DisplayObject*/
 sf::Vector2f Arkanoid::DisplayObject::getRelativeCenter(sf::FloatRect parentSize, sf::FloatRect childSize)
 {
@@ -235,8 +219,8 @@ void Arkanoid::Menu::eventsHandler()
             reliefButtons();
             break;
         }
-        case LOAD_THE_GAME: 
-        case RESTART_OPEN_GAME_FIELD: 
+        case LOAD_THE_GAME:
+        case RESTART_OPEN_GAME_FIELD:
         case OPEN_SETTINGS:
         case OPEN_GAME_FIELD:
         case QUIT:
@@ -245,10 +229,10 @@ void Arkanoid::Menu::eventsHandler()
             sendEvent(ptrParent, event.event);
             hide();
             break;
-        case SAVE_GAME: 
+        case SAVE_GAME:
             sendEvent(ptrParent, event.event);
-            hide(); 
-            break; 
+            hide();
+            break;
         default:
             break;
         }
@@ -262,10 +246,8 @@ void Arkanoid::Menu::display(sf::RenderWindow* window, sf::View* view)
     {
         for (auto& button : menuItems)
             button->update(event, *window);  //Change button colors depending on the event
-
         if (eventsQueue.size() != 0) //Urgent transition to personal event processing
             break;
-
         switch (event.type)
         {
         case sf::Event::Closed:
@@ -276,15 +258,9 @@ void Arkanoid::Menu::display(sf::RenderWindow* window, sf::View* view)
         }
     }
     eventsHandler(); //Processing the queue of events from other objects, in particular, from the button
-
     window->setView(*view);
     window->clear();
-    window->draw(*selfRect);
-
-    for (auto& textField : textFields)
-        window->draw(*textField);
-    for (const auto& button : menuItems)
-        window->draw(*button);
+    //window->draw(*selfRect);
 }
 
 Arkanoid::Menu::~Menu()
@@ -319,7 +295,7 @@ void Arkanoid::Messagebox::display()
 {
     sf::Vector2f res = Settings::getResolution();
     position = DisplayObject::getRelativeCenter({ 0, 0, res.x, res.y }, { 0, 0, size.x , size.y });
-    window = new sf::RenderWindow(sf::VideoMode(size.x, size.y), "Arkanoid");
+    window = new sf::RenderWindow(sf::VideoMode(size.x, size.y), "Arkanoid", sf::Style::Titlebar | sf::Style::Close);
     window->setPosition((sf::Vector2i)position);
     sf::View* view = new sf::View(window->getDefaultView());
 
@@ -407,11 +383,6 @@ Arkanoid::Platform::Platform(EventObject* parent, sf::Vector2f s_parent, const s
     ptrParent = parent;
 }
 
-void Arkanoid::Platform::randomlyChangeLength()
-{
-
-}
-
 void Arkanoid::Platform::eventsHandler()
 {
     doEvent event;
@@ -419,12 +390,22 @@ void Arkanoid::Platform::eventsHandler()
     {
         switch (event.event)
         {
-        case BACKGROUND_COLLISION:
-            if (speed.x < 0)
-                setPosition({ 0, position.y });
-            else
-                setPosition({ Settings::getResolution().x - size.x, position.y });
-            break;
+        case BG_COLLISION:
+        {
+            sf::FloatRect fr = *((sf::FloatRect*)event.data->at(0));
+            CollisionDirection cd = *((CollisionDirection*)event.data->at(1));
+
+            sf::FloatRect commonRect = getCommonRect(fr);
+            if (cd == CollisionDirection::HORIZONTAL_COLLISION_DIRECTION)
+            {
+                float x = size.x - commonRect.width;
+                if (speed.x > 0)
+                    MovableObject::move({ -x, 0 });
+                else
+                    MovableObject::move({ x, 0 });
+            }
+            break; 
+        }
         default:
             break;
         }
@@ -448,44 +429,22 @@ Arkanoid::Block::Block(sf::Vector2f s_parent, sf::Vector2f s, sf::Vector2f p, Bl
 
     switch (state)
     {
+    case NOT_ATTACKED:
+        numOfLives = 1;
+        selfRect->setFillColor(clrNotAttacked);
+        break;
     case CRASHED:
         numOfLives = 0;
         selfRect->setFillColor(clrMaxAttacked);
         break;
     case MAX_ATTACKED:
-        numOfLives = 1;
+        numOfLives = 0;
         selfRect->setFillColor(clrMaxAttacked);
         break;
-    case NOT_ATTACKED:
-        numOfLives = 2;
+    default:
+        numOfLives = 1;
         selfRect->setFillColor(clrNotAttacked);
         break;
-    default:
-        numOfLives = 2;
-        selfRect->setFillColor(clrNotAttacked);
-        break;
-    }
-    
-    int attemps = 0; 
-    switch (Settings::getDifficulty())
-    {
-    case HARD:
-        attemps = BONUS_ATTEMPS_HARD;
-        break;
-    case MEDIUM:
-        attemps = BONUS_ATTEMPS_MEDIUM;
-        break;
-    case LOW:
-        attemps = BONUS_ATTEMPS_LOW;
-        break;
-    default:
-        break;
-    }
-    for (int i = 0; i < attemps; i++)
-    {
-        BonusDescriptor descr = Bonus::randomBonus(); 
-        if (descr != BonusDescriptor::BONUS_EMPTY)
-            bonuses.push_back(new Bonus(descr));
     }
 }
 
@@ -548,6 +507,38 @@ Arkanoid::Block::~Block()
     }
 }
 
+/*---------------------------------------------------------------------/*---------------------------------------------------------------------Bonus*/
+Arkanoid::Bonus::Bonus(sf::Vector2f s_parent, sf::Vector2f p_parent, BonusDescriptor descr) 
+    : MovableObject({ 0.8f * s_parent.x, 0.8f * s_parent.y }, { p_parent.x + 0.1f * s_parent.x, p_parent.y })
+{
+    setSpeed({ BONUS_SPEED.x * Settings::getResolution().x,BONUS_SPEED.y * Settings::getResolution().y });
+    std::string path = "";
+    switch (descr)
+    {
+    case BONUS_PLATFORM_LENGTH_UP:
+        path = totalProjectPath + "/BonusIcons/PlatformLengthUp.png";
+        break;
+    case BONUS_PLATFORM_LENGTH_DOWN:
+        path = totalProjectPath + "/BonusIcons/PlatformLengthDown.png";
+        break;
+    case BONUS_PLATFORM_SPEED_DOWN:
+        path = totalProjectPath + "/BonusIcons/PlatformSpeedDown.png";
+        break;
+    case BONUS_PLATFORM_SPEED_UP:
+        path = totalProjectPath + "/BonusIcons/PlatformSpeedUp.png";
+        break;
+    case BONUS_BALL_SPEED_UP:
+        path = totalProjectPath + "/BonusIcons/BallSpeedUp.png";
+        break;
+    case BONUS_BALL_SPEED_DOWN:
+        path = totalProjectPath + "/BonusIcons/BallSpeedDown.png";
+        break;
+    default:
+        break;
+    }
+    if (path != "") setTexture(path);
+    descriptor = descr;
+}
 /*---------------------------------------------------------------------/*---------------------------------------------------------------------Player*/
 Arkanoid::Player::Player() {
 
@@ -562,6 +553,27 @@ Arkanoid::Player::~Player()
 /*---------------------------------------------------------------------/*---------------------------------------------------------------------Player*/
 Arkanoid::Ball::Ball(sf::Vector2f s_parent, float radius, sf::Vector2f p, sf::Color c, sf::Vector2f sp) : MovableObject(radius, p, s_parent, sp)
 {
+    Difficulty diff = Settings::getDifficulty();
+    resolution res = Settings::getResolution(); 
+    sf::Vector2f new_speed; 
+    switch (diff)
+    {
+    case HARD:
+        new_speed.x = res.x * BALL_SPEED_HARD.x; 
+        new_speed.y = res.x * BALL_SPEED_HARD.y; 
+        break;
+    case MEDIUM:
+        new_speed.x = res.x * BALL_SPEED_MID.x;
+        new_speed.y = res.x * BALL_SPEED_MID.y;
+        break;
+    case LOW:
+        new_speed.x = res.x * BALL_SPEED_LOW.x;
+        new_speed.y = res.x * BALL_SPEED_LOW.y;
+        break;
+    default:
+        break;
+    }
+    speed = new_speed; 
     selfRect->setFillColor(c);
     initPosition = { BALL_WIDTH_INIT_OFFSET * s_parent.x, BALL_HEIGHT_INIT_OFFSET * s_parent.y };
 }
@@ -578,19 +590,67 @@ void Arkanoid::Ball::eventsHandler()
     {
         switch (event.event)
         {
-        case COLLIDE_REACTION: 
+        case BG_COLLISION: 
         {
-            CollisionDirection cd = *((CollisionDirection*)event.data->at(0));
+            sf::FloatRect fr = *((sf::FloatRect*)event.data->at(0));
+            CollisionDirection cd = *((CollisionDirection*)event.data->at(1));
+
+            sf::FloatRect commonRect = getCommonRect(fr);
             if (cd == CollisionDirection::HORIZONTAL_COLLISION_DIRECTION)
-                changeSpeedDirectionX(); 
+            {
+                float x = getGlobalBounds().width - commonRect.width;
+                if (speed.x > 0)
+                    MovableObject::move({ -x, 0 });
+                else
+                    MovableObject::move({ x, 0 });
+                changeSpeedDirectionX();
+            }
             if (cd == CollisionDirection::VERTICAL_COLLISION_DIRECTION)
+            {
+                float y = getGlobalBounds().height - commonRect.height;
+                if (speed.y > 0)
+                    this->move({ 0, -y });
+                else
+                    this->move({ 0, y });
                 changeSpeedDirectionY();
-            move(); 
-            delete event.data; 
+            }
+            break;
+        }
+        case COLLIDE_REACTION:
+        {
+             sf::FloatRect fr = *((sf::FloatRect*)event.data->at(0));
+            CollisionDirection cd = *((CollisionDirection*)event.data->at(1));
+
+            sf::FloatRect commonRect = this->getCommonRect(fr); 
+            if (cd == CollisionDirection::HORIZONTAL_COLLISION_DIRECTION)
+            {
+                float x = commonRect.width;
+                if (speed.x > 0)
+                    this->move({ -x, 0 });
+                else
+                    this->move({ x, 0 });
+                changeSpeedDirectionX();
+            }
+            if (cd == CollisionDirection::VERTICAL_COLLISION_DIRECTION)
+            {
+                float y = commonRect.height;
+                if (speed.y > 0)
+                    this->move({0, -y});
+                else
+                    this->move({ 0, y});
+                changeSpeedDirectionY();
+            }
+            delete event.data;
             break;
         }
         case FALL_DOWN:
             reset();
+            break;
+        case BALL_SPEED_UP:
+            increaseSpeedBonus(); 
+            break; 
+        case BALL_SPEED_DOWN: 
+            decreaseSpeedBonus();
             break;
         default:
             break;
@@ -659,6 +719,58 @@ void Arkanoid::Players::eventsHandler()
             delete event.data;
             break;
         }
+        case PLATFORM_LENGTH_UP:
+        {
+            Platform* searchPlatform = (Platform*)event.data->at(0);
+            Player* p = getPlayer(searchPlatform);
+            if (p)
+            {
+                p->getStatistics()->numOfBonuses++;
+                searchPlatform->increasePlatformLengthBonus();
+            }
+            delete event.data;
+            break;
+        }
+        case PLATFORM_LENGTH_DOWN:
+        {
+            Platform* searchPlatform = (Platform*)event.data->at(0);
+            Player* p = getPlayer(searchPlatform);
+            if (p)
+            {
+                p->getStatistics()->numOfBonuses++;
+                searchPlatform->decreasePlatformLengthBonus();
+            }
+            delete event.data;
+            break;
+        }
+        case PLATFORM_SPEED_UP:
+        {
+            Platform* searchPlatform = (Platform*)event.data->at(0);
+            Player* p = getPlayer(searchPlatform);
+            if (p)
+            {
+                p->getStatistics()->numOfBonuses++;
+                searchPlatform->increaseSpeedBonus();
+            }
+            delete event.data;
+            break;
+        }
+        case PLATFORM_SPEED_DOWN:
+        {
+            Platform* searchPlatform = (Platform*)event.data->at(0);
+            Player* p = getPlayer(searchPlatform);
+            if (p)
+            {
+                p->getStatistics()->numOfBonuses++;
+                searchPlatform->decreaseSpeedBonus();
+            }
+            delete event.data;
+            break;
+        }
+        case BONUS_UP:
+            for (int i = 0, n = players.size(); i < n; i++)
+                players[i]->getStatistics()->numOfBonuses++;
+            break; 
         default:
             break;
         }
@@ -675,9 +787,19 @@ Arkanoid::Player* Arkanoid::Players::getPlayer(Arkanoid::Platform* platform)
     return nullptr;
 }
 
+int Arkanoid::Players::getPlayerIndex(Platform* platform)
+{
+    for (int i = 0, n = players.size(); i < n; i++)
+    {
+        if (players[i]->getPlatform() == platform)
+            return i;
+    }
+    return -1;
+}
+
 Arkanoid::Players::~Players()
 {
-    clear(); 
+    clear();
 }
 
 /*--------------------------------------------------------------------/*---------------------------------------------------------------------Blocks*/
@@ -693,7 +815,7 @@ Arkanoid::Blocks::~Blocks()
 }
 
 /*--------------------------------------------------------------------/*--------------------------------------------------------------------History*/
-Arkanoid::History::History() 
+Arkanoid::History::History()
 {
 
 }
@@ -707,7 +829,7 @@ bool Arkanoid::History::pathThrough(std::fstream& file, std::string& buffer)
     textFileGame >> buffer;
     while (!textFileGame.eof() && !isFine(buffer))
         textFileGame >> buffer;
-    return true; 
+    return true;
 }
 
 bool Arkanoid::History::simpleRead(std::fstream& file, std::string& buffer)
@@ -715,23 +837,39 @@ bool Arkanoid::History::simpleRead(std::fstream& file, std::string& buffer)
     textFileGame >> buffer;
     while (!textFileGame.eof() && !isFine(buffer))
         textFileGame >> buffer;
-    return true; 
+    return true;
 }
 
 bool Arkanoid::History::isFine(std::string& buffer)
 {
     if (buffer.find('\n') == -1 && buffer.find('\t') == -1)
-        return true; 
-    return false; 
+        return true;
+    return false;
 }
 
-void Arkanoid::History::writeData(Settings& settings, Players& players, Balls& balls, Blocks& blocks)
+
+void Arkanoid::History::writeData(BonusesTimers bonusesTimers, 
+                                  Settings& settings, Players& players, 
+                                  Balls& balls, Blocks& blocks)
 {
-    clearTextFile(); 
+    clearTextFile();
     settings.save_to_txt(textFileGame, TEXT_FILE_GAME_PATH);
-    players.save_to_txt(textFileGame,  TEXT_FILE_GAME_PATH); 
-    balls.save_to_txt(textFileGame,    TEXT_FILE_GAME_PATH); 
-    blocks.save_to_txt(textFileGame,   TEXT_FILE_GAME_PATH); 
+    players.save_to_txt(textFileGame, TEXT_FILE_GAME_PATH);
+    balls.save_to_txt(textFileGame, TEXT_FILE_GAME_PATH);
+    blocks.save_to_txt(textFileGame, TEXT_FILE_GAME_PATH);
+    {
+        textFileGame.open(TEXT_FILE_GAME_PATH, std::fstream::app);
+        textFileGame << "bonusesTimers:" << " " << "num:" << " " << bonusesTimers.size() << "\n";
+        for (int i = 0, n = bonusesTimers.size(); i < n; i++)
+        {
+            textFileGame << "player_index:" << " " << bonusesTimers[i].first.first << "\n";
+            textFileGame << "bonus_descriptor:" << " " << bonusesTimers[i].first.second << "\n";
+            textFileGame << "max_time:" << " " << BONUS_MAX_TIME - bonusesTimers[i].second.second->GetElapsedSeconds() << "\n";
+            textFileGame << "\n";
+        }
+        textFileGame << "\n\n";
+        textFileGame.close(); 
+    }
 }
 
 void Arkanoid::History::readData(Game* game)
@@ -753,7 +891,7 @@ void Arkanoid::History::readData(Game* game)
                     state = simpleRead(textFileGame, buffer);
                     std::string diff_str(buffer);
 
-                    resolution res  = Settings::strToRes(res_str);
+                    resolution res = Settings::strToRes(res_str);
                     Difficulty diff = Settings::strToDiff(diff_str);
 
                     game->settings.setDifficulty(diff);
@@ -770,7 +908,7 @@ void Arkanoid::History::readData(Game* game)
                         delete game->gameField;
                     game->gameField = new GameField(game, Settings::getResolution(), { 0, 0 }, ColorCustomLightBlue);
                     game->gameField->setVisibility(false);
-                    game->players.clear(); 
+                    game->players.clear();
                 }
                 if (buffer.find("players:") != -1)
                 {
@@ -909,7 +1047,8 @@ void Arkanoid::History::readData(Game* game)
                             blockState = BlockState::CRASHED;
                             break;
                         case 1:
-                            blockState = BlockState::MAX_ATTACKED;
+                           // blockState = BlockState::MAX_ATTACKED;
+                            blockState = BlockState::NOT_ATTACKED;
                             break;
                         case 2:
                             blockState = BlockState::MID_ATTACKED;
@@ -930,26 +1069,103 @@ void Arkanoid::History::readData(Game* game)
                         Block* block = new  Block(game->gameField, Settings::getResolution(),
                             size, position, blockState);
                         block->setVisibility(visibility);
+                        
+                        state = pathThrough(textFileGame, buffer);
+                        state = simpleRead(textFileGame, buffer);
+                        size_t numOfBonuses = stoi(buffer);
+                        for (size_t b = 0; b < numOfBonuses; b++)
+                        {
+                            sf::Vector2f bposition, bsize;
+                            bool bvisibility;
+                            BonusDescriptor descriptor;
+
+                            state = pathThrough(textFileGame, buffer);
+                            bposition.x = stof(buffer);
+                            state = pathThrough(textFileGame, buffer);
+                            bposition.y = stof(buffer);
+
+                            state = pathThrough(textFileGame, buffer);
+                            bsize.x = stof(buffer);
+                            state = pathThrough(textFileGame, buffer);
+                            bsize.y = stof(buffer);
+
+                            state = pathThrough(textFileGame, buffer);
+                            bvisibility = stoi(buffer);
+                            state = pathThrough(textFileGame, buffer);
+                            descriptor = BonusDescriptor(stoi(buffer));
+
+                            Bonus* bonus = new Bonus(bsize, bposition);
+                            bonus->setVisibility(bvisibility);
+                            bonus->setBonusDescriptor(descriptor);
+                            block->bonuses.push_back(bonus);
+                            if (!visibility)
+                            {
+                                game->gameField->displayObjects.push_back(bonus);
+                                game->gameField->movableObjects.push_back(bonus);
+                            }
+                        }
+
                         game->gameField->blocks.addBlock(block);
                         game->gameField->displayObjects.push_back(block);
                     }
                 }
-            }
+                if (buffer.find("bonusesTimers:") != -1)
+                {
+                    state = pathThrough(textFileGame, buffer);
+                    uint64_t numOfBonusesTimers = stoi(buffer);
+                    for (uint64_t i = 0; i < numOfBonusesTimers; i++)
+                    {
+                        int index;
+                        BonusDescriptor bd; 
+                        float maxTime; 
+                        BonusTimer* clock = new BonusTimer;
+
+                        state = pathThrough(textFileGame, buffer);
+                        index = stoi(buffer);
+                        state = pathThrough(textFileGame, buffer);
+                        bd = (BonusDescriptor)stoi(buffer);
+                        state = pathThrough(textFileGame, buffer);
+                        maxTime= stof(buffer);
+                        
+
+                        clock->Reset(); 
+                        clock->Pause(); 
+                        game->gameField->bonusesTimers.push_back(
+                            { {index, bd}, {maxTime, clock} }
+                        ); 
+                    }
+                }
+
+            }   
         }
         textFileGame.close();
     }
 }
 
-void Arkanoid::History::to_json(Settings& settings, Players& players, Balls& balls, Blocks& blocks)
-{
-    clearJsonFile(); 
 
-    json j; 
+void Arkanoid::History::to_json(BonusesTimers bonusesTimers,
+                                Settings& settings, Players& players, Balls& balls, Blocks& blocks)
+{
+    clearJsonFile();
+
+    json j;
 
     settings.save_to_json(j);
     players.save_to_json(j);
     balls.save_to_json(j);
     blocks.save_to_json(j);
+    {
+        j["num_of_bonuses_timers"] = bonusesTimers.size();
+        for (int i = 0, n = bonusesTimers.size(); i < n; i++)
+        {
+            j["bonuses_timers"].push_back
+            ({
+                {"player_index", bonusesTimers[i].first.first},
+                {"bonus_descriptor", bonusesTimers[i].first.second},
+                {"max_time", BONUS_MAX_TIME - bonusesTimers[i].second.second->GetElapsedSeconds()},
+            });
+        }
+    }
 
     jsonFileGame.open(JSON_FILE_GAME_PATH, std::fstream::out);
     if (jsonFileGame.is_open())
@@ -974,15 +1190,15 @@ void Arkanoid::History::from_json(Game* game)
         j = json::parse(str);
         jsonFileGame.close();
     }
-    
+
     /*settings*/
-    sf::Vector2f res = { j["settings"]["resolution_x"].get<float>(),j["settings"]["resolution_y"].get<float>() }; 
-    Difficulty   diff = (Difficulty)j["settings"]["difficulty"].get<int>(); 
-    game->settings.setResolution(res); 
+    sf::Vector2f res = { j["settings"]["resolution_x"].get<float>(), j["settings"]["resolution_y"].get<float>() };
+    Difficulty   diff = (Difficulty)j["settings"]["difficulty"].get<int>();
+    game->settings.setResolution(res);
     game->settings.setDifficulty(diff);
 
     //the part, where everything changes
-    game->resetMenus(res, diff); 
+    game->resetMenus(res, diff);
     if (game->window && game->view)
     {
         game->view->reset(sf::FloatRect(0, 0, res.x, res.y));
@@ -1101,7 +1317,8 @@ void Arkanoid::History::from_json(Game* game)
                 blockState = BlockState::CRASHED;
                 break;
             case 1:
-                blockState = BlockState::MAX_ATTACKED;
+                //blockState = BlockState::MAX_ATTACKED;
+                blockState = BlockState::NOT_ATTACKED;
                 break;
             case 2:
                 blockState = BlockState::MID_ATTACKED;
@@ -1116,17 +1333,63 @@ void Arkanoid::History::from_json(Game* game)
                 break;
             }
 
-            Block* block = new  Block(game->gameField, Settings::getResolution(),
-                size, position, blockState);
+            Block* block = new  Block(game->gameField, Settings::getResolution(), size, position, blockState);
             block->setVisibility(visibility);
+            size_t numOfBonuses = j["blocks"][i]["num_of_bonuses"].get<size_t>();
+            for (size_t b = 0; b < numOfBonuses; b++)
+            {
+                sf::Vector2f bposition, bsize;
+                bool bvisibility;
+                BonusDescriptor descriptor;
+
+                bposition.x = j["blocks"][i]["bonuses"][b]["position_x"].get<float>();
+                bposition.y = j["blocks"][i]["bonuses"][b]["position_y"].get<float>();
+
+                bsize.x = j["blocks"][i]["bonuses"][b]["size_x"].get<float>();
+                bsize.y = j["blocks"][i]["bonuses"][b]["size_y"].get<float>();
+
+                bvisibility = j["blocks"][i]["bonuses"][b]["visibility"].get<float>();
+                descriptor = (BonusDescriptor)j["blocks"][i]["bonuses"][b]["descriptor"].get<float>();
+
+
+                Bonus* bonus = new Bonus(bsize, bposition);
+                bonus->setVisibility(bvisibility);
+                bonus->setBonusDescriptor(descriptor);
+                block->bonuses.push_back(bonus);
+                if (!visibility)
+                {
+                    game->gameField->displayObjects.push_back(bonus);
+                    game->gameField->movableObjects.push_back(bonus);
+                }
+            }
+            
             game->gameField->blocks.addBlock(block);
             game->gameField->displayObjects.push_back(block);
         }
     }
-
     /*status bar*/
     game->gameField->statusBar->setData(game->players.players[0]->getStatistics());
+    /*bonuses timers*/
+    {
+        size_t numOfBonusesTimers = j["num_of_bonuses_timers"].get<size_t>();
+        for (size_t i = 0; i < numOfBonusesTimers; i++)
+        {
+            int index;
+            BonusDescriptor bd;
+            float maxTime;
+            BonusTimer* clock = new BonusTimer;
 
+            index = j["bonuses_timers"][i]["player_index"].get<int>();
+            bd = (BonusDescriptor)j["bonuses_timers"][i]["bonus_descriptor"].get<int>();
+            maxTime = j["bonuses_timers"][i]["max_time"].get<float>();
+            
+            clock->Reset();
+            clock->Pause(); 
+            game->gameField->bonusesTimers.push_back(
+                { {index, bd}, {maxTime, clock} }
+            );
+        }
+    }
 }
 
 /*Balls*/
@@ -1143,7 +1406,7 @@ void Arkanoid::Balls::save_to_json(json& j)
             {"size_y",       b->getSize().y},
             {"speed_x",      b->getSpeed().x},
             {"speed_y",      b->getSpeed().y},
-            {"visibility",   b->isVisible()}
+            {"visibility",   b->isVisible()}, 
             });
     }
 }
@@ -1171,9 +1434,22 @@ void Arkanoid::Balls::save_to_txt(std::fstream& file, std::string fileName)
 void Arkanoid::Blocks::save_to_json(json& j)
 {
     j["num_of_blocks"] = blocks.size();
-    
+
     for (const auto& b : blocks)
     {
+        json bonuses;
+        for (int i = 0, n = b->bonuses.size(); i < n; i++)
+        {
+            bonuses["bonuses"].push_back
+            ({
+                {"position_x",   b->bonuses[i]->getSelfRect()->getPosition().x},
+                {"position_y",   b->bonuses[i]->getSelfRect()->getPosition().y},
+                {"size_x",       b->bonuses[i]->getSize().x},
+                {"size_y",       b->bonuses[i]->getSize().y},
+                {"visibility",   b->bonuses[i]->isVisible()}, 
+                {"descriptor",   b->bonuses[i]->getBonusDescriptor()}
+            });
+        }
         j["blocks"].push_back
         ({
             {"position_x",   b->getSelfRect()->getPosition().x},
@@ -1181,8 +1457,10 @@ void Arkanoid::Blocks::save_to_json(json& j)
             {"size_x",       b->getSize().x},
             {"size_y",       b->getSize().y},
             {"lives",        b->getLives()},
-            {"visibility",   b->isVisible()}
-            });
+            {"visibility",   b->isVisible()},
+            {"num_of_bonuses", b->bonuses.size()},
+            {"bonuses", bonuses["bonuses"]}
+        });
     }
 }
 
@@ -1198,6 +1476,16 @@ void Arkanoid::Blocks::save_to_txt(std::fstream& file, std::string fileName)
         file << "size_y:" << " " << b->getSize().y << "\n";
         file << "lives:" << " " << b->getLives() << "\n";
         file << "visibility:" << " " << b->isVisible() << "\n";
+        file << "bonuses:" << " " << "num:" << " " << b->bonuses.size() << "\n"; 
+        for (int i = 0, n = b->bonuses.size(); i < n; i++)
+        {
+            file << "\tposition_x:" << " " << b->bonuses[i]->getSelfRect()->getPosition().x << "\n";
+            file << "\tposition_y:" << " " << b->bonuses[i]->getSelfRect()->getPosition().y << "\n";
+            file << "\tsize_x:" << " " << b->bonuses[i]->getSize().x << "\n";
+            file << "\tsize_y:" << " " << b->bonuses[i]->getSize().y << "\n";
+            file << "\tvisibility:" << " " << b->bonuses[i]->isVisible() << "\n";
+            file << "\tdescriptor:" << " " << b->bonuses[i]->getBonusDescriptor() << "\n";
+        }
         file << "\n";
     }
     file.close();
@@ -1291,7 +1579,7 @@ Arkanoid::Settings::Settings()
 
 void Arkanoid::Settings::setDefaultSettings()
 {
-    diff = LOW;
+    diff = MEDIUM;
     res = { mResolution[0].x, mResolution[0].y };
 }
 
@@ -1300,7 +1588,7 @@ Arkanoid::Settings::~Settings()
 }
 
 /*--------------------------------------------------------------------/*--------------------------------------------------------------------Gamefield*/
-bool Arkanoid::GameField::isFirstStart = true; 
+bool Arkanoid::GameField::isFirstStart = true;
 
 Arkanoid::GameField::GameField(sf::Vector2f s, sf::Vector2f p, sf::Color color) : DisplayObject(s, p)
 {
@@ -1312,7 +1600,7 @@ Arkanoid::GameField::GameField(sf::Vector2f s, sf::Vector2f p, sf::Color color) 
     state = GameState::OFF;
 
     /*init status bar*/
-    statusBar = new StatusBar(Settings::getResolution(), { Settings::getResolution().x, STATUS_BAR_HEIGHT * Settings::getResolution().y }, { 0, 0 }, ColorCustomMidPurpleBlueLight); 
+    statusBar = new StatusBar(Settings::getResolution(), { Settings::getResolution().x, STATUS_BAR_HEIGHT * Settings::getResolution().y }, { 0, 0 }, ColorCustomMidPurpleBlueLight);
     Button* btn = new Button(this, "Pause", { STATUS_BAR_BUTTON_WIDTH * Settings::getResolution().x, STATUS_BAR_BUTTON_HEIGHT * Settings::getResolution().y },
         { STATUS_BAR_BUTTON_OFFSET_LEFT * Settings::getResolution().x, STATUS_BAR_BUTTON_OFFSET_TOP * Settings::getResolution().y },
         EventType::OPEN_WAIT_MENU);
@@ -1330,13 +1618,13 @@ Arkanoid::GameField::GameField(EventObject* parent, sf::Vector2f s, sf::Vector2f
 
 uint64_t Arkanoid::GameField::getNumberOfDisplayedBlocks()
 {
-    uint64_t displayedBlocks = 0; 
+    uint64_t displayedBlocks = 0;
     for (auto& b : this->blocks.blocks)
     {
         if (b->isVisible())
-            displayedBlocks++; 
+            displayedBlocks++;
     }
-    return displayedBlocks; 
+    return displayedBlocks;
 }
 
 void Arkanoid::GameField::initMessageBoxes()
@@ -1393,118 +1681,188 @@ void Arkanoid::GameField::initMessageBoxes()
 
 void Arkanoid::GameField::collisionDetection()
 {
-    std::vector<void*>* data = new std::vector<void*>; //Need for event
+    std::vector<Collision> data; //Need for event
     for (auto& dynamicObj : movableObjects)
     {
         for (auto& staticObj : displayObjects)
         {
-            if (dynamicObj != staticObj && staticObj->isVisible())
+            if (dynamicObj != staticObj && staticObj->isVisible() && dynamicObj->isVisible())
             {
-                Collision* collision = new Collision;
-                collision->type = GameField::getCollisionType(dynamicObj, staticObj);
-
-                if (collision->type != CollisionType::NONE_COLLISION)
+                Collision collision;
+                collision.type = GameField::getCollisionType(dynamicObj, staticObj);
+                if (collision.type != CollisionType::NONE_COLLISION)
                 {
-                    collision->direction = CollisionDirection::NONE_COLLISION_DIRECTION;
-                    sf::FloatRect fr_dynamic = dynamicObj->getGlobalBounds();
-                    sf::FloatRect fr_static = staticObj->getGlobalBounds();
-
-                    if (staticObj == *displayObjects.begin()) //Intersection with background
+                    if (dynamicObj->isCollideWith(staticObj))
                     {
-                        if (fr_dynamic.left < 0 || fr_dynamic.left + fr_dynamic.width > fr_static.width)
-                            collision->direction = CollisionDirection::HORIZONTAL_COLLISION_DIRECTION;
-                        if (fr_dynamic.top < STATUS_BAR_HEIGHT * fr_static.height)
-                            collision->direction = CollisionDirection::VERTICAL_COLLISION_DIRECTION;
-                        if (fr_dynamic.top + fr_dynamic.height > fr_static.height) //The number of lives decreases - loss
+                        if (collision.type == CollisionType::BALL_PANEL_COLLISION)
+                            int aknk = 1020121; 
+                        collision.direction = CollisionDirection::NONE_COLLISION_DIRECTION;
+                        sf::FloatRect fr_dynamic = dynamicObj->getGlobalBounds();
+                        sf::FloatRect fr_static = staticObj->getGlobalBounds();
+                        if (staticObj == *displayObjects.begin()) //Intersection with background
                         {
-                            collision->direction = CollisionDirection::VERTICAL_COLLISION_DIRECTION;
-                            collision->type = CollisionType::BALL_FALL_COLLISION;
+                            if (fr_dynamic.left < 0 || fr_dynamic.left + fr_dynamic.width > fr_static.width)
+                                collision.direction = CollisionDirection::HORIZONTAL_COLLISION_DIRECTION;
+                            if (fr_dynamic.top + fr_dynamic.height > fr_static.height) //The number of lives decreases - loss
+                            {
+                                collision.direction = CollisionDirection::VERTICAL_COLLISION_DIRECTION;
+                                if (collision.type == BALL_BG_COLLISION)  collision.type = CollisionType::BALL_FALL_COLLISION;
+                                if (collision.type == BONUS_BG_COLLISION) collision.type = CollisionType::BONUS_FALL_COLLISION;
+                            }
                         }
-                    }
-                    else //Intersection with other objects
-                    {
-                        sf::FloatRect commonRect = getCommonRect(fr_static, fr_dynamic);
-                        if (commonRect.width >= 0 && commonRect.height >= 0)
+                        else //Intersection with other objects
                         {
+                            sf::FloatRect commonRect = dynamicObj->getCommonRect(fr_static);
                             if (commonRect.width > commonRect.height)
-                                collision->direction = CollisionDirection::VERTICAL_COLLISION_DIRECTION;
+                                collision.direction = CollisionDirection::VERTICAL_COLLISION_DIRECTION;
                             else
-                                collision->direction = CollisionDirection::HORIZONTAL_COLLISION_DIRECTION;
+                                collision.direction = CollisionDirection::HORIZONTAL_COLLISION_DIRECTION;
+                            if (collision.type == PLATFORM_COLLISION && collision.direction == CollisionDirection::HORIZONTAL_COLLISION_DIRECTION)
+                                collision.direction = CollisionDirection::VERTICAL_COLLISION_DIRECTION;
                         }
-                    }
-                    if (collision->direction != CollisionDirection::NONE_COLLISION_DIRECTION)
-                    {
-                        collision->dynamicObj = dynamicObj;
-                        collision->staticObj = staticObj;
-                        data->push_back(collision);
+                        if (collision.direction != CollisionDirection::NONE_COLLISION_DIRECTION)
+                        {
+                            collision.dynamicObj = dynamicObj;
+                            collision.staticObj = staticObj;
+                            data.push_back(collision);
+                        }
                     }
                 }
             }
         }
     }
-    if (!data->empty())
-        sendEvent(this, { COLLISIONS, data }); //Only GameField gonna solve the problem of collisions
-    else
-        delete data; //Because it's possible that no collision is detected
+
+    std::vector<Collision> tempoBallsBgCollisions;
+    for (uint32_t i = 0, size = data.size(); i < size; i++)
+    {
+        if (data[i].type == BALL_FALL_COLLISION) tempoBallsBgCollisions.push_back(data[i]);
+        else if (data[i].type == PLATFORM_COLLISION)
+        {
+            for (uint32_t j = 0, n = tempoBallsBgCollisions.size(); j < n; j++)
+            {
+                if (tempoBallsBgCollisions[j].dynamicObj == data[j].dynamicObj)
+                    tempoBallsBgCollisions.erase(tempoBallsBgCollisions.begin() + j);
+            }
+            this->collisionSolution(data[i]);
+        }
+        else this->collisionSolution(data[i]);
+    }
+    for (uint32_t j = 0, n = tempoBallsBgCollisions.size(); j < n; j++)
+    {
+        this->collisionSolution(tempoBallsBgCollisions[j]);
+    }
 }
 
-void Arkanoid::GameField::collisionSolution(Collision* collision)
+void Arkanoid::GameField::collisionSolution(Collision collision)
 {
     static Platform* prevHitInitiator = NULL;
-    switch (collision->type)
+    switch (collision.type)
     {
-    case BG_COLLISION:
+    case BONUS_FALL_COLLISION:
     {
-        std::vector<void*>* direction = new std::vector<void*>;
-        direction->push_back(new CollisionDirection(collision->direction));
-        sendEvent(dynamic_cast<EventObject*>(collision->dynamicObj), { EventType::COLLIDE_REACTION, direction });
+        Bonus* bonus = dynamic_cast<Bonus*>(collision.dynamicObj);
+        bonus->setVisibility(false);
+        break;
+    }
+    case BONUS_COLLISION:
+    {
+        Platform* platform = dynamic_cast<Platform*>(collision.dynamicObj);
+        Bonus* bonus = dynamic_cast<Bonus*>(collision.staticObj);
+        bonus->setVisibility(false);
+
+        std::vector<void*>* initiator = new std::vector<void*>;
+        initiator->push_back(platform);
+        initiator->push_back(bonus);
+
+        sendEvent(ptrParent, { EventType::REFORM_AND_APPLY_BONUS, initiator });
+        break;
+    }
+    case BALL_PANEL_COLLISION: 
+    {
+        std::vector<void*>* data = new std::vector<void*>;
+        sf::FloatRect* bounds = new sf::FloatRect;
+        *bounds = collision.staticObj->getGlobalBounds();
+        CollisionDirection* dr = new CollisionDirection;
+        *dr = collision.direction;
+        data->push_back(bounds);
+        data->push_back(dr);
+
+        sendEvent(dynamic_cast<EventObject*>(collision.dynamicObj), { EventType::COLLIDE_REACTION, data });
+
+        break; 
+    }
+    case PLATFORM_BG_COLLISION:
+    case BALL_BG_COLLISION:
+    {
+        std::vector<void*>* data = new std::vector<void*>;
+        sf::FloatRect* bounds = new sf::FloatRect;
+        *bounds = collision.staticObj->getGlobalBounds();
+        CollisionDirection* dr = new CollisionDirection;
+        *dr = collision.direction;
+        data->push_back(bounds);
+        data->push_back(dr);
+
+        sendEvent(dynamic_cast<EventObject*>(collision.dynamicObj), { EventType::BG_COLLISION, data });
         break;
     }
     case PLATFORM_COLLISION:
     {
-        std::vector<void*>* direction = new std::vector<void*>;
-        direction->push_back(new CollisionDirection(collision->direction));
-        sendEvent(dynamic_cast<EventObject*>(collision->dynamicObj), { EventType::COLLIDE_REACTION, direction });
-        //need to know whom i need to set bonus up 
-        prevHitInitiator = dynamic_cast<Platform*>(collision->staticObj);
-        break; 
-    }
-    case PLATFORM_BG_COLLISION:
-        sendEvent(dynamic_cast<EventObject*>(collision->dynamicObj), EventType::BACKGROUND_COLLISION);
+        std::vector<void*>* data = new std::vector<void*>;
+        sf::FloatRect* bounds = new sf::FloatRect;
+        *bounds = collision.staticObj->getGlobalBounds();
+        CollisionDirection* dr = new CollisionDirection;
+        *dr = collision.direction;
+        data->push_back(bounds);
+        data->push_back(dr);
+
+        sendEvent(dynamic_cast<EventObject*>(collision.dynamicObj), { EventType::COLLIDE_REACTION, data });
+        prevHitInitiator = dynamic_cast<Platform*>(collision.staticObj);
         break;
+    }
     case BALL_FALL_COLLISION:
-        sendEvent(dynamic_cast<EventObject*>(collision->dynamicObj), EventType::FALL_DOWN);
+    {
+        sendEvent(dynamic_cast<EventObject*>(collision.dynamicObj), EventType::FALL_DOWN);
         sendEvent(ptrParent, EventType::RESET_PLATFORMS_TO_INITIAL_STATE);
         sendEvent(ptrParent, EventType::LIVES_DOWN);
         break;
+    }
     case BLOCK_COLLISION:
     {
-        std::vector<void*>* direction = new std::vector<void*>;
-        direction->push_back(&collision->direction);
-        sendEvent(dynamic_cast<EventObject*>(collision->dynamicObj), { EventType::COLLIDE_REACTION, direction });
-        sendEvent(dynamic_cast<EventObject*>(collision->staticObj),    EventType::COLLIDE_REACTION);
+        Block* block = dynamic_cast<Block*>(collision.staticObj);
+       
+        std::vector<void*>* data = new std::vector<void*>;
+        sf::FloatRect* bounds = new sf::FloatRect;
+        *bounds = collision.staticObj->getGlobalBounds();
+        CollisionDirection* dr = new CollisionDirection;
+        *dr = collision.direction;
+        data->push_back(bounds);
+        data->push_back(dr);
+        
+        sendEvent(dynamic_cast<EventObject*>(collision.dynamicObj), { EventType::COLLIDE_REACTION, data });
+        sendEvent(dynamic_cast<EventObject*>(collision.staticObj), EventType::COLLIDE_REACTION);
 
         std::vector<void*>* initiator_player_information = new std::vector<void*>;
         initiator_player_information->push_back(prevHitInitiator);
-        
+
         /*if block is crashed*/
-        if (dynamic_cast<Block*>(collision->staticObj)->getLives() == 1)
+        if (block->getLives() == 1)
         {
             /*victory detection*/
-            if (getNumberOfDisplayedBlocks() - 1 == 0)
-                sendEvent(this, WIN); 
-        
+            if (getNumberOfDisplayedBlocks() - 1 == 0) sendEvent(this, WIN);
+
             /*update score*/
             sendEvent(ptrParent, { SCORE_UP_FOR_CRASHING, initiator_player_information });
-            
-            /*activate bonus*/
-            std::vector<void*>* bonuses = new std::vector<void*>;
-            for (auto& b : dynamic_cast<Block*>(collision->staticObj)->getBonuses())
-                bonuses->push_back(b); 
-            sendEvent(ptrParent, { EventType::APPLY_BONUSES, bonuses });
+
+            /*activate bonus moving*/
+            if (block->bonuses.size() != 0)
+            {
+                Bonus* bonus = block->bonuses[0];
+                this->displayObjects.push_back(bonus);
+                this->movableObjects.push_back(bonus);
+            }
         }
         else /*simple block-hit*/
-            this->sendEvent(ptrParent, { SCORE_UP_FOR_HITTING,  initiator_player_information });
+            sendEvent(ptrParent, { SCORE_UP_FOR_HITTING,  initiator_player_information });
         break;
     }
     default:
@@ -1525,10 +1883,14 @@ void Arkanoid::GameField::display(sf::RenderWindow* window, sf::View* view)
         {
         case sf::Event::KeyReleased:
             if (event.key.code == sf::Keyboard::Space && (state == GameState::OFF))
+            {
                 state = GameState::ON;
+                for (int i = 0, n = bonusesTimers.size(); i < n; i++)
+                    bonusesTimers[i].second.second->Start(); 
+            }
             else if (event.key.code == sf::Keyboard::Escape)
             {
-                this->sendEvent(this, EventType::OPEN_WAIT_MENU); 
+                this->sendEvent(this, EventType::OPEN_WAIT_MENU);
                 state = GameState::OFF;
             }
             break;
@@ -1541,17 +1903,21 @@ void Arkanoid::GameField::display(sf::RenderWindow* window, sf::View* view)
     }
     this->update();
     this->eventsHandler(); //Processing the queue of events from other objects, in particular, from the button
-   
+
     window->setView(*view);
     window->clear();
-    window->draw(*selfRect);
-
-    for (auto& obj : displayObjects)
+    this->draw(window, view);
+    for (auto& m : mBoxes)
     {
-        if (obj->isVisible())
-            window->draw(*obj);
+        if (m->isVisible())
+        {
+            if (m == *mBoxes.begin() && isFirstStart)
+                continue;
+            m->display();
+        }
     }
     isFirstStart = false;
+    this->eventsHandler();
 }
 
 void Arkanoid::GameField::eventsHandler()
@@ -1561,14 +1927,8 @@ void Arkanoid::GameField::eventsHandler()
     {
         switch (event.event)
         {
-        case COLLISIONS:
-        {
-            for (uint32_t i = 0, size = event.data->size(); i < size; i++)
-                this->collisionSolution((Collision*)event.data->at(i));
-            delete event.data;
-            break;
-        }
         case OPEN_WAIT_MENU:
+            pauseAllBonusesTimers(); 
             if (state != GameState::OFF)
                 state = GameState::OFF;
             clearQueue();
@@ -1587,34 +1947,72 @@ void Arkanoid::GameField::eventsHandler()
             sendEvent(ptrParent, RESET_GAME);
             hide();
             break;
+        case BALL_SPEED_UP: 
+            for (auto ball : balls.balls)
+                sendEvent(ball, BALL_SPEED_UP);
+            break; 
+        case BALL_SPEED_DOWN: 
+            for (auto ball : balls.balls)
+                sendEvent(ball, BALL_SPEED_DOWN);
+            break; 
         default:
             break;
         }
     }
 }
 
+void Arkanoid::GameField::addNewBonus(int index, BonusDescriptor bd)
+{
+    BonusTimer* clock = new BonusTimer;
+    clock->Reset();
+    bonusesTimers.push_back({ {index, bd}, {BONUS_MAX_TIME, clock} });
+}
+
+void Arkanoid::GameField::checkBonusTimers()
+{
+    BonusesTimers new_bonusesTimers;
+    for (int i = 0, n = bonusesTimers.size(); i < n; i++)
+    {
+        if (bonusesTimers[i].second.second->GetElapsedSeconds() > bonusesTimers[i].second.first)
+        {
+            BonusDescriptor originBonus = bonusesTimers[i].first.second; 
+            BonusDescriptor oppositeBonus = OPPOSITE_BONUS.at(originBonus);
+           
+            std::vector<void*>* initiator = new std::vector<void*>;
+            
+            int* index = new int; 
+            *index = bonusesTimers[i].first.first; 
+            initiator->push_back(index);
+            
+            BonusDescriptor* bd = new BonusDescriptor; 
+            *bd = oppositeBonus;
+            initiator->push_back(bd);
+
+            sendEvent(ptrParent, { APPLY_BONUSES, initiator});
+
+            delete bonusesTimers[i].second.second; //timer 
+        }
+        else new_bonusesTimers.push_back(bonusesTimers[i]);
+    }
+    bonusesTimers = new_bonusesTimers; 
+}
+
 void Arkanoid::GameField::update()
 {
+    checkBonusTimers(); 
+    statusBar->update();
     if (state == GameState::ON)
     {
-        this->statusBar->update();
         for (auto& obj : movableObjects)
             obj->move();
-        this->collisionDetection();
-        for (auto& obj : displayObjects)
-        {
-            auto event_obj = dynamic_cast<EventObject*>(obj);
+        if (balls.balls[0]->getGlobalBounds().top > 980)
+            int ebalaYaVRotHochuKuklu = 100; 
+        collisionDetection();
+        for (int i = 1, n = displayObjects.size(); i < n; i++)
+        {   
+            auto event_obj = dynamic_cast<EventObject*>(displayObjects[i]);
             if (event_obj != NULL)
                 event_obj->eventsHandler();
-        }
-    }
-    for (auto& m : mBoxes)
-    {
-        if (m->isVisible())
-        {
-            if (m == *mBoxes.begin() && isFirstStart)
-                continue;
-            m->display();
         }
     }
 }
@@ -1625,18 +2023,22 @@ Arkanoid::GameField::~GameField()
     blocks.~Blocks();
     delete statusBar;
     for (auto& m : mBoxes)
-        delete m; 
+        delete m;
 }
 
 /*--------------------------------------------------------------------/*--------------------------------------------------------------------Game*/
 Arkanoid::Game::Game()
-{   
-    history = new History(); 
+{
+    history = new History();
     window = NULL;
     view = NULL;
     nullization();
     init();
     sendEvent(this, OPEN_START_MENU);
+    /**/
+    uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+    std::seed_seq ss{ uint32_t(timeSeed & 0xffffffff), uint32_t(timeSeed >> 32) };
+    rng.seed(ss);
 }
 
 void Arkanoid::Game::resetStartMenu(resolution res, Difficulty diff)
@@ -1770,7 +2172,7 @@ void Arkanoid::Game::resetGameField(resolution res, Difficulty diff)
     gameField->setVisibility(false);
 
     /*Init Player*/
-    players.clear(); 
+    players.clear();
 
     Player* player = new Player();
     Platform* platform = new Platform(gameField, res, { PlATFORM_WIDTH * res.x ,PlATFORM_HEIGHT * res.y }, { PLATFORM_WIDTH_INIT_OFFSET * res.x,PLATFORM_HEIGHT_INIT_OFFSET * res.y }, sf::Color::Black, sf::Vector2f(PLATFORM_SPEED.x * res.x, PLATFORM_SPEED.y * res.y));
@@ -1789,7 +2191,7 @@ void Arkanoid::Game::resetGameField(resolution res, Difficulty diff)
         {
         case HARD:
             blockWidth = res.x / BLOCK_NUM_WIDTH_HARD;
-            blockHeight = (0.4 * res.y  - STATUS_BAR_HEIGHT) / BLOCK_NUM_HEIGHT_HARD;
+            blockHeight = (0.4 * res.y - STATUS_BAR_HEIGHT) / BLOCK_NUM_HEIGHT_HARD;
             blockRows = BLOCK_NUM_WIDTH_HARD;
             blockColumns = BLOCK_NUM_HEIGHT_HARD;
             break;
@@ -1820,23 +2222,14 @@ void Arkanoid::Game::resetGameField(resolution res, Difficulty diff)
         for (int j = 0; j < blockColumns; j++)
         {
             Block* block = new Block(gameField, res, { blockWidth, blockHeight }, { blockWidth * i + offsetX * (i + 1), blockHeight * j + offsetY * (j + 1) + STATUS_BAR_HEIGHT * res.y }, BlockState::NOT_ATTACKED);
+            block->InitDefaultBonus(rng, unif);
             gameField->blocks.addBlock(block);
             gameField->displayObjects.push_back(block);
         }
     }
 
-    /*Init status bar*/
-    gameField->statusBar = new StatusBar(res, { res.x, STATUS_BAR_HEIGHT * res.y }, { 0, 0 }, ColorCustomMidPurpleBlueLight);
-    gameField->statusBar->setData(player->getStatistics());
-    Button* btn = new Button(gameField, "Pause", { STATUS_BAR_BUTTON_WIDTH * res.x, STATUS_BAR_BUTTON_HEIGHT * res.y }, { STATUS_BAR_BUTTON_OFFSET_LEFT * res.x, STATUS_BAR_BUTTON_OFFSET_TOP * res.y }, EventType::OPEN_WAIT_MENU);
-    btn->setTextSize(STATUS_BAR_BUTTON_FONT_SIZE * res.y);
-    btn->setScales(res);
-    btn->setColors(ColorCustomMidPurpleBlueDark, ColorCustomMidPurpleBlueUltraDark, ColorCustomMidPurpleBlueUltraDark, sf::Color::White);
-    gameField->statusBar->menuButton = btn;
-    gameField->displayObjects.push_back(gameField->statusBar);
-
     /*Init ball*/
-    Ball* ball = new Ball(gameField, res, sqrt(BALL_SQUARE * res.x * res.y), { BALL_WIDTH_INIT_OFFSET * res.x, BALL_HEIGHT_INIT_OFFSET * res.y }, sf::Color::Black, sf::Vector2f(BALL_SPEED.x * res.x, BALL_SPEED.y * res.y));
+    Ball* ball = new Ball(gameField, res, sqrt(BALL_SQUARE * res.x * res.y), { BALL_WIDTH_INIT_OFFSET * res.x, BALL_HEIGHT_INIT_OFFSET * res.y }, sf::Color::Black, sf::Vector2f(BALL_SPEED_MID.x * res.x, BALL_SPEED_MID.y * res.y));
     gameField->balls.addBall(ball);
     gameField->displayObjects.push_back(ball);
     gameField->movableObjects.push_back(ball);
@@ -1844,9 +2237,9 @@ void Arkanoid::Game::resetGameField(resolution res, Difficulty diff)
 
 void Arkanoid::Game::resetMenus(resolution res, Difficulty diff)
 {
-    resetStartMenu(res, diff); 
-    resetWaitMenu(res, diff); 
-    resetSettingsMenu(res, diff); 
+    resetStartMenu(res, diff);
+    resetWaitMenu(res, diff);
+    resetSettingsMenu(res, diff);
 }
 
 void Arkanoid::Game::nullization()
@@ -1860,7 +2253,7 @@ void Arkanoid::Game::init()
     sf::Vector2f res = Settings::getResolution();
     Difficulty   diff = Settings::getDifficulty();
 
-    resetMenus(res, diff); 
+    resetMenus(res, diff);
     resetGameField(res, diff);
 
     if (window && view)
@@ -1872,7 +2265,7 @@ void Arkanoid::Game::init()
 
 void Arkanoid::Game::start()
 {
-    sf::Vector2f res  = Settings::getResolution();
+    sf::Vector2f res = Settings::getResolution();
     Difficulty   diff = Settings::getDifficulty();
 
     window = new sf::RenderWindow(sf::VideoMode((int)res.x, (int)res.y), "Arkanoid", sf::Style::Titlebar | sf::Style::Close);
@@ -1881,16 +2274,13 @@ void Arkanoid::Game::start()
     window->setVisible(true);
     window->setVerticalSyncEnabled(true);
 
-    clock.restart(); 
-    while (window->isOpen())
-    {
-        if (clock.getElapsedTime().asMilliseconds() > cps)
-        {
-            sendEvent(this, DRAW_FRAME);
-        }
-        eventsHadler();
+    while (window->isOpen()) {
+        clock.restart();
+        sendEvent(this, DRAW_FRAME);
+        eventsHadler(); 
+        int slp = cps - clock.getElapsedTime().asMicroseconds();
+        std::this_thread::sleep_for(std::chrono::milliseconds(std::max(slp, 0)));
     }
-    window->setVisible(false);
 }
 
 void Arkanoid::Game::eventsHadler()
@@ -1900,8 +2290,12 @@ void Arkanoid::Game::eventsHadler()
     {
         switch (event.event)
         {
-        case DRAW_FRAME: 
-            
+        case OPEN_START_MENU:
+            resetGameField(Settings::getResolution(), Settings::getDifficulty());
+            startMenu->setVisibility(true);
+            break;
+        case DRAW_FRAME:
+        {
             if (gameField->isVisible())
             {
                 gameField->display(window, view);
@@ -1909,22 +2303,26 @@ void Arkanoid::Game::eventsHadler()
             else if (startMenu->isVisible())
             {
                 startMenu->display(window, view);
+                gameField->draw(window, view);
+                startMenu->draw(window, view);
             }
             else if (settingsMenu->isVisible())
             {
                 settingsMenu->display(window, view);
+                gameField->draw(window, view);
+                settingsMenu->draw(window, view);
             }
             else if (waitMenu->isVisible())
             {
                 waitMenu->display(window, view);
+                gameField->draw(window, view);
+                waitMenu->draw(window, view);
             }
-            
             players.eventsHandler();
-            
             window->display();
             clock.restart();
-
-            break; 
+            break;
+        }
         case SAVE_SETTINGS:
         {
             resolution res = *((resolution*)event.data->at(0));
@@ -1948,14 +2346,10 @@ void Arkanoid::Game::eventsHadler()
         case QUIT:
             window->close();
             break;
-        case OPEN_START_MENU:
-            resetGameField(Settings::getResolution(), Settings::getDifficulty());
-            startMenu->setVisibility(true);
-            break;
         case OPEN_WAIT_MENU:
             waitMenu->setVisibility(true);
             break;
-        //Events from gamefield
+            //Events from gamefield
         case LIVES_DOWN:
             sendEvent(&players, LIVES_DOWN);
             break;
@@ -1972,42 +2366,76 @@ void Arkanoid::Game::eventsHadler()
             if (players.numOfPlayers() - 1 > 0)
                 sendEvent(gameField, { PLAYER_IS_LOSE, event.data });
             else
-                sendEvent(gameField, { SHOW_END_MESSAGE }); 
+                sendEvent(gameField, { SHOW_END_MESSAGE });
             break;
-        case RESTART_OPEN_GAME_FIELD: 
+        case RESTART_OPEN_GAME_FIELD:
         case RESET_GAME:
             resetGameField(Settings::getResolution(), Settings::getDifficulty());
-            gameField->setVisibility(true); 
-            break; 
-        case APPLY_BONUSES: 
-            for (uint32_t i = 0, size = event.data->size(); i < size; i++)
-                this->bonusesSolution((Bonus*)event.data->at(i));
-            break; 
-        case SAVE_GAME: 
-            history->to_json(settings, players, gameField->balls, gameField->blocks);
-            history->writeData(settings, players, gameField->balls, gameField->blocks);
-            waitMenu->setVisibility(true); 
-            break; 
-        case LOAD_THE_GAME:
-            //history->from_json(this);
-            history->readData(this); 
             gameField->setVisibility(true);
-            break; 
+            break;
+        case REFORM_AND_APPLY_BONUS: 
+            {
+            Platform* platform = (Platform*)event.data->at(0); 
+            Bonus* bonus = (Bonus*)event.data->at(1);
+            int* index = new int; 
+            *index = players.getPlayerIndex(platform);
+            BonusDescriptor* bd = new BonusDescriptor;
+            *bd = bonus->getBonusDescriptor(); 
+            event.data->at(0) = index; 
+            event.data->at(1) = bd; 
+            gameField->addNewBonus(*index, *bd);
+            }
+        case APPLY_BONUSES:
+            this->bonusesSolution(event.data);
+            break;
+        case SAVE_GAME:
+            history->to_json(gameField->bonusesTimers, settings, players, gameField->balls, gameField->blocks);
+            history->writeData(gameField->bonusesTimers, settings, players, gameField->balls, gameField->blocks);
+            waitMenu->setVisibility(true);
+            break;
+        case LOAD_THE_GAME:
+            history->readData(this);
+            //history->from_json(this);
+            gameField->setVisibility(true);
+            break;
         default:
             break;
         }
     }
 }
 
-void Arkanoid::Game::bonusesSolution(Bonus *bonus)
+void Arkanoid::Game::bonusesSolution(std::vector<void*>* eventData)
 {
-    switch (bonus->getBonusDescriptor())
+    int index = *((int*)eventData->at(0)); 
+    Platform* initiator = players.players[index]->getPlatform();
+    BonusDescriptor bd = *((BonusDescriptor*)eventData->at(1));
+    eventData->at(0) = initiator; 
+
+    switch (bd)
     {
-    case BONUS_BALLS_NUM_UP:
+    case BONUS_PLATFORM_LENGTH_UP:
+        sendEvent(&players, { PLATFORM_LENGTH_UP, eventData });
         break;
-    case BONUS_CHANGE_SPEED_PLATFORM:
+    case BONUS_PLATFORM_LENGTH_DOWN:
+        sendEvent(&players, { PLATFORM_LENGTH_DOWN, eventData });
         break;
-    case BONUS_CHANGE_SPEED_BALL:
+    case BONUS_PLATFORM_SPEED_DOWN:
+        sendEvent(&players, { PLATFORM_SPEED_DOWN, eventData });
+        break;
+    case BONUS_PLATFORM_SPEED_UP:
+        sendEvent(&players, { PLATFORM_SPEED_UP, eventData });
+        break;
+    case BONUS_BALL_SPEED_UP:
+        sendEvent(&players, { BONUS_UP, eventData });
+        sendEvent(gameField, BALL_SPEED_UP);
+        delete eventData; 
+        break;
+    case BONUS_BALL_SPEED_DOWN:
+        sendEvent(&players, { BONUS_UP, eventData });
+        sendEvent(gameField, BALL_SPEED_DOWN);
+        delete eventData;
+        break;
+    default:
         break;
     }
 }
@@ -2018,8 +2446,8 @@ void Arkanoid::Game::reset()
     delete settingsMenu;
     delete waitMenu;
     delete gameField;
-    players.clear(); 
-    
+    players.clear();
+
     this->nullization();
     this->init();
 }

@@ -1,47 +1,1184 @@
-settings: 1920x1000 LOW
+settings: 1920x1000 MEDIUM
 
 
 
 players: num: 1
 name: Player_1
-num_of_lives: 2
-score: 5
-num_of_bonuses: 0
-num_of_crashed_blocks: 0
+num_of_lives: 3
+score: 300
+num_of_bonuses: 16
+num_of_crashed_blocks: 20
 platform: 
-	position_x: 1255
-	position_y: 975
-	size_x: 250
-	size_y: 25
-	speed_x: 20
+	position_x: 1090
+	position_y: 985
+	size_x: 360
+	size_y: 15
+	speed_x: 30
 	speed_y: 0
 	visibility: 1
 
 
 
 balls: num: 1
-position_x: 1449.25
-position_y: 630
-size_x: 17.5
-size_y: 17.5
-speed_x: 3
-speed_y: -10
+position_x: 1169.9
+position_y: 457.967
+size_x: 10
+size_y: 10
+speed_x: 5
+speed_y: -15.36
 visibility: 1
 
 
 
-blocks: num: 2
-position_x: 213.333
-position_y: 159.985
-size_x: 640
-size_y: 199.97
-lives: 2
-visibility: 1
-
-position_x: 1066.67
-position_y: 159.985
-size_x: 640
-size_y: 199.97
+blocks: num: 84
+position_x: 8.53333
+position_y: 68.162
+size_x: 128
+size_y: 57.1343
 lives: 1
 visibility: 1
+bonuses: num: 1
+	position_x: 21.3333
+	position_y: 68.162
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 5
+
+position_x: 8.53333
+position_y: 133.458
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 21.3333
+	position_y: 133.458
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 5
+
+position_x: 8.53333
+position_y: 198.755
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 21.3333
+	position_y: 198.755
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 5
+
+position_x: 8.53333
+position_y: 264.051
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 21.3333
+	position_y: 264.051
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 1
+
+position_x: 8.53333
+position_y: 329.347
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 21.3333
+	position_y: 329.347
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 5
+
+position_x: 8.53333
+position_y: 394.644
+size_x: 128
+size_y: 57.1343
+lives: 0
+visibility: 0
+bonuses: num: 1
+	position_x: 21.3333
+	position_y: 13414.6
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 0
+	descriptor: 1
+
+position_x: 145.067
+position_y: 68.162
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 157.867
+	position_y: 68.162
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 1
+
+position_x: 145.067
+position_y: 133.458
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 0
+
+position_x: 145.067
+position_y: 198.755
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 157.867
+	position_y: 198.755
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 1
+
+position_x: 145.067
+position_y: 264.051
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 157.867
+	position_y: 264.051
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 0
+
+position_x: 145.067
+position_y: 329.347
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 157.867
+	position_y: 329.347
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 0
+
+position_x: 145.067
+position_y: 394.644
+size_x: 128
+size_y: 57.1343
+lives: 0
+visibility: 0
+bonuses: num: 1
+	position_x: 157.867
+	position_y: 12074.6
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 0
+	descriptor: 5
+
+position_x: 281.6
+position_y: 68.162
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 294.4
+	position_y: 68.162
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 5
+
+position_x: 281.6
+position_y: 133.458
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 0
+
+position_x: 281.6
+position_y: 198.755
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 0
+
+position_x: 281.6
+position_y: 264.051
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 294.4
+	position_y: 264.051
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 3
+
+position_x: 281.6
+position_y: 329.347
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 294.4
+	position_y: 329.347
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 5
+
+position_x: 281.6
+position_y: 394.644
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 294.4
+	position_y: 394.644
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 1
+
+position_x: 418.133
+position_y: 68.162
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 430.933
+	position_y: 68.162
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 2
+
+position_x: 418.133
+position_y: 133.458
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 430.933
+	position_y: 133.458
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 2
+
+position_x: 418.133
+position_y: 198.755
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 430.933
+	position_y: 198.755
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 3
+
+position_x: 418.133
+position_y: 264.051
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 430.933
+	position_y: 264.051
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 5
+
+position_x: 418.133
+position_y: 329.347
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 430.933
+	position_y: 329.347
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 5
+
+position_x: 418.133
+position_y: 394.644
+size_x: 128
+size_y: 57.1343
+lives: 0
+visibility: 0
+bonuses: num: 1
+	position_x: 430.933
+	position_y: 14774.6
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 0
+	descriptor: 2
+
+position_x: 554.667
+position_y: 68.162
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 567.467
+	position_y: 68.162
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 1
+
+position_x: 554.667
+position_y: 133.458
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 567.467
+	position_y: 133.458
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 5
+
+position_x: 554.667
+position_y: 198.755
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 567.467
+	position_y: 198.755
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 0
+
+position_x: 554.667
+position_y: 264.051
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 567.467
+	position_y: 264.051
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 5
+
+position_x: 554.667
+position_y: 329.347
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 567.467
+	position_y: 329.347
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 3
+
+position_x: 554.667
+position_y: 394.644
+size_x: 128
+size_y: 57.1343
+lives: 0
+visibility: 0
+bonuses: num: 1
+	position_x: 567.467
+	position_y: 10714.6
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 0
+	descriptor: 5
+
+position_x: 691.2
+position_y: 68.162
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 704
+	position_y: 68.162
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 5
+
+position_x: 691.2
+position_y: 133.458
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 704
+	position_y: 133.458
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 1
+
+position_x: 691.2
+position_y: 198.755
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 704
+	position_y: 198.755
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 0
+
+position_x: 691.2
+position_y: 264.051
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 704
+	position_y: 264.051
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 3
+
+position_x: 691.2
+position_y: 329.347
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 704
+	position_y: 329.347
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 2
+
+position_x: 691.2
+position_y: 394.644
+size_x: 128
+size_y: 57.1343
+lives: 0
+visibility: 0
+bonuses: num: 1
+	position_x: 704
+	position_y: 16134.6
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 0
+	descriptor: 2
+
+position_x: 827.733
+position_y: 68.162
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 840.533
+	position_y: 68.162
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 2
+
+position_x: 827.733
+position_y: 133.458
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 840.533
+	position_y: 133.458
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 0
+
+position_x: 827.733
+position_y: 198.755
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 840.533
+	position_y: 198.755
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 2
+
+position_x: 827.733
+position_y: 264.051
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 840.533
+	position_y: 264.051
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 5
+
+position_x: 827.733
+position_y: 329.347
+size_x: 128
+size_y: 57.1343
+lives: 0
+visibility: 0
+bonuses: num: 1
+	position_x: 840.533
+	position_y: 1749.35
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 0
+	descriptor: 3
+
+position_x: 827.733
+position_y: 394.644
+size_x: 128
+size_y: 57.1343
+lives: 0
+visibility: 0
+bonuses: num: 1
+	position_x: 840.533
+	position_y: 9354.64
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 0
+	descriptor: 5
+
+position_x: 964.267
+position_y: 68.162
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 977.067
+	position_y: 68.162
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 1
+
+position_x: 964.267
+position_y: 133.458
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 977.067
+	position_y: 133.458
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 1
+
+position_x: 964.267
+position_y: 198.755
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 977.067
+	position_y: 198.755
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 1
+
+position_x: 964.267
+position_y: 264.051
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 0
+
+position_x: 964.267
+position_y: 329.347
+size_x: 128
+size_y: 57.1343
+lives: 0
+visibility: 0
+bonuses: num: 1
+	position_x: 977.067
+	position_y: 9189.35
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 0
+	descriptor: 5
+
+position_x: 964.267
+position_y: 394.644
+size_x: 128
+size_y: 57.1343
+lives: 0
+visibility: 0
+bonuses: num: 1
+	position_x: 977.067
+	position_y: 9354.64
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 0
+	descriptor: 3
+
+position_x: 1100.8
+position_y: 68.162
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 1113.6
+	position_y: 68.162
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 1
+
+position_x: 1100.8
+position_y: 133.458
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 0
+
+position_x: 1100.8
+position_y: 198.755
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 1113.6
+	position_y: 198.755
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 5
+
+position_x: 1100.8
+position_y: 264.051
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 1113.6
+	position_y: 264.051
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 1
+
+position_x: 1100.8
+position_y: 329.347
+size_x: 128
+size_y: 57.1343
+lives: 0
+visibility: 0
+bonuses: num: 1
+	position_x: 1113.6
+	position_y: 17509.3
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 0
+	descriptor: 1
+
+position_x: 1100.8
+position_y: 394.644
+size_x: 128
+size_y: 57.1343
+lives: 0
+visibility: 0
+bonuses: num: 1
+	position_x: 1113.6
+	position_y: 24094.6
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 0
+	descriptor: 2
+
+position_x: 1237.33
+position_y: 68.162
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 0
+
+position_x: 1237.33
+position_y: 133.458
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 1250.13
+	position_y: 133.458
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 5
+
+position_x: 1237.33
+position_y: 198.755
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 1250.13
+	position_y: 198.755
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 5
+
+position_x: 1237.33
+position_y: 264.051
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 1250.13
+	position_y: 264.051
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 0
+
+position_x: 1237.33
+position_y: 329.347
+size_x: 128
+size_y: 57.1343
+lives: 0
+visibility: 0
+bonuses: num: 1
+	position_x: 1250.13
+	position_y: 3269.35
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 0
+	descriptor: 0
+
+position_x: 1237.33
+position_y: 394.644
+size_x: 128
+size_y: 57.1343
+lives: 0
+visibility: 0
+bonuses: num: 1
+	position_x: 1250.13
+	position_y: 7814.64
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 0
+	descriptor: 0
+
+position_x: 1373.87
+position_y: 68.162
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 1386.67
+	position_y: 68.162
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 1
+
+position_x: 1373.87
+position_y: 133.458
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 1386.67
+	position_y: 133.458
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 2
+
+position_x: 1373.87
+position_y: 198.755
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 1386.67
+	position_y: 198.755
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 0
+
+position_x: 1373.87
+position_y: 264.051
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 1386.67
+	position_y: 264.051
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 0
+
+position_x: 1373.87
+position_y: 329.347
+size_x: 128
+size_y: 57.1343
+lives: 0
+visibility: 0
+bonuses: num: 1
+	position_x: 1386.67
+	position_y: 7649.35
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 0
+	descriptor: 5
+
+position_x: 1373.87
+position_y: 394.644
+size_x: 128
+size_y: 57.1343
+lives: 0
+visibility: 0
+bonuses: num: 1
+	position_x: 1386.67
+	position_y: 7814.64
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 0
+	descriptor: 1
+
+position_x: 1510.4
+position_y: 68.162
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 1523.2
+	position_y: 68.162
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 1
+
+position_x: 1510.4
+position_y: 133.458
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 1523.2
+	position_y: 133.458
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 1
+
+position_x: 1510.4
+position_y: 198.755
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 1523.2
+	position_y: 198.755
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 5
+
+position_x: 1510.4
+position_y: 264.051
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 1523.2
+	position_y: 264.051
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 3
+
+position_x: 1510.4
+position_y: 329.347
+size_x: 128
+size_y: 57.1343
+lives: 0
+visibility: 0
+bonuses: num: 1
+	position_x: 1523.2
+	position_y: 19469.3
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 0
+	descriptor: 0
+
+position_x: 1510.4
+position_y: 394.644
+size_x: 128
+size_y: 57.1343
+lives: 0
+visibility: 0
+bonuses: num: 1
+	position_x: 1523.2
+	position_y: 22734.6
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 0
+	descriptor: 3
+
+position_x: 1646.93
+position_y: 68.162
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 1659.73
+	position_y: 68.162
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 3
+
+position_x: 1646.93
+position_y: 133.458
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 1659.73
+	position_y: 133.458
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 5
+
+position_x: 1646.93
+position_y: 198.755
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 1659.73
+	position_y: 198.755
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 5
+
+position_x: 1646.93
+position_y: 264.051
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 1659.73
+	position_y: 264.051
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 5
+
+position_x: 1646.93
+position_y: 329.347
+size_x: 128
+size_y: 57.1343
+lives: 0
+visibility: 0
+bonuses: num: 1
+	position_x: 1659.73
+	position_y: 4789.35
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 0
+	descriptor: 1
+
+position_x: 1646.93
+position_y: 394.644
+size_x: 128
+size_y: 57.1343
+lives: 0
+visibility: 0
+bonuses: num: 1
+	position_x: 1659.73
+	position_y: 6274.64
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 0
+	descriptor: 5
+
+position_x: 1783.47
+position_y: 68.162
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 1796.27
+	position_y: 68.162
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 0
+
+position_x: 1783.47
+position_y: 133.458
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 1796.27
+	position_y: 133.458
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 5
+
+position_x: 1783.47
+position_y: 198.755
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 1796.27
+	position_y: 198.755
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 5
+
+position_x: 1783.47
+position_y: 264.051
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 1796.27
+	position_y: 264.051
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 0
+
+position_x: 1783.47
+position_y: 329.347
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 1796.27
+	position_y: 329.347
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 5
+
+position_x: 1783.47
+position_y: 394.644
+size_x: 128
+size_y: 57.1343
+lives: 0
+visibility: 0
+bonuses: num: 1
+	position_x: 1796.27
+	position_y: 21374.6
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 0
+	descriptor: 5
+
+bonusesTimers: num: 2
+player_index: 0
+bonus_descriptor: 0
+max_time: 2.03441
+
+player_index: 0
+bonus_descriptor: 3
+max_time: 2.74843
+
+
 

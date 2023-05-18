@@ -11,8 +11,9 @@
 #include <sstream>
 #include <algorithm>
 #include <string>
+#include <chrono>
+#include <thread>
 #include <regex>
-
 
 #define ColorCustomBlue                    sf::Color(28,19,145)
 #define ColorCustomLightBlue               sf::Color(141,222,251,255)
@@ -30,7 +31,8 @@
 const std::string totalProjectPath = "C:/Users/anila/OneDrive/Документы/GitHub/OOP-4-term/Arkanoid";
 const std::string settingsFileName = totalProjectPath + "settings.bin";
 const std::string historyFileName = totalProjectPath + "history.bin";
- 
+
+
 enum GameState { ON, OFF };
 enum Difficulty { HARD, MEDIUM, LOW, ediffSize = 3};
 enum BlockState { CRASHED, MAX_ATTACKED, MID_ATTACKED, MIN_ATTACKED, NOT_ATTACKED};
@@ -61,41 +63,64 @@ enum EventType {
     SHOW_END_MESSAGE,
     SAVE_GAME, 
     APPLY_BONUSES, 
-    DRAW_FRAME
+    DRAW_FRAME, 
+    PLATFORM_LENGTH_UP,
+    PLATFORM_LENGTH_DOWN,
+    PLATFORM_SPEED_DOWN,
+    PLATFORM_SPEED_UP,
+    BG_COLLISION, 
+    BALL_SPEED_UP,
+    BALL_SPEED_DOWN, 
+    REFORM_AND_APPLY_BONUS, 
+    BONUS_UP
 };
-
 enum BonusDescriptor
 {
-    BONUS_BALLS_NUM_UP,
-    BONUS_CHANGE_SPEED_PLATFORM,
-    BONUS_CHANGE_SPEED_BALL,
-    BONUS_EMPTY, 
-    ebonusSize = 4
+    BONUS_PLATFORM_LENGTH_UP,
+    BONUS_PLATFORM_LENGTH_DOWN,
+    BONUS_PLATFORM_SPEED_DOWN,
+    BONUS_PLATFORM_SPEED_UP,
+    BONUS_BALL_SPEED_UP,
+    BONUS_BALL_SPEED_DOWN,
+    ebonusSize = 6
+}; 
+
+
+const std::map<BonusDescriptor, BonusDescriptor> OPPOSITE_BONUS =
+{
+    { BONUS_PLATFORM_LENGTH_UP, BONUS_PLATFORM_LENGTH_DOWN },
+    { BONUS_PLATFORM_LENGTH_DOWN, BONUS_PLATFORM_LENGTH_UP },
+    { BONUS_PLATFORM_SPEED_DOWN, BONUS_PLATFORM_SPEED_UP },
+    { BONUS_PLATFORM_SPEED_UP, BONUS_PLATFORM_SPEED_DOWN },
+    { BONUS_BALL_SPEED_UP, BONUS_BALL_SPEED_DOWN },
+    { BONUS_BALL_SPEED_DOWN, BONUS_BALL_SPEED_UP }
 };
 
 enum CollisionType
 {
     PLATFORM_BG_COLLISION, 
-    BG_COLLISION, 
+    BALL_BG_COLLISION, 
+    BALL_PANEL_COLLISION, 
+    BONUS_BG_COLLISION, 
     BLOCK_COLLISION, 
+    BONUS_COLLISION, 
     PLATFORM_COLLISION,
     BALL_FALL_COLLISION, 
+    BONUS_FALL_COLLISION, 
     NONE_COLLISION
 };
-
 enum CollisionDirection
 {
     VERTICAL_COLLISION_DIRECTION,
     HORIZONTAL_COLLISION_DIRECTION,
     NONE_COLLISION_DIRECTION
 };
-
-
 enum Classes {
     STATUS_BAR, 
     GAME_FIELD,
     BLOCK, 
     PLATFORM, 
+    BONUS, 
     BALL
 };
 
@@ -105,7 +130,8 @@ const std::map<std::string, Classes> classesNames =
     { "class Arkanoid::GameField", Classes::GAME_FIELD },
     { "class Arkanoid::Block",     Classes::BLOCK      },
     { "class Arkanoid::Ball",      Classes::BALL       },
-    { "class Arkanoid::Platform",  Classes::PLATFORM   }
+    { "class Arkanoid::Platform",  Classes::PLATFORM   }, 
+    { "class Arkanoid::Bonus",     Classes::BONUS   }
 };
 
 
@@ -123,7 +149,7 @@ const   std::vector<sf::Vector2f> mResolution
     {1280,  720}
 };
 
-const float cps = 17; 
+const float cps = 16; 
 //StartMenu
 const float S_BUTTON_WIDTH           = 0.2343;
 const float S_BUTTON_HEIGHT          = 0.0556;
@@ -140,6 +166,7 @@ const float SUB_HEADER_BORDERTHICKNESS = 0;
 
 //GameField
 //GameField --- Block
+
 const uint32_t BLOCK_NUM_WIDTH_HARD    = 20;
 const uint32_t BLOCK_NUM_WIDTH_MEDIUM  = 15;
 const uint32_t BLOCK_NUM_WIDTH_LOW     = 3;
@@ -160,19 +187,20 @@ const float STATUS_BAR_BUTTON_OFFSET_LEFT    = 0.014;
 const float STATUS_BAR_BUTTON_OFFSET_TOP     = 0.00926;
 
 //GameField --- Ball 
-const float BALL_SQUARE = (float)(17.5f * 17.5f)/(1920*1000);
-const sf::Vector2f BALL_SPEED = { (float)3 / 1920, (float)10 / 1000 };
-const float BALL_WIDTH_INIT_OFFSET = 0.5 - (float)8.75f/1920;
+const float BALL_SQUARE = (float)(10 * 10)/(1920*1000);
+const sf::Vector2f BALL_SPEED_MID = { (float)5 / 1920, (float)8 / 1000 };
+const sf::Vector2f BALL_SPEED_HARD = { (float)8 / 1920, (float)10 / 1000 };
+const sf::Vector2f BALL_SPEED_LOW = { (float)5 / 1920, (float)5 / 1000 };
+const float BALL_WIDTH_INIT_OFFSET = 0.5 - (float)5/1920;
 const float BALL_HEIGHT_INIT_OFFSET = 0.75;
 
 //GameField --- Platform 
-const float PlATFORM_WIDTH  = (float)250 / 1920;
-const float PlATFORM_HEIGHT = (float)25 / 1000;
+const float PlATFORM_WIDTH  = (float)180 / 1920;
+const float PlATFORM_HEIGHT = (float)15 / 1000;
 const float PLATFORM_WIDTH_INIT_OFFSET = 0.5 - (float)PlATFORM_WIDTH / 2;
-const float PLATFORM_HEIGHT_INIT_OFFSET = 1 - (float)25 / 1000;
+const float PLATFORM_HEIGHT_INIT_OFFSET = 1 - (float)15 / 1000;
 const sf::Vector2f PLATFORM_SPEED = { (float)20 / 1920, 0 };
 
-const sf::Vector2f MAX_SPEED = { (float)30 / 1920,  (float)20 / 1920 };
 
 
 //GameField
@@ -190,18 +218,26 @@ const std::string MEND_TEXT = "All players are dead! You lose. Try again";
 const std::string MWIN_TEXT = "Congratulations you are the WINNER!";
 
 //GameField --- Bonuses
-const float BONUS_PERCANTAGE_HARD   = 0.4; 
-const float BONUS_PERCANTAGE_MEDIUM = 0.6; 
-const float BONUS_PERCANTAGE_LOW    = 0.9; 
-
-const float BONUS_ATTEMPS_HARD   = 1; 
-const float BONUS_ATTEMPS_MEDIUM = 1; 
-const float BONUS_ATTEMPS_LOW    = 1;
+const uint32_t BONUS_PERCANTAGE_HARD   = 10;
+const uint32_t BONUS_PERCANTAGE_MEDIUM = 70;
+const uint32_t BONUS_PERCANTAGE_LOW    = 50;
 
 const int BONUS_MAX_BALLS_COUNT = 1; 
 
 //Save game History 
 const std::string TEXT_FILE_GAME_PATH     = "C:/Users/anila/OneDrive/Документы/GitHub/OOP-4-term/Arkanoid/SaveFiles/gameData.txt"; 
 const std::string JSON_FILE_GAME_PATH     = "C:/Users/anila/OneDrive/Документы/GitHub/OOP-4-term/Arkanoid/SaveFiles/gameData.json"; 
+
+
+
+const sf::Vector2f BONUS_SPEED = { 0, (float)20 / 1000 };
+
+const sf::Vector2f BALL_CHANGE_SPEED_VALUE = { 1.5f, 1.5f }; // тут пофиг
+const sf::Vector2f PLATFORM_CHANGE_LENGTH_VALUE = { 2.0f, 1.0f }; //90 и 360
+const sf::Vector2f PLATFORM_CHANGE_SPEED_VALUE  = { 1.5f, 1.0f }; //13,3 и 30
+
+const float BONUS_MAX_TIME = 4; //in sec
+
+
 
 #endif

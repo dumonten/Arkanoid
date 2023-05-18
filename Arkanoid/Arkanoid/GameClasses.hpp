@@ -10,11 +10,55 @@
 #include <nlohmann/json.hpp>
 #include <string>
 #include "GameDataStructs.hpp"
+#include <random>
+
 
 using namespace nlohmann;
 
 namespace Arkanoid
 {
+    struct BonusTimer 
+    {
+        sf::Clock mC;
+        float runTime;
+        bool bPaused;
+
+        BonusTimer() {
+            bPaused = false;
+            runTime = 0;
+            mC.restart();
+        }
+
+        void Reset() {
+            mC.restart();
+            runTime = 0;
+            bPaused = false;
+        }
+
+        void Start() {
+            if (bPaused) {
+                mC.restart();
+            }
+            bPaused = false;
+        }
+
+        void Pause() {
+            if (!bPaused) {
+                runTime += mC.getElapsedTime().asSeconds();
+            }
+            bPaused = true;
+        }
+
+        float GetElapsedSeconds() {
+            if (!bPaused) {
+                return runTime + mC.getElapsedTime().asSeconds();
+            }
+            return runTime;
+        }
+    };
+
+    typedef std::vector<std::pair <std::pair<int, BonusDescriptor>, std::pair<float, BonusTimer*>>> BonusesTimers;
+
     class DisplayObject : public sf::Drawable
     {
     protected:
@@ -81,7 +125,14 @@ namespace Arkanoid
         {
             selfRect->setPosition(position = ps);
         }
-        
+        virtual void setTexture(std::string path) 
+        { 
+            sf::Texture* texture = new sf::Texture; 
+            if (!(*texture).loadFromFile(path)) { std::cout << "error"; }
+            ((sf::RectangleShape*)selfRect)->setTexture(texture, true); // texture is a sf::Texture
+            //((sf::RectangleShape*)selfRect)->setTextureRect(rect);
+        }
+
         virtual void setVisibility(bool visibility)
         {
             visible = visibility;
@@ -115,11 +166,26 @@ namespace Arkanoid
         { 
             return selfRect;
         }
-        virtual bool          isVisible()
+        virtual bool isVisible()
         {
             return visible;
         }
-
+        virtual bool isCollideWith(DisplayObject *obj2)
+        {
+            sf::FloatRect commonRect = getCommonRect(obj2->getGlobalBounds());
+            if (commonRect.width >= 0 && commonRect.height >= 0) return true; 
+            return false; 
+        }
+        virtual sf::FloatRect getCommonRect(sf::FloatRect r2)
+        {
+            sf::FloatRect r1 = selfRect->getGlobalBounds(); 
+            sf::FloatRect length;
+            length.left = std::max(r1.left, r2.left);
+            length.width = std::min(r1.left + r1.width, r2.left + r2.width) - length.left;
+            length.top = std::max(r1.top, r2.top);
+            length.height = std::min(r1.top + r1.height, r2.top + r2.height) - length.top;
+            return length;
+        }
         virtual ~DisplayObject()
         {
             if (!selfRect) 
@@ -190,6 +256,13 @@ namespace Arkanoid
             speed = { 0.0, 0.0 };
         }
         //For rectangle
+        MovableObject(sf::Vector2f s, sf::Vector2f p)
+        {
+            selfRect = new sf::RectangleShape(size = s);
+            selfRect->setPosition(position = p);
+            speed = { 0.0, 0.0 };
+        }
+        //For rectangle
         MovableObject(sf::Vector2f s, sf::Vector2f p, sf::Vector2f sp) : DisplayObject(s, p)
         {
             selfRect = new sf::RectangleShape(size = s);
@@ -227,6 +300,11 @@ namespace Arkanoid
             selfRect->move(speed.x, 0);
             selfRect->move(0, speed.y);
         }
+        virtual void move(sf::Vector2f spd)
+        {
+            selfRect->move(spd.x, 0);
+            selfRect->move(0, spd.y);
+        }
 
         virtual void setSpeed(sf::Vector2f spd)
         {
@@ -240,10 +318,14 @@ namespace Arkanoid
         virtual void changeSpeedDirectionX()
         {
             speed.x = -speed.x;
+            selfRect->move((float)speed.x / 100, 0);
+            selfRect->move(0, speed.y);
         }
         virtual void changeSpeedDirectionY()
         {
             speed.y = -speed.y;
+            selfRect->move(speed.x, 0);
+            selfRect->move(0, (float)speed.y / 100);
         }
         virtual void changeSpeedDirection()
         {
@@ -252,7 +334,8 @@ namespace Arkanoid
         }
 
         //Bonus 
-        void randomlyChangeSpeed(); 
+        virtual void increaseSpeedBonus() {}
+        virtual void decreaseSpeedBonus() {}
     };
 
     struct Collision
@@ -514,7 +597,13 @@ namespace Arkanoid
         void addButton(Button* btn) { menuItems.push_back(btn); }
         void deleteText(const uint32_t i) { textFields.erase(textFields.begin() + i); }
         void deleteButton(const uint32_t i) { menuItems.erase(menuItems.begin() + i); }
-
+        void draw(sf::RenderWindow* window, sf::View* view)const 
+        {
+            for (auto& textField : textFields)
+                window->draw(*textField);
+            for (const auto& button : menuItems)
+                window->draw(*button);
+        }
         ~Menu();
     };
 
@@ -554,12 +643,28 @@ namespace Arkanoid
             }
         }
         void eventsHandler() override;
-        void randomlyChangeLength();
         void reset()
         {
             setPosition(initPosition); 
         }
         ~Platform();
+        
+        void increasePlatformLengthBonus()
+        {
+            this->setSize({ (float)this->size.x * PLATFORM_CHANGE_LENGTH_VALUE.x, (float)this->size.y * PLATFORM_CHANGE_LENGTH_VALUE.y});
+        }
+        void decreasePlatformLengthBonus()
+        {
+            this->setSize({ (float)this->size.x / PLATFORM_CHANGE_LENGTH_VALUE.x, (float)this->size.y / PLATFORM_CHANGE_LENGTH_VALUE.y });
+        }
+        void increaseSpeedBonus() override
+        {
+            this->setSpeed({ (float)this->speed.x * PLATFORM_CHANGE_SPEED_VALUE.x, (float)this->speed.y * PLATFORM_CHANGE_SPEED_VALUE.y });
+        }
+        void decreaseSpeedBonus() override
+        {
+            this->setSpeed({ (float)this->speed.x / PLATFORM_CHANGE_SPEED_VALUE.x, (float)this->speed.y / PLATFORM_CHANGE_SPEED_VALUE.y });
+        }
     };
 
     class Player
@@ -609,9 +714,17 @@ namespace Arkanoid
         }
         void eventsHandler() override; 
         ~Ball();
+
+        void increaseSpeedBonus() override
+        {
+            this->setSpeed({ (float)this->speed.x * BALL_CHANGE_SPEED_VALUE.x, (float)this->speed.y * BALL_CHANGE_SPEED_VALUE.y });
+        }
+        void decreaseSpeedBonus() override
+        {
+            this->setSpeed({ (float)this->speed.x / BALL_CHANGE_SPEED_VALUE.x, (float)this->speed.y / BALL_CHANGE_SPEED_VALUE.y });
+        }
     };
-    
-    
+  
     class Balls 
     {
         friend class History;
@@ -712,54 +825,59 @@ namespace Arkanoid
         ~Settings();
     };
 
-    class Bonus
+    class Bonus : public MovableObject
     {
+        friend class History; 
     private:
         BonusDescriptor descriptor; 
     public:
-        Bonus(BonusDescriptor d)
+        Bonus(sf::Vector2f size, sf::Vector2f position) : MovableObject(size, position)
         {
-            descriptor = d; 
+            setSpeed({ BONUS_SPEED.x * Settings::getResolution().x,BONUS_SPEED.y * Settings::getResolution().y });
+            descriptor = BonusDescriptor::BONUS_PLATFORM_SPEED_UP;
         }
+        Bonus(sf::Vector2f s_parent, sf::Vector2f p_parent, BonusDescriptor d);
         void setBonusDescriptor(BonusDescriptor d) 
         { 
+            std::string path = "";
             descriptor = d; 
+            switch (descriptor)
+            {
+            case BONUS_PLATFORM_LENGTH_UP:
+                path = totalProjectPath + "/BonusIcons/PlatformLengthUp.png";
+                break;
+            case BONUS_PLATFORM_LENGTH_DOWN:
+                path = totalProjectPath + "/BonusIcons/PlatformLengthDown.png";
+                break;
+            case BONUS_PLATFORM_SPEED_DOWN:
+                path = totalProjectPath + "/BonusIcons/PlatformSpeedDown.png";
+                break;
+            case BONUS_PLATFORM_SPEED_UP:
+                path = totalProjectPath + "/BonusIcons/PlatformSpeedUp.png";
+                break;
+            case BONUS_BALL_SPEED_UP:
+                path = totalProjectPath + "/BonusIcons/BallSpeedUp.png";
+                break;
+            case BONUS_BALL_SPEED_DOWN:
+                path = totalProjectPath + "/BonusIcons/BallSpeedDown.png";
+                break;
+            default:
+                break;
+            }
+            if (path != "") setTexture(path);
         }
         BonusDescriptor getBonusDescriptor()
         {
             return descriptor; 
-        }
-        
-        static BonusDescriptor randomBonus()
-        {
-            BonusDescriptor des = BonusDescriptor::BONUS_EMPTY;
-            float bonusPercantage; 
-            switch (Settings::getDifficulty())
-            {
-            case HARD:
-                bonusPercantage = BONUS_PERCANTAGE_HARD; 
-                break;
-            case MEDIUM:
-                bonusPercantage = BONUS_PERCANTAGE_MEDIUM; 
-                break;
-            case LOW:
-                bonusPercantage = BONUS_PERCANTAGE_LOW; 
-                break;
-            default:
-                bonusPercantage = 0; 
-                break;
-            }
-            srand(rand() * time(NULL)); 
-            float probability = ((float)rand() / RAND_MAX);
-            if (probability <= bonusPercantage)
-                des = (BonusDescriptor)(rand() % BonusDescriptor::ebonusSize);
-            return des; 
         }
         ~Bonus() = default; 
     };
 
     class Block : public DisplayObject, public EventObject
     {
+        friend class GameField; 
+        friend class Blocks; 
+        friend class History; 
     private:
         uint16_t  numOfLives;
         std::vector<Bonus* > bonuses; 
@@ -774,6 +892,31 @@ namespace Arkanoid
         
         void eventsHandler() override;
         void trigger();
+        void InitDefaultBonus(std::mt19937_64& rng, std::uniform_real_distribution<double>& unif)
+        {
+            int bound = 0;
+            switch (Settings::getDifficulty())
+            {
+            case HARD:
+                bound = BONUS_PERCANTAGE_HARD;
+                break;
+            case MEDIUM:
+                bound = BONUS_PERCANTAGE_MEDIUM;
+                break;
+            case LOW:
+                bound = BONUS_PERCANTAGE_LOW;
+                break;
+            default:
+                break;
+            }
+            int probability = unif(rng);
+            if (probability <= bound)
+            {
+                probability = (int)unif(rng) % BonusDescriptor::ebonusSize;
+                BonusDescriptor descr = BonusDescriptor(probability);
+                bonuses.push_back(new Bonus(size, position, descr));
+            }
+        }
         uint16_t getLives() 
         {
             return numOfLives; 
@@ -782,7 +925,6 @@ namespace Arkanoid
         {
             return bonuses; 
         }
-
         ~Block();
     };
 
@@ -792,8 +934,6 @@ namespace Arkanoid
         friend class Game; 
     private:
         std::vector<Player*> players;
-    private: 
-        Player* getPlayer(Platform* platform); 
     public:
         Players();
         void addPlayer(Player* player) { players.push_back(player); }
@@ -812,6 +952,8 @@ namespace Arkanoid
         {
             return players.size(); 
         }
+        Player* getPlayer(Platform* platform); 
+        int getPlayerIndex(Platform* platform);
         void eventsHandler()override; 
         void save_to_json(json& j);
         void save_to_txt(std::fstream& file, std::string fileName);
@@ -838,8 +980,8 @@ namespace Arkanoid
         }
         void  addBlock(Block* block) { blocks.push_back(block); }
         void  deleteBlock(const uint32_t i) { blocks.erase(blocks.begin() + i); }
-        void save_to_json(json& j);
-        void save_to_txt(std::fstream& file, std::string fileName);
+        void  save_to_json(json& j);
+        void  save_to_txt(std::fstream& file, std::string fileName);
         ~Blocks();
     };
 
@@ -856,10 +998,17 @@ namespace Arkanoid
         StatusBar* statusBar;
         std::vector<DisplayObject*> displayObjects;
         std::vector<MovableObject*> movableObjects;
+        BonusesTimers bonusesTimers; 
     private:
+        void pauseAllBonusesTimers()
+        {
+            for (int i = 0, n = bonusesTimers.size(); i < n; i++)
+                bonusesTimers[i].second.second->Pause();
+        }
+        void checkBonusTimers(); 
         uint64_t getNumberOfDisplayedBlocks(); 
         void collisionDetection();
-        void collisionSolution(Collision* collision);
+        void collisionSolution(Collision collision);
         void initMessageBoxes(); 
         void deleteDisplayObject(DisplayObject* dobj)
         {
@@ -884,37 +1033,42 @@ namespace Arkanoid
             }
         }
     public:
-
         GameField(sf::Vector2f s, sf::Vector2f p, sf::Color color);
         GameField(EventObject* parent, sf::Vector2f s, sf::Vector2f p, sf::Color color);
         void display(sf::RenderWindow* window, sf::View* view) override;
         void update();
+        void addNewBonus(int index, BonusDescriptor bd); 
         void eventsHandler()override;
-        static sf::FloatRect getCommonRect(sf::FloatRect r1, sf::FloatRect r2)
-        {
-            sf::FloatRect length;
-            length.left = std::max(r1.left, r2.left);
-            length.width = std::min(r1.left + r1.width, r2.left + r2.width) - length.left;
-            length.top = std::max(r1.top, r2.top);
-            length.height = std::min(r1.top + r1.height, r2.top + r2.height) - length.top;
-            return length;
-        }
         static CollisionType getCollisionType(MovableObject* dynamicObj, DisplayObject* staticObj)
         {
             Classes classOfDynamic = classesNames.at(std::string(typeid(*dynamicObj).name()));
             Classes classOfStatic = classesNames.at(std::string(typeid(*staticObj).name()));
+            if (classOfDynamic == Classes::PLATFORM && classOfStatic == Classes::BONUS)
+                return CollisionType::BONUS_COLLISION;
             if (classOfDynamic == Classes::BALL && classOfStatic == Classes::BLOCK)
                 return CollisionType::BLOCK_COLLISION;
             if (classOfDynamic == Classes::BALL && classOfStatic == Classes::PLATFORM)
                 return CollisionType::PLATFORM_COLLISION;
             if (classOfDynamic == Classes::BALL && classOfStatic == Classes::GAME_FIELD)
-                return CollisionType::BG_COLLISION;
+                return CollisionType::BALL_BG_COLLISION;
+            if (classOfDynamic == Classes::BALL && classOfStatic == Classes::STATUS_BAR)
+                return CollisionType::BALL_PANEL_COLLISION;
+            if (classOfDynamic == Classes::BONUS && classOfStatic == Classes::GAME_FIELD)
+                return CollisionType::BONUS_BG_COLLISION;
             if (classOfDynamic == Classes::PLATFORM && classOfStatic == Classes::GAME_FIELD)
                 return CollisionType::PLATFORM_BG_COLLISION;
             return CollisionType::NONE_COLLISION;
         }
-
         void setGameState(const GameState st) { state = st; }
+        void draw(sf::RenderWindow* window, sf::View* view)const
+        {
+            window->draw(*selfRect);
+            for (auto& obj : displayObjects)
+            {
+                if (obj->isVisible())
+                    window->draw(*obj);
+            }
+        }
         GameState getGameState()const { return state; }
 
         ~GameField();
@@ -939,7 +1093,7 @@ namespace Arkanoid
     private:
 
         void nullization(); 
-        void bonusesSolution(Bonus* bonus); 
+        void bonusesSolution(std::vector<void*>* eventData);
         //the restart is based on the preponderance of pointers (i.e. it is similar to complete deletion and creation)
         void resetStartMenu(resolution res, Difficulty diff);
         void resetSettingsMenu(resolution res, Difficulty diff);
@@ -978,15 +1132,13 @@ namespace Arkanoid
     public:
         History();
         
-        void writeData(Settings& settings, Players& players, Balls& balls, Blocks& blocks);
+        void writeData(BonusesTimers bonusesTimers, Settings& settings, Players& players, Balls& balls, Blocks& blocks);
         void readData(Game* game);
        
-        void to_json(Settings& settings, Players& players, Balls& balls, Blocks& blocks);
+        void to_json(BonusesTimers bonusesTimers,Settings& settings, Players& players, Balls& balls, Blocks& blocks);
         void from_json(Game* game);
 
         ~History();
     };
 }
-
-#endif //GAME_CLASSES_H
-
+#endif 
