@@ -47,59 +47,99 @@ C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\G
 C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(466,15): warning C4553: '==': result of expression not used; did you intend '='?
 C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(470,15): warning C4553: '==': result of expression not used; did you intend '='?
 C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(474,15): warning C4553: '==': result of expression not used; did you intend '='?
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(771,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(792,5): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(863,9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1159,9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1224,78): warning C4244: '=': conversion from 'ValueType' to 'uint16_t', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(767,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(788,5): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(859,9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1155,9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1220,78): warning C4244: '=': conversion from 'ValueType' to 'uint16_t', possible loss of data
           with
           [
               ValueType=unsigned __int64
           ]
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1225,66): warning C4244: '=': conversion from 'ValueType' to 'uint32_t', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1221,66): warning C4244: '=': conversion from 'ValueType' to 'uint32_t', possible loss of data
           with
           [
               ValueType=unsigned __int64
           ]
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1226,82): warning C4244: '=': conversion from 'ValueType' to 'uint32_t', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1222,82): warning C4244: '=': conversion from 'ValueType' to 'uint32_t', possible loss of data
           with
           [
               ValueType=unsigned __int64
           ]
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1227,95): warning C4244: '=': conversion from 'ValueType' to 'uint32_t', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1223,95): warning C4244: '=': conversion from 'ValueType' to 'uint32_t', possible loss of data
           with
           [
               ValueType=unsigned __int64
           ]
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1312,55): warning C4244: '=': conversion from 'ValueType' to 'int', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1308,55): warning C4244: '=': conversion from 'ValueType' to 'int', possible loss of data
           with
           [
               ValueType=float
           ]
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1441,9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1480,9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1607,50): warning C4244: 'argument': conversion from 'float' to 'const uint32_t', possible loss of data
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1639,47): warning C4244: 'argument': conversion from 'float' to 'uint32_t', possible loss of data
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1655,47): warning C4244: 'argument': conversion from 'float' to 'uint32_t', possible loss of data
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1671,47): warning C4244: 'argument': conversion from 'float' to 'uint32_t', possible loss of data
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1736,5): warning C4267: 'initializing': conversion from 'size_t' to 'uint32_t', possible loss of data
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1741,13): warning C4267: 'initializing': conversion from 'size_t' to 'uint32_t', possible loss of data
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1750,5): warning C4267: 'initializing': conversion from 'size_t' to 'uint32_t', possible loss of data
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1888,17): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1974,5): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(2011,9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(2053,42): warning C4244: 'argument': conversion from 'float' to 'uint32_t', possible loss of data
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(2085,42): warning C4244: 'argument': conversion from 'float' to 'uint32_t', possible loss of data
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(2098,46): warning C4244: 'argument': conversion from 'float' to 'uint32_t', possible loss of data
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(2101,46): warning C4244: 'argument': conversion from 'float' to 'uint32_t', possible loss of data
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(2125,49): warning C4244: 'argument': conversion from 'float' to 'const uint32_t', possible loss of data
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(2142,42): warning C4244: 'argument': conversion from 'float' to 'uint32_t', possible loss of data
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(2194,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(2200,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(2206,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(2220,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(2222,27): warning C4018: '<': signed/unsigned mismatch
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(2281,17): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.hpp(807): warning C4715: 'Arkanoid::Settings::strToDiff': not all control paths return a value
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1437,9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1476,9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1603,50): warning C4244: 'argument': conversion from 'float' to 'const uint32_t', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1635,47): warning C4244: 'argument': conversion from 'float' to 'uint32_t', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1651,47): warning C4244: 'argument': conversion from 'float' to 'uint32_t', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1667,47): warning C4244: 'argument': conversion from 'float' to 'uint32_t', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1732,5): warning C4267: 'initializing': conversion from 'size_t' to 'uint32_t', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1737,13): warning C4267: 'initializing': conversion from 'size_t' to 'uint32_t', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1746,5): warning C4267: 'initializing': conversion from 'size_t' to 'uint32_t', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1884,17): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(1970,5): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(2007,9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(2049,42): warning C4244: 'argument': conversion from 'float' to 'uint32_t', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(2081,42): warning C4244: 'argument': conversion from 'float' to 'uint32_t', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(2094,46): warning C4244: 'argument': conversion from 'float' to 'uint32_t', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(2097,46): warning C4244: 'argument': conversion from 'float' to 'uint32_t', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(2121,49): warning C4244: 'argument': conversion from 'float' to 'const uint32_t', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(2138,42): warning C4244: 'argument': conversion from 'float' to 'uint32_t', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(2191,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(2197,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(2203,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(2217,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(2219,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.cpp(2278,17): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  GameDataStructs.hpp
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameDataStructs.hpp(154,46): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameDataStructs.hpp(155,46): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameDataStructs.hpp(179,55): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameDataStructs.hpp(181,54): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameDataStructs.hpp(182,54): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameDataStructs.hpp(184,56): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameDataStructs.hpp(185,56): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameDataStructs.hpp(186,53): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameDataStructs.hpp(187,55): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameDataStructs.hpp(194,57): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Main.cpp
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameDataStructs.hpp(154,46): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameDataStructs.hpp(155,46): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameDataStructs.hpp(179,55): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameDataStructs.hpp(181,54): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameDataStructs.hpp(182,54): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameDataStructs.hpp(184,56): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameDataStructs.hpp(185,56): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameDataStructs.hpp(186,53): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameDataStructs.hpp(187,55): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameDataStructs.hpp(194,57): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.hpp(419,37): warning C4244: 'argument': conversion from 'T' to 'const uint32_t', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.hpp(821,46): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.hpp(821,38): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.hpp(912,29): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.hpp(1005,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Generating Code...
 C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.hpp(794): warning C4715: 'Arkanoid::Settings::diffToStr': not all control paths return a value
+C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\Arkanoid\GameClasses.hpp(807): warning C4715: 'Arkanoid::Settings::strToDiff': not all control paths return a value
   Arkanoid.vcxproj -> C:\Users\anila\OneDrive\Документы\GitHub\OOP-4-term\Arkanoid\x64\Debug\Arkanoid.exe

@@ -219,8 +219,8 @@ const std::string MWIN_TEXT = "Congratulations you are the WINNER!";
 
 //GameField --- Bonuses
 const uint32_t BONUS_PERCANTAGE_HARD   = 10;
-const uint32_t BONUS_PERCANTAGE_MEDIUM = 70;
-const uint32_t BONUS_PERCANTAGE_LOW    = 50;
+const uint32_t BONUS_PERCANTAGE_MEDIUM = 30;
+const uint32_t BONUS_PERCANTAGE_LOW    = 40;
 
 const int BONUS_MAX_BALLS_COUNT = 1; 
 
@@ -232,7 +232,7 @@ const std::string JSON_FILE_GAME_PATH     = "C:/Users/anila/OneDrive/Документы/G
 
 const sf::Vector2f BONUS_SPEED = { 0, (float)20 / 1000 };
 
-const sf::Vector2f BALL_CHANGE_SPEED_VALUE = { 1.5f, 1.5f }; // тут пофиг
+const sf::Vector2f BALL_CHANGE_SPEED_VALUE = { 1.5f, 1.2f }; 
 const sf::Vector2f PLATFORM_CHANGE_LENGTH_VALUE = { 2.0f, 1.0f }; //90 и 360
 const sf::Vector2f PLATFORM_CHANGE_SPEED_VALUE  = { 1.5f, 1.0f }; //13,3 и 30
 

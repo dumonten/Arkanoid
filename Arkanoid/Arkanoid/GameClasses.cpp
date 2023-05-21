@@ -725,7 +725,6 @@ void Arkanoid::Players::eventsHandler()
             Player* p = getPlayer(searchPlatform);
             if (p)
             {
-                p->getStatistics()->numOfBonuses++;
                 searchPlatform->increasePlatformLengthBonus();
             }
             delete event.data;
@@ -737,7 +736,6 @@ void Arkanoid::Players::eventsHandler()
             Player* p = getPlayer(searchPlatform);
             if (p)
             {
-                p->getStatistics()->numOfBonuses++;
                 searchPlatform->decreasePlatformLengthBonus();
             }
             delete event.data;
@@ -749,7 +747,6 @@ void Arkanoid::Players::eventsHandler()
             Player* p = getPlayer(searchPlatform);
             if (p)
             {
-                p->getStatistics()->numOfBonuses++;
                 searchPlatform->increaseSpeedBonus();
             }
             delete event.data;
@@ -761,7 +758,6 @@ void Arkanoid::Players::eventsHandler()
             Player* p = getPlayer(searchPlatform);
             if (p)
             {
-                p->getStatistics()->numOfBonuses++;
                 searchPlatform->decreaseSpeedBonus();
             }
             delete event.data;
@@ -2182,6 +2178,7 @@ void Arkanoid::Game::resetGameField(resolution res, Difficulty diff)
 
     this->players.addPlayer(player);
     this->players.setParent(this);
+    this->gameField->statusBar->setData(player->getStatistics()); 
 
     /*Init blocks*/
     float blockWidth = 0, blockHeight = 0;
@@ -2383,7 +2380,8 @@ void Arkanoid::Game::eventsHadler()
             *bd = bonus->getBonusDescriptor(); 
             event.data->at(0) = index; 
             event.data->at(1) = bd; 
-            gameField->addNewBonus(*index, *bd);
+            gameField->addNewBonus(*index, *bd); 
+            sendEvent(&players, BONUS_UP);
             }
         case APPLY_BONUSES:
             this->bonusesSolution(event.data);
@@ -2426,12 +2424,10 @@ void Arkanoid::Game::bonusesSolution(std::vector<void*>* eventData)
         sendEvent(&players, { PLATFORM_SPEED_UP, eventData });
         break;
     case BONUS_BALL_SPEED_UP:
-        sendEvent(&players, { BONUS_UP, eventData });
         sendEvent(gameField, BALL_SPEED_UP);
         delete eventData; 
         break;
     case BONUS_BALL_SPEED_DOWN:
-        sendEvent(&players, { BONUS_UP, eventData });
         sendEvent(gameField, BALL_SPEED_DOWN);
         delete eventData;
         break;
