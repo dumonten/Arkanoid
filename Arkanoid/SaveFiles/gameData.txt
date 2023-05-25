@@ -4,12 +4,12 @@ settings: 1920x1000 MEDIUM
 
 players: num: 1
 name: Player_1
-num_of_lives: 3
-score: 570
-num_of_bonuses: 7
-num_of_crashed_blocks: 38
+num_of_lives: 2
+score: 105
+num_of_bonuses: 4
+num_of_crashed_blocks: 7
 platform: 
-	position_x: 1660
+	position_x: 1026.67
 	position_y: 985
 	size_x: 180
 	size_y: 15
@@ -20,12 +20,12 @@ platform:
 
 
 balls: num: 1
-position_x: 1817.5
-position_y: 559.312
+position_x: 1031.66
+position_y: 828.92
 size_x: 10
 size_y: 10
-speed_x: 7.5
-speed_y: -18.432
+speed_x: 3.33333
+speed_y: -8
 visibility: 1
 
 
@@ -37,7 +37,13 @@ size_x: 128
 size_y: 57.1343
 lives: 1
 visibility: 1
-bonuses: num: 0
+bonuses: num: 1
+	position_x: 21.3333
+	position_y: 68.162
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 3
 
 position_x: 8.53333
 position_y: 133.458
@@ -45,7 +51,13 @@ size_x: 128
 size_y: 57.1343
 lives: 1
 visibility: 1
-bonuses: num: 0
+bonuses: num: 1
+	position_x: 21.3333
+	position_y: 133.458
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 3
 
 position_x: 8.53333
 position_y: 198.755
@@ -59,24 +71,24 @@ position_x: 8.53333
 position_y: 264.051
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
+lives: 1
+visibility: 1
 bonuses: num: 0
 
 position_x: 8.53333
 position_y: 329.347
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
+lives: 1
+visibility: 1
 bonuses: num: 0
 
 position_x: 8.53333
 position_y: 394.644
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
+lives: 1
+visibility: 1
 bonuses: num: 0
 
 position_x: 145.067
@@ -99,37 +111,49 @@ bonuses: num: 1
 	size_x: 102.4
 	size_y: 45.7074
 	visibility: 1
-	descriptor: 3
+	descriptor: 5
 
 position_x: 145.067
 position_y: 198.755
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
+lives: 1
+visibility: 1
 bonuses: num: 1
 	position_x: 157.867
-	position_y: 5878.75
+	position_y: 198.755
 	size_x: 102.4
 	size_y: 45.7074
-	visibility: 0
-	descriptor: 1
+	visibility: 1
+	descriptor: 2
 
 position_x: 145.067
 position_y: 264.051
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
-bonuses: num: 0
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 157.867
+	position_y: 264.051
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 1
 
 position_x: 145.067
 position_y: 329.347
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
-bonuses: num: 0
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 157.867
+	position_y: 329.347
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 1
 
 position_x: 145.067
 position_y: 394.644
@@ -137,7 +161,13 @@ size_x: 128
 size_y: 57.1343
 lives: 0
 visibility: 0
-bonuses: num: 0
+bonuses: num: 1
+	position_x: 157.867
+	position_y: 4074.64
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 0
+	descriptor: 2
 
 position_x: 281.6
 position_y: 68.162
@@ -145,7 +175,13 @@ size_x: 128
 size_y: 57.1343
 lives: 1
 visibility: 1
-bonuses: num: 0
+bonuses: num: 1
+	position_x: 294.4
+	position_y: 68.162
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 2
 
 position_x: 281.6
 position_y: 133.458
@@ -167,22 +203,16 @@ position_x: 281.6
 position_y: 264.051
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
-bonuses: num: 1
-	position_x: 294.4
-	position_y: 7704.05
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 0
-	descriptor: 1
+lives: 1
+visibility: 1
+bonuses: num: 0
 
 position_x: 281.6
 position_y: 329.347
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
+lives: 1
+visibility: 1
 bonuses: num: 0
 
 position_x: 281.6
@@ -205,7 +235,7 @@ bonuses: num: 1
 	size_x: 102.4
 	size_y: 45.7074
 	visibility: 1
-	descriptor: 4
+	descriptor: 2
 
 position_x: 418.133
 position_y: 133.458
@@ -227,43 +257,37 @@ bonuses: num: 1
 	size_x: 102.4
 	size_y: 45.7074
 	visibility: 1
-	descriptor: 4
+	descriptor: 5
 
 position_x: 418.133
 position_y: 264.051
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
-bonuses: num: 1
-	position_x: 430.933
-	position_y: 15064.1
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 0
-	descriptor: 5
+lives: 1
+visibility: 1
+bonuses: num: 0
 
 position_x: 418.133
 position_y: 329.347
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
-bonuses: num: 0
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 430.933
+	position_y: 329.347
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 1
 
 position_x: 418.133
 position_y: 394.644
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
-bonuses: num: 1
-	position_x: 430.933
-	position_y: 40994.6
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 0
-	descriptor: 3
+lives: 1
+visibility: 1
+bonuses: num: 0
 
 position_x: 554.667
 position_y: 68.162
@@ -271,7 +295,13 @@ size_x: 128
 size_y: 57.1343
 lives: 1
 visibility: 1
-bonuses: num: 0
+bonuses: num: 1
+	position_x: 567.467
+	position_y: 68.162
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 5
 
 position_x: 554.667
 position_y: 133.458
@@ -279,7 +309,13 @@ size_x: 128
 size_y: 57.1343
 lives: 1
 visibility: 1
-bonuses: num: 0
+bonuses: num: 1
+	position_x: 567.467
+	position_y: 133.458
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 5
 
 position_x: 554.667
 position_y: 198.755
@@ -293,36 +329,42 @@ bonuses: num: 1
 	size_x: 102.4
 	size_y: 45.7074
 	visibility: 1
-	descriptor: 4
+	descriptor: 0
 
 position_x: 554.667
 position_y: 264.051
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
+lives: 1
+visibility: 1
 bonuses: num: 1
 	position_x: 567.467
-	position_y: 4164.05
+	position_y: 264.051
 	size_x: 102.4
 	size_y: 45.7074
-	visibility: 0
+	visibility: 1
 	descriptor: 0
 
 position_x: 554.667
 position_y: 329.347
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
-bonuses: num: 0
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 567.467
+	position_y: 329.347
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 3
 
 position_x: 554.667
 position_y: 394.644
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
+lives: 1
+visibility: 1
 bonuses: num: 0
 
 position_x: 691.2
@@ -343,33 +385,33 @@ bonuses: num: 0
 
 position_x: 691.2
 position_y: 198.755
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 0
+
+position_x: 691.2
+position_y: 264.051
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 0
+
+position_x: 691.2
+position_y: 329.347
 size_x: 128
 size_y: 57.1343
 lives: 1
 visibility: 1
 bonuses: num: 1
 	position_x: 704
-	position_y: 198.755
+	position_y: 329.347
 	size_x: 102.4
 	size_y: 45.7074
 	visibility: 1
 	descriptor: 4
-
-position_x: 691.2
-position_y: 264.051
-size_x: 128
-size_y: 57.1343
-lives: 0
-visibility: 0
-bonuses: num: 0
-
-position_x: 691.2
-position_y: 329.347
-size_x: 128
-size_y: 57.1343
-lives: 0
-visibility: 0
-bonuses: num: 0
 
 position_x: 691.2
 position_y: 394.644
@@ -377,7 +419,13 @@ size_x: 128
 size_y: 57.1343
 lives: 0
 visibility: 0
-bonuses: num: 0
+bonuses: num: 1
+	position_x: 704
+	position_y: 1914.64
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 0
+	descriptor: 5
 
 position_x: 827.733
 position_y: 68.162
@@ -401,28 +449,28 @@ size_x: 128
 size_y: 57.1343
 lives: 1
 visibility: 1
-bonuses: num: 0
+bonuses: num: 1
+	position_x: 840.533
+	position_y: 198.755
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 0
 
 position_x: 827.733
 position_y: 264.051
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
-bonuses: num: 1
-	position_x: 840.533
-	position_y: 13164.1
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 0
-	descriptor: 1
+lives: 1
+visibility: 1
+bonuses: num: 0
 
 position_x: 827.733
 position_y: 329.347
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
+lives: 1
+visibility: 1
 bonuses: num: 0
 
 position_x: 827.733
@@ -431,7 +479,13 @@ size_x: 128
 size_y: 57.1343
 lives: 0
 visibility: 0
-bonuses: num: 0
+bonuses: num: 1
+	position_x: 840.533
+	position_y: 8474.64
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 0
+	descriptor: 3
 
 position_x: 964.267
 position_y: 68.162
@@ -447,7 +501,13 @@ size_x: 128
 size_y: 57.1343
 lives: 1
 visibility: 1
-bonuses: num: 0
+bonuses: num: 1
+	position_x: 977.067
+	position_y: 133.458
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 5
 
 position_x: 964.267
 position_y: 198.755
@@ -475,23 +535,23 @@ position_x: 964.267
 position_y: 329.347
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
-bonuses: num: 1
-	position_x: 977.067
-	position_y: 2629.35
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 0
-	descriptor: 4
+lives: 1
+visibility: 1
+bonuses: num: 0
 
 position_x: 964.267
 position_y: 394.644
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
-bonuses: num: 0
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 977.067
+	position_y: 394.644
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 5
 
 position_x: 1100.8
 position_y: 68.162
@@ -513,42 +573,28 @@ position_x: 1100.8
 position_y: 198.755
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
+lives: 1
+visibility: 1
 bonuses: num: 0
 
 position_x: 1100.8
 position_y: 264.051
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
-bonuses: num: 1
-	position_x: 1113.6
-	position_y: 21444.1
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 0
-	descriptor: 2
+lives: 1
+visibility: 1
+bonuses: num: 0
 
 position_x: 1100.8
 position_y: 329.347
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
+lives: 1
+visibility: 1
 bonuses: num: 0
 
 position_x: 1100.8
 position_y: 394.644
-size_x: 128
-size_y: 57.1343
-lives: 0
-visibility: 0
-bonuses: num: 0
-
-position_x: 1237.33
-position_y: 68.162
 size_x: 128
 size_y: 57.1343
 lives: 1
@@ -556,18 +602,26 @@ visibility: 1
 bonuses: num: 0
 
 position_x: 1237.33
-position_y: 133.458
+position_y: 68.162
 size_x: 128
 size_y: 57.1343
 lives: 1
 visibility: 1
 bonuses: num: 1
 	position_x: 1250.13
-	position_y: 133.458
+	position_y: 68.162
 	size_x: 102.4
 	size_y: 45.7074
 	visibility: 1
-	descriptor: 1
+	descriptor: 4
+
+position_x: 1237.33
+position_y: 133.458
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 0
 
 position_x: 1237.33
 position_y: 198.755
@@ -589,8 +643,8 @@ position_x: 1237.33
 position_y: 329.347
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
+lives: 1
+visibility: 1
 bonuses: num: 0
 
 position_x: 1237.33
@@ -607,7 +661,13 @@ size_x: 128
 size_y: 57.1343
 lives: 1
 visibility: 1
-bonuses: num: 0
+bonuses: num: 1
+	position_x: 1386.67
+	position_y: 68.162
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 0
 
 position_x: 1373.87
 position_y: 133.458
@@ -629,29 +689,29 @@ bonuses: num: 1
 	size_x: 102.4
 	size_y: 45.7074
 	visibility: 1
-	descriptor: 4
+	descriptor: 5
 
 position_x: 1373.87
 position_y: 264.051
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 1373.87
-position_y: 329.347
 size_x: 128
 size_y: 57.1343
 lives: 1
 visibility: 1
 bonuses: num: 1
 	position_x: 1386.67
-	position_y: 329.347
+	position_y: 264.051
 	size_x: 102.4
 	size_y: 45.7074
 	visibility: 1
 	descriptor: 0
+
+position_x: 1373.87
+position_y: 329.347
+size_x: 128
+size_y: 57.1343
+lives: 1
+visibility: 1
+bonuses: num: 0
 
 position_x: 1373.87
 position_y: 394.644
@@ -659,7 +719,13 @@ size_x: 128
 size_y: 57.1343
 lives: 0
 visibility: 0
-bonuses: num: 0
+bonuses: num: 1
+	position_x: 1386.67
+	position_y: 10954.6
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 0
+	descriptor: 5
 
 position_x: 1510.4
 position_y: 68.162
@@ -667,7 +733,13 @@ size_x: 128
 size_y: 57.1343
 lives: 1
 visibility: 1
-bonuses: num: 0
+bonuses: num: 1
+	position_x: 1523.2
+	position_y: 68.162
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 4
 
 position_x: 1510.4
 position_y: 133.458
@@ -675,38 +747,50 @@ size_x: 128
 size_y: 57.1343
 lives: 1
 visibility: 1
-bonuses: num: 0
+bonuses: num: 1
+	position_x: 1523.2
+	position_y: 133.458
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 1
 
 position_x: 1510.4
 position_y: 198.755
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
+lives: 1
+visibility: 1
 bonuses: num: 0
 
 position_x: 1510.4
 position_y: 264.051
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
-bonuses: num: 0
+lives: 1
+visibility: 1
+bonuses: num: 1
+	position_x: 1523.2
+	position_y: 264.051
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 4
 
 position_x: 1510.4
 position_y: 329.347
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
+lives: 1
+visibility: 1
 bonuses: num: 0
 
 position_x: 1510.4
 position_y: 394.644
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
+lives: 1
+visibility: 1
 bonuses: num: 0
 
 position_x: 1646.93
@@ -715,7 +799,13 @@ size_x: 128
 size_y: 57.1343
 lives: 1
 visibility: 1
-bonuses: num: 0
+bonuses: num: 1
+	position_x: 1659.73
+	position_y: 68.162
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 3
 
 position_x: 1646.93
 position_y: 133.458
@@ -737,22 +827,22 @@ position_x: 1646.93
 position_y: 264.051
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
+lives: 1
+visibility: 1
 bonuses: num: 1
 	position_x: 1659.73
-	position_y: 23304.1
+	position_y: 264.051
 	size_x: 102.4
 	size_y: 45.7074
-	visibility: 0
-	descriptor: 3
+	visibility: 1
+	descriptor: 0
 
 position_x: 1646.93
 position_y: 329.347
 size_x: 128
 size_y: 57.1343
-lives: 0
-visibility: 0
+lives: 1
+visibility: 1
 bonuses: num: 0
 
 position_x: 1646.93
@@ -767,7 +857,7 @@ bonuses: num: 1
 	size_x: 102.4
 	size_y: 45.7074
 	visibility: 1
-	descriptor: 3
+	descriptor: 1
 
 position_x: 1783.47
 position_y: 68.162
@@ -775,13 +865,7 @@ size_x: 128
 size_y: 57.1343
 lives: 1
 visibility: 1
-bonuses: num: 1
-	position_x: 1796.27
-	position_y: 68.162
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 0
+bonuses: num: 0
 
 position_x: 1783.47
 position_y: 133.458
@@ -805,7 +889,13 @@ size_x: 128
 size_y: 57.1343
 lives: 1
 visibility: 1
-bonuses: num: 0
+bonuses: num: 1
+	position_x: 1796.27
+	position_y: 264.051
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 0
 
 position_x: 1783.47
 position_y: 329.347
@@ -813,7 +903,13 @@ size_x: 128
 size_y: 57.1343
 lives: 1
 visibility: 1
-bonuses: num: 0
+bonuses: num: 1
+	position_x: 1796.27
+	position_y: 329.347
+	size_x: 102.4
+	size_y: 45.7074
+	visibility: 1
+	descriptor: 0
 
 position_x: 1783.47
 position_y: 394.644
@@ -825,8 +921,8 @@ bonuses: num: 0
 
 bonusesTimers: num: 1
 player_index: 0
-bonus_descriptor: 4
-max_time: 1.43897
+bonus_descriptor: 5
+max_time: 2.44764
 
 
 

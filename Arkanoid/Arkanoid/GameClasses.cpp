@@ -2,6 +2,9 @@
 
 std::mt19937_64 rng;
 std::uniform_real_distribution<double> unif(0, 100);
+
+
+
 std::vector<sf::Clock> clocks;
 /*---------------------------------------------------------------------/*---------------------------------------------------------------------MovableObject*/
 /*---------------------------------------------------------------------/*---------------------------------------------------------------------DisplayObject*/
@@ -61,7 +64,7 @@ void Arkanoid::TextField::setDefaultProperties()
 {
     clrNormal = sf::Color::White;
     clrBorder = sf::Color::Black;
-    font.loadFromFile(totalProjectPath + "/Fonts/simple.ttf");
+    font.loadFromFile("simple.ttf");
     borderThickness = 0;
     text.setString(str = "Click me!");
     text.setFont(font);
@@ -219,6 +222,7 @@ void Arkanoid::Menu::eventsHandler()
             reliefButtons();
             break;
         }
+        case OPEN_FULL_SCREEN:
         case LOAD_THE_GAME:
         case RESTART_OPEN_GAME_FIELD:
         case OPEN_SETTINGS:
@@ -279,7 +283,6 @@ Arkanoid::Menu::~Menu()
 Arkanoid::Messagebox::Messagebox(sf::Vector2f s, sf::Vector2f p, sf::Color color) : DisplayObject(s, p)
 {
     selfRect->setFillColor(color);
-    window = NULL;
 }
 
 Arkanoid::Messagebox::Messagebox(EventObject* parent, sf::Vector2f s, sf::Vector2f p, sf::Color color) : Messagebox(s, p, color)
@@ -289,52 +292,36 @@ Arkanoid::Messagebox::Messagebox(EventObject* parent, sf::Vector2f s, sf::Vector
 
 void Arkanoid::Messagebox::eventsHandler()
 {
-}
-
-void Arkanoid::Messagebox::display()
-{
-    sf::Vector2f res = Settings::getResolution();
-    position = DisplayObject::getRelativeCenter({ 0, 0, res.x, res.y }, { 0, 0, size.x , size.y });
-    window = new sf::RenderWindow(sf::VideoMode(size.x, size.y), "Arkanoid", sf::Style::Titlebar | sf::Style::Close);
-    window->setPosition((sf::Vector2i)position);
-    sf::View* view = new sf::View(window->getDefaultView());
-
-    window->setVisible(true);
-    window->setVerticalSyncEnabled(true);
-    window->setFramerateLimit(60);
-
-    while (window->isOpen())
+    doEvent event;
+    while (pollEvent(event))
     {
-        sf::Event event{};
-        while (window->pollEvent(event))
+        switch (event.event)
         {
-            switch (event.type)
-            {
-            case sf::Event::Closed:
-                window->close();
-                break;
-            default:
-                break;
-            }
+        case CLOSE_MBOX:
+        { 
+            clearQueue();
+            std::vector<void*>* data = new std::vector<void*>;
+            data->push_back(this);
+            sendEvent(ptrParent, { CLOSE_MBOX, data });
+            hide();
+            break;
         }
-        eventsHandler(); //Processing the queue of events from other objects, in particular, from the button
-
-        window->setView(*view);
-        window->clear();
-        window->draw(*selfRect);
-        for (auto& textField : textFields)
-            window->draw(*textField);
-        window->display();
+        default:
+            break;
+        }
     }
-    window->setVisible(false);
-    setVisibility(false);
 }
 
 Arkanoid::Messagebox::~Messagebox()
 {
-    for (auto& textField : textFields)
-        delete textField;
-    delete window;
+    for (auto& t : textFields)
+    {
+        delete t;
+    }
+    for (auto& m : menuItems)
+    {
+        delete m;
+    }
 }
 
 /*---------------------------------------------------------------------/*---------------------------------------------------------------------StatusBar*/
@@ -344,9 +331,9 @@ Arkanoid::StatusBar::StatusBar(sf::Vector2f s_parent, sf::Vector2f s, sf::Vector
 
     textField = new TextField;
 
-    textField->setAllProperties("", totalProjectPath + "/Fonts/header.otf",
+    textField->setAllProperties("", "header.otf",
         sf::Text::Style::Regular, STATUS_BAR_BUTTON_TEXT_FONT_SIZE * s_parent.y, 1,
-        sf::Color::White, ColorCustomMidPurpleBlueUltraDark);
+        ColorCustomMidPurpleBlueUltraDark, sf::Color::White);
     textField->setTextPosition({ STATUS_BAR_TEXT_OFFSET_LEFT * s_parent.x, STATUS_BAR_TEXT_OFFSET_TOP * s_parent.y });
     textField->setScales(s);
 
@@ -448,6 +435,47 @@ Arkanoid::Block::Block(sf::Vector2f s_parent, sf::Vector2f s, sf::Vector2f p, Bl
     }
 }
 
+void Arkanoid::Block::InitDefaultBonus(std::mt19937_64& rng, std::uniform_real_distribution<double>& unif)
+{
+    int bound = 0;
+    switch (Settings::getDifficulty())
+    {
+    case HARD:
+        bound = BONUS_PERCANTAGE_HARD;
+        break;
+    case MEDIUM:
+        bound = BONUS_PERCANTAGE_MEDIUM;
+        break;
+    case LOW:
+        bound = BONUS_PERCANTAGE_LOW;
+        break;
+    default:
+        break;
+    }
+    int probability = unif(rng);
+    if (probability <= bound)
+    {
+        probability = (int)unif(rng) % BonusDescriptor::ebonusSize;
+        BonusDescriptor descr = BonusDescriptor(probability);
+        bonuses.push_back(new Bonus(size, position, descr));
+    }
+    {
+        std::mt19937_64 rngBonus;
+        std::uniform_real_distribution<double> unifBonus(100, 300);
+        {
+            uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+            std::seed_seq ss{ uint32_t(timeSeed & 0xffffffff), uint32_t(timeSeed >> 32) };
+            rngBonus.seed(ss);
+        }
+        int bonusScore = unifBonus(rngBonus);
+        
+        Bonus* bonus = new Bonus(size, position, BonusDescriptor::BONUS_SCORE_UP);
+        bonus->setSpeed({ BONUS_SPEED.x * Settings::getResolution().x,BONUS_SPEED.y * Settings::getResolution().y  - 4});
+        bonus->setBonusScoreValue(bonusScore);
+        bonuses.push_back(bonus);
+    }
+}
+
 Arkanoid::Block::Block(EventObject* parent, sf::Vector2f s_parent, sf::Vector2f s, sf::Vector2f p, BlockState st) : Block(s_parent, s, p, st)
 {
     ptrParent = parent;
@@ -516,29 +544,62 @@ Arkanoid::Bonus::Bonus(sf::Vector2f s_parent, sf::Vector2f p_parent, BonusDescri
     switch (descr)
     {
     case BONUS_PLATFORM_LENGTH_UP:
-        path = totalProjectPath + "/BonusIcons/PlatformLengthUp.png";
+        path = "PlatformLengthUp.png";
         break;
     case BONUS_PLATFORM_LENGTH_DOWN:
-        path = totalProjectPath + "/BonusIcons/PlatformLengthDown.png";
+        path = "PlatformLengthDown.png";
         break;
     case BONUS_PLATFORM_SPEED_DOWN:
-        path = totalProjectPath + "/BonusIcons/PlatformSpeedDown.png";
+        path = "PlatformSpeedDown.png";
         break;
     case BONUS_PLATFORM_SPEED_UP:
-        path = totalProjectPath + "/BonusIcons/PlatformSpeedUp.png";
+        path = "PlatformSpeedUp.png";
         break;
     case BONUS_BALL_SPEED_UP:
-        path = totalProjectPath + "/BonusIcons/BallSpeedUp.png";
+        path = "BallSpeedUp.png";
         break;
     case BONUS_BALL_SPEED_DOWN:
-        path = totalProjectPath + "/BonusIcons/BallSpeedDown.png";
+        path = "BallSpeedDown.png";
         break;
+    case BONUS_SCORE_UP: 
+        path = ""; 
+        break; 
     default:
         break;
     }
     if (path != "") setTexture(path);
     descriptor = descr;
 }
+
+void Arkanoid::Bonus::draw(sf::RenderTarget& target, sf::RenderStates states)const
+{
+    if (bonusScore != NULL) //для бонусов со скором (не у всех)
+        target.draw(*bonusScore);
+    else target.draw(*selfRect);
+}
+
+void Arkanoid::Bonus::generateTextField(sf::Vector2f blockSize, int score)
+{
+    bonusScore = new TextField();
+    bonusScore->setAllProperties(std::to_string(bonusScoreValue), "header.otf",
+        sf::Text::Bold, blockSize.x * 0.3f, 0,
+        sf::Color::Black, sf::Color::Black);
+
+    bonusScore->setTextPosition(DisplayObject::getRelativeCenter(selfRect->getGlobalBounds(), bonusScore->getTextGlobal()));
+    bonusScore->setScales(blockSize);
+}
+
+void  Arkanoid::Bonus::move()
+{
+    if (bonusScore != NULL)
+    {
+        bonusScore->text.move(speed.x, 0);
+        bonusScore->text.move(0, speed.y);    
+    }
+    selfRect->move(speed.x, 0);
+    selfRect->move(0, speed.y);
+}
+
 /*---------------------------------------------------------------------/*---------------------------------------------------------------------Player*/
 Arkanoid::Player::Player() {
 
@@ -551,16 +612,16 @@ Arkanoid::Player::~Player()
 }
 
 /*---------------------------------------------------------------------/*---------------------------------------------------------------------Player*/
-Arkanoid::Ball::Ball(sf::Vector2f s_parent, float radius, sf::Vector2f p, sf::Color c, sf::Vector2f sp) : MovableObject(radius, p, s_parent, sp)
+Arkanoid::Ball::Ball(sf::Vector2f s_parent, float radius, sf::Vector2f p, sf::Color c) : MovableObject(radius, p, s_parent, {0, 0})
 {
     Difficulty diff = Settings::getDifficulty();
-    resolution res = Settings::getResolution(); 
-    sf::Vector2f new_speed; 
+    resolution res = Settings::getResolution();
+    sf::Vector2f new_speed;
     switch (diff)
     {
     case HARD:
-        new_speed.x = res.x * BALL_SPEED_HARD.x; 
-        new_speed.y = res.x * BALL_SPEED_HARD.y; 
+        new_speed.x = res.x * BALL_SPEED_HARD.x;
+        new_speed.y = res.x * BALL_SPEED_HARD.y;
         break;
     case MEDIUM:
         new_speed.x = res.x * BALL_SPEED_MID.x;
@@ -573,7 +634,15 @@ Arkanoid::Ball::Ball(sf::Vector2f s_parent, float radius, sf::Vector2f p, sf::Co
     default:
         break;
     }
-    speed = new_speed; 
+    speed = new_speed;
+    selfRect->setFillColor(c);
+    initPosition = { BALL_WIDTH_INIT_OFFSET * s_parent.x, BALL_HEIGHT_INIT_OFFSET * s_parent.y };
+}
+
+Arkanoid::Ball::Ball(sf::Vector2f s_parent, float radius, sf::Vector2f p, sf::Color c, sf::Vector2f sp) : MovableObject(radius, p, s_parent, sp)
+{
+    Difficulty diff = Settings::getDifficulty();
+    resolution res = Settings::getResolution(); 
     selfRect->setFillColor(c);
     initPosition = { BALL_WIDTH_INIT_OFFSET * s_parent.x, BALL_HEIGHT_INIT_OFFSET * s_parent.y };
 }
@@ -741,6 +810,18 @@ void Arkanoid::Players::eventsHandler()
             delete event.data;
             break;
         }
+        case SCORE_UP: 
+        {
+            Platform* searchPlatform = (Platform*)event.data->at(0);
+            Player* p = getPlayer(searchPlatform);
+            if (p)
+            {
+                Bonus* bonus = (Bonus*)event.data->at(1);
+                p->getStatistics()->score += bonus->bonusScoreValue; 
+            }
+            delete event.data;
+            break; 
+        }
         case PLATFORM_SPEED_UP:
         {
             Platform* searchPlatform = (Platform*)event.data->at(0);
@@ -811,32 +892,32 @@ Arkanoid::Blocks::~Blocks()
 }
 
 /*--------------------------------------------------------------------/*--------------------------------------------------------------------History*/
-Arkanoid::History::History()
+Arkanoid::Proxy::Proxy()
 {
 
 }
 
-bool Arkanoid::History::pathThrough(std::fstream& file, std::string& buffer)
+bool Arkanoid::Proxy::pathThrough(std::fstream& file, std::string& buffer)
 {
     textFileGame >> buffer;
     while (!textFileGame.eof() && !isFine(buffer))
         textFileGame >> buffer;
 
-    textFileGame >> buffer;
-    while (!textFileGame.eof() && !isFine(buffer))
-        textFileGame >> buffer;
-    return true;
-}
-
-bool Arkanoid::History::simpleRead(std::fstream& file, std::string& buffer)
-{
     textFileGame >> buffer;
     while (!textFileGame.eof() && !isFine(buffer))
         textFileGame >> buffer;
     return true;
 }
 
-bool Arkanoid::History::isFine(std::string& buffer)
+bool Arkanoid::Proxy::simpleRead(std::fstream& file, std::string& buffer)
+{
+    textFileGame >> buffer;
+    while (!textFileGame.eof() && !isFine(buffer))
+        textFileGame >> buffer;
+    return true;
+}
+
+bool Arkanoid::Proxy::isFine(std::string& buffer)
 {
     if (buffer.find('\n') == -1 && buffer.find('\t') == -1)
         return true;
@@ -844,7 +925,7 @@ bool Arkanoid::History::isFine(std::string& buffer)
 }
 
 
-void Arkanoid::History::writeData(BonusesTimers bonusesTimers, 
+void Arkanoid::Proxy::writeData(BonusesTimers bonusesTimers, 
                                   Settings& settings, Players& players, 
                                   Balls& balls, Blocks& blocks)
 {
@@ -868,7 +949,7 @@ void Arkanoid::History::writeData(BonusesTimers bonusesTimers,
     }
 }
 
-void Arkanoid::History::readData(Game* game)
+void Arkanoid::Proxy::readData(Game* game)
 {
     textFileGame.open(TEXT_FILE_GAME_PATH, std::fstream::in);
     if (textFileGame.is_open())
@@ -892,7 +973,14 @@ void Arkanoid::History::readData(Game* game)
 
                     game->settings.setDifficulty(diff);
                     game->settings.setResolution(res);
-
+                    if (res.x == 1920 && res.y == 1080)
+                    {
+                        game->window->create(sf::VideoMode((int)res.x, (int)res.y), "Arkanoid", sf::Style::Fullscreen);
+                        game->window->setPosition({ 0, 0 });
+                        game->view = new sf::View(game->window->getDefaultView());
+                        game->window->setVisible(true);
+                        game->window->setVerticalSyncEnabled(true);
+                    }
                     //the part, where everything changes
                     game->resetMenus(Settings::getResolution(), Settings::getDifficulty());
                     if (game->window && game->view)
@@ -1139,7 +1227,7 @@ void Arkanoid::History::readData(Game* game)
 }
 
 
-void Arkanoid::History::to_json(BonusesTimers bonusesTimers,
+void Arkanoid::Proxy::to_json(BonusesTimers bonusesTimers,
                                 Settings& settings, Players& players, Balls& balls, Blocks& blocks)
 {
     clearJsonFile();
@@ -1173,7 +1261,7 @@ void Arkanoid::History::to_json(BonusesTimers bonusesTimers,
 
 }
 
-void Arkanoid::History::from_json(Game* game)
+void Arkanoid::Proxy::from_json(Game* game)
 {
     json j;
     jsonFileGame.open(JSON_FILE_GAME_PATH, std::fstream::in);
@@ -1192,7 +1280,14 @@ void Arkanoid::History::from_json(Game* game)
     Difficulty   diff = (Difficulty)j["settings"]["difficulty"].get<int>();
     game->settings.setResolution(res);
     game->settings.setDifficulty(diff);
-
+    if (res.x == 1920 && res.y == 1080)
+    {
+        game->window->create(sf::VideoMode((int)res.x, (int)res.y), "Arkanoid", sf::Style::Fullscreen);
+        game->window->setPosition({ 0, 0 });
+        game->view = new sf::View(game->window->getDefaultView());
+        game->window->setVisible(true);
+        game->window->setVerticalSyncEnabled(true);
+    }
     //the part, where everything changes
     game->resetMenus(res, diff);
     if (game->window && game->view)
@@ -1560,7 +1655,7 @@ void Arkanoid::Settings::save_to_txt(std::fstream& file, std::string fileName)
     file.close();
 }
 
-Arkanoid::History::~History() {
+Arkanoid::Proxy::~Proxy() {
 
 }
 
@@ -1617,7 +1712,7 @@ uint64_t Arkanoid::GameField::getNumberOfDisplayedBlocks()
     uint64_t displayedBlocks = 0;
     for (auto& b : this->blocks.blocks)
     {
-        if (b->isVisible())
+        if (b->isVisible() && b->cantBreak == false)
             displayedBlocks++;
     }
     return displayedBlocks;
@@ -1627,51 +1722,105 @@ void Arkanoid::GameField::initMessageBoxes()
 {
     /*Init Start MessageBox*/
     {
-        Messagebox* mStart = new Messagebox(this, { MBOX_WIDTH * size.x, MBOX_HEIGHT * size.y }, { 0, 0 }, ColorCustomMidPurpleBlueUltraDark);
+        sf::Vector2f parentSize = size;
+        sf::Vector2f position_for_window = DisplayObject::getRelativeCenter({ 0, 0, parentSize.x, parentSize.y }, { 0, 0, MBOX_WIDTH * size.x , MBOX_HEIGHT * size.y });
+        
+        Messagebox* mStart = new Messagebox(this, { MBOX_WIDTH * size.x, MBOX_HEIGHT * size.y }, position_for_window, ColorCustomMidPurpleBlueUltraDark);
         mStart->setVisibility(false);
 
         auto* textField = new TextField();
-        textField->setAllProperties(MSTART_TEXT, totalProjectPath + "/Fonts/simple.ttf",
+        textField->setAllProperties(MSTART_TEXT, "simple.ttf",
             sf::Text::Regular, MBOX_TEXT_SIZE * size.y, 0,
             sf::Color::White, ColorCustomPink);
+
+        sf::Vector2f  position_for_text = DisplayObject::getRelativeCenter({ position_for_window.x, position_for_window.y, MBOX_WIDTH * size.x , MBOX_HEIGHT * size.y }, { 0, 0, textField->getTextGlobal().width ,  textField->getTextGlobal().height });
+        textField->setTextPosition(position_for_text); 
+
 
         sf::Vector2f wCenter = DisplayObject::getRelativeCenter(mStart->getGlobalBounds(), textField->getTextGlobal());
         textField->setTextPosition({ wCenter.x, wCenter.y });
         textField->setScales(size);
         mStart->addTextField(textField);
         mBoxes.push_back(mStart);
+
+        sf::Vector2f position_for_button; 
+        position_for_button.x = position_for_window.x - BUTTON_MESSAGE_BOX_SIZE.x * size.x + MBOX_WIDTH * size.x; 
+        position_for_button.y = position_for_window.y + 1;
+
+        Button* button = new Button(mStart, "X", { BUTTON_MESSAGE_BOX_SIZE.x * size.x, BUTTON_MESSAGE_BOX_SIZE.y * size.y}, position_for_button, EventType::CLOSE_MBOX);
+        button->setTextSize(MBOX_FONT_SIZE * size.y);
+        button->setScales({ MBOX_WIDTH * size.x, MBOX_HEIGHT * size.y });
+        button->setColors(ColorCustomGreen, ColorCustomDarkGreen, ColorCustomDarkGreen, sf::Color::White);
+        button->setBorderThickness(1);
+        mStart->addButton(button); 
     }
     /*Init End Box*/
     {
-        Messagebox* mEnd = new Messagebox(this, { MBOX_WIDTH * size.x, MBOX_HEIGHT * size.y }, { 0, 0 }, ColorCustomMidPurpleBlueUltraDark);
+        sf::Vector2f parentSize = size;
+        sf::Vector2f position_for_window = DisplayObject::getRelativeCenter({ 0, 0, parentSize.x, parentSize.y }, { 0, 0, MBOX_WIDTH * size.x , MBOX_HEIGHT * size.y });
+
+        Messagebox* mEnd = new Messagebox(this, { MBOX_WIDTH * size.x, MBOX_HEIGHT * size.y }, position_for_window, ColorCustomMidPurpleBlueUltraDark);
         mEnd->setVisibility(false);
 
         auto* textField = new TextField();
-        textField->setAllProperties(MEND_TEXT, totalProjectPath + "/Fonts/simple.ttf",
+        textField->setAllProperties(MEND_TEXT, "simple.ttf",
             sf::Text::Regular, MBOX_TEXT_SIZE * size.y, 0,
             sf::Color::White, ColorCustomPink);
+
+        sf::Vector2f  position_for_text = DisplayObject::getRelativeCenter({ position_for_window.x, position_for_window.y, MBOX_WIDTH * size.x , MBOX_HEIGHT * size.y }, { 0, 0, textField->getTextGlobal().width ,  textField->getTextGlobal().height });
+        textField->setTextPosition(position_for_text);
+
 
         sf::Vector2f wCenter = DisplayObject::getRelativeCenter(mEnd->getGlobalBounds(), textField->getTextGlobal());
         textField->setTextPosition({ wCenter.x, wCenter.y });
         textField->setScales(size);
         mEnd->addTextField(textField);
         mBoxes.push_back(mEnd);
+
+        sf::Vector2f position_for_button;
+        position_for_button.x = position_for_window.x - BUTTON_MESSAGE_BOX_SIZE.x * size.x + MBOX_WIDTH * size.x;
+        position_for_button.y = position_for_window.y + 1;
+
+        Button* button = new Button(mEnd, "X", { BUTTON_MESSAGE_BOX_SIZE.x * size.x, BUTTON_MESSAGE_BOX_SIZE.y * size.y }, position_for_button, EventType::CLOSE_MBOX);
+        button->setTextSize(MBOX_FONT_SIZE * size.y);
+        button->setScales({ MBOX_WIDTH * size.x, MBOX_HEIGHT * size.y });
+        button->setColors(ColorCustomGreen, ColorCustomDarkGreen, ColorCustomDarkGreen, sf::Color::White);
+        button->setBorderThickness(1);
+        mEnd->addButton(button);
     }
     /*Init Win Box*/
     {
-        Messagebox* mWin = new Messagebox(this, { MBOX_WIDTH * size.x, MBOX_HEIGHT * size.y }, { 0, 0 }, ColorCustomMidPurpleBlueUltraDark);
+        sf::Vector2f parentSize = size;
+        sf::Vector2f position_for_window = DisplayObject::getRelativeCenter({ 0, 0, parentSize.x, parentSize.y }, { 0, 0, MBOX_WIDTH * size.x , MBOX_HEIGHT * size.y });
+
+        Messagebox* mWin = new Messagebox(this, { MBOX_WIDTH * size.x, MBOX_HEIGHT * size.y }, position_for_window, ColorCustomMidPurpleBlueUltraDark);
         mWin->setVisibility(false);
 
         auto* textField = new TextField();
-        textField->setAllProperties(MWIN_TEXT, totalProjectPath + "/Fonts/simple.ttf",
+        textField->setAllProperties(MWIN_TEXT, "simple.ttf",
             sf::Text::Regular, MBOX_TEXT_SIZE * size.y, 0,
             sf::Color::White, ColorCustomPink);
+
+        sf::Vector2f  position_for_text = DisplayObject::getRelativeCenter({ position_for_window.x, position_for_window.y, MBOX_WIDTH * size.x , MBOX_HEIGHT * size.y }, { 0, 0, textField->getTextGlobal().width ,  textField->getTextGlobal().height });
+        textField->setTextPosition(position_for_text);
+
 
         sf::Vector2f wCenter = DisplayObject::getRelativeCenter(mWin->getGlobalBounds(), textField->getTextGlobal());
         textField->setTextPosition({ wCenter.x, wCenter.y });
         textField->setScales(size);
         mWin->addTextField(textField);
         mBoxes.push_back(mWin);
+
+        sf::Vector2f position_for_button;
+        position_for_button.x = position_for_window.x - BUTTON_MESSAGE_BOX_SIZE.x * size.x + MBOX_WIDTH * size.x;
+        position_for_button.y = position_for_window.y + 1;
+
+        Button* button = new Button(mWin, "X", { BUTTON_MESSAGE_BOX_SIZE.x * size.x, BUTTON_MESSAGE_BOX_SIZE.y * size.y }, position_for_button, EventType::CLOSE_MBOX);
+        button->setTextSize(MBOX_FONT_SIZE * size.y);
+        button->setScales({ MBOX_WIDTH * size.x, MBOX_HEIGHT * size.y });
+        button->setColors(ColorCustomGreen, ColorCustomDarkGreen, ColorCustomDarkGreen, sf::Color::White);
+        button->setBorderThickness(1);
+        mWin->addButton(button);
     }
 }
 
@@ -1689,9 +1838,7 @@ void Arkanoid::GameField::collisionDetection()
                 if (collision.type != CollisionType::NONE_COLLISION)
                 {
                     if (dynamicObj->isCollideWith(staticObj))
-                    {
-                        if (collision.type == CollisionType::BALL_PANEL_COLLISION)
-                            int aknk = 1020121; 
+                    { 
                         collision.direction = CollisionDirection::NONE_COLLISION_DIRECTION;
                         sf::FloatRect fr_dynamic = dynamicObj->getGlobalBounds();
                         sf::FloatRect fr_static = staticObj->getGlobalBounds();
@@ -1825,7 +1972,7 @@ void Arkanoid::GameField::collisionSolution(Collision collision)
     case BLOCK_COLLISION:
     {
         Block* block = dynamic_cast<Block*>(collision.staticObj);
-       
+
         std::vector<void*>* data = new std::vector<void*>;
         sf::FloatRect* bounds = new sf::FloatRect;
         *bounds = collision.staticObj->getGlobalBounds();
@@ -1835,6 +1982,7 @@ void Arkanoid::GameField::collisionSolution(Collision collision)
         data->push_back(dr);
         
         sendEvent(dynamic_cast<EventObject*>(collision.dynamicObj), { EventType::COLLIDE_REACTION, data });
+        if (block->cantBreak == true) break; 
         sendEvent(dynamic_cast<EventObject*>(collision.staticObj), EventType::COLLIDE_REACTION);
 
         std::vector<void*>* initiator_player_information = new std::vector<void*>;
@@ -1845,20 +1993,13 @@ void Arkanoid::GameField::collisionSolution(Collision collision)
         {
             /*victory detection*/
             if (getNumberOfDisplayedBlocks() - 1 == 0) sendEvent(this, WIN);
-
-            /*update score*/
-            sendEvent(ptrParent, { SCORE_UP_FOR_CRASHING, initiator_player_information });
-
             /*activate bonus moving*/
-            if (block->bonuses.size() != 0)
+            for (int i = 0, n = block->bonuses.size(); i < n; i++)
             {
-                Bonus* bonus = block->bonuses[0];
-                this->displayObjects.push_back(bonus);
-                this->movableObjects.push_back(bonus);
+                this->displayObjects.push_back(block->bonuses[i]);
+                this->movableObjects.push_back(block->bonuses[i]);
             }
         }
-        else /*simple block-hit*/
-            sendEvent(ptrParent, { SCORE_UP_FOR_HITTING,  initiator_player_information });
         break;
     }
     default:
@@ -1872,9 +2013,19 @@ void Arkanoid::GameField::display(sf::RenderWindow* window, sf::View* view)
     while (window->pollEvent(event))
     {
         this->statusBar->menuButton->update(event, *window);  //Change button colors depending on the event
+        for (auto& m : mBoxes)
+        {
+            if (m->isVisible())
+            {
+                if (m == *mBoxes.begin() && isFirstStart)
+                    continue;
+                for (auto& button : m->menuItems)
+                    button->update(event, *window);
+                m->eventsHandler(); 
+            }
+        }
         if (eventsQueue.size() != 0)
             break;
-
         switch (event.type)
         {
         case sf::Event::KeyReleased:
@@ -1899,7 +2050,6 @@ void Arkanoid::GameField::display(sf::RenderWindow* window, sf::View* view)
     }
     this->update();
     this->eventsHandler(); //Processing the queue of events from other objects, in particular, from the button
-
     window->setView(*view);
     window->clear();
     this->draw(window, view);
@@ -1909,7 +2059,7 @@ void Arkanoid::GameField::display(sf::RenderWindow* window, sf::View* view)
         {
             if (m == *mBoxes.begin() && isFirstStart)
                 continue;
-            m->display();
+            m->draw(window, view);
         }
     }
     isFirstStart = false;
@@ -1923,6 +2073,22 @@ void Arkanoid::GameField::eventsHandler()
     {
         switch (event.event)
         {
+        case CLOSE_MBOX: 
+        {
+            Messagebox* mbox = (Messagebox*)event.data->at(0); 
+            if (mbox == mBoxes[1])
+            {
+                sendEvent(ptrParent, RESET_GAME);
+                hide();
+            }
+            else if (mbox == mBoxes[2])
+            {
+                sendEvent(ptrParent, OPEN_START_MENU);
+                hide();
+            }
+            delete event.data; 
+            break; 
+        }
         case OPEN_WAIT_MENU:
             pauseAllBonusesTimers(); 
             if (state != GameState::OFF)
@@ -1933,15 +2099,13 @@ void Arkanoid::GameField::eventsHandler()
             break;
         case WIN:
             clearQueue();
-            mBoxes[2]->setVisibility(true);
-            sendEvent(ptrParent, OPEN_START_MENU);
-            hide();
+            state = GameState::OFF;
+            mBoxes[2]->setVisibility(true); 
             break;
         case SHOW_END_MESSAGE:
             clearQueue();
+            state = GameState::OFF;
             mBoxes[1]->setVisibility(true);
-            sendEvent(ptrParent, RESET_GAME);
-            hide();
             break;
         case BALL_SPEED_UP: 
             for (auto ball : balls.balls)
@@ -2025,7 +2189,7 @@ Arkanoid::GameField::~GameField()
 /*--------------------------------------------------------------------/*--------------------------------------------------------------------Game*/
 Arkanoid::Game::Game()
 {
-    history = new History();
+    history = new Proxy();
     window = NULL;
     view = NULL;
     nullization();
@@ -2045,7 +2209,7 @@ void Arkanoid::Game::resetStartMenu(resolution res, Difficulty diff)
     startMenu->setVisibility(false);
 
     auto* textField = new TextField();
-    textField->setAllProperties("Arkanoid", totalProjectPath + "/Fonts/header.otf",
+    textField->setAllProperties("Arkanoid", "header.otf",
         sf::Text::Bold, HEADER_TEXT_SIZE * res.y, HEADER_BORDERTHICKNESS,
         sf::Color::White, ColorCustomPink);
     sf::Vector2f wCenter = DisplayObject::getRelativeCenter(startMenu->getGlobalBounds(), textField->getTextGlobal());
@@ -2077,7 +2241,7 @@ void Arkanoid::Game::resetSettingsMenu(resolution res, Difficulty diff)
     settingsMenu->setVisibility(false);
 
     auto* textField = new TextField;
-    textField->setAllProperties("Settings", totalProjectPath + "/Fonts/header.otf",
+    textField->setAllProperties("Settings", "header.otf",
         sf::Text::Bold, HEADER_TEXT_SIZE * res.y, HEADER_BORDERTHICKNESS,
         sf::Color::White, ColorCustomPink);
 
@@ -2090,10 +2254,10 @@ void Arkanoid::Game::resetSettingsMenu(resolution res, Difficulty diff)
     auto* changeResolutionField = new TextField;
     auto* changeDifficultyField = new TextField;
 
-    changeResolutionField->setAllProperties("CHANGE THE RESOLUTION", totalProjectPath + "/Fonts/simple.ttf",
+    changeResolutionField->setAllProperties("CHANGE THE RESOLUTION", "simple.ttf",
         sf::Text::Bold, SUB_HEADER_TEXT_SIZE * res.y, SUB_HEADER_BORDERTHICKNESS,
         sf::Color::White, ColorCustomPink);
-    changeDifficultyField->setAllProperties("CHANGE THE DIFFICULTY", totalProjectPath + "/Fonts/simple.ttf",
+    changeDifficultyField->setAllProperties("CHANGE THE DIFFICULTY", "simple.ttf",
         sf::Text::Bold, SUB_HEADER_TEXT_SIZE * res.y, SUB_HEADER_BORDERTHICKNESS,
         sf::Color::White, ColorCustomPink);
 
@@ -2115,7 +2279,6 @@ void Arkanoid::Game::resetSettingsMenu(resolution res, Difficulty diff)
     buttons.push_back(new Button(settingsMenu, Settings::diffToStr(diff), { ST_BUTTON_WIDTH * res.x, 2 * subHeaderHeight }, { headerPosition.left / 4 ,  headerButtom + subHeaderHeight * 10 }, EventType::DIFF_CHANGE));
     buttons.push_back(new Button(settingsMenu, "SAVE SETTINGS", { ST_BUTTON_WIDTH * res.x, 2 * subHeaderHeight }, { headerPosition.left / 4 ,  headerButtom + subHeaderHeight * 14 }, EventType::SAVE_SETTINGS));
     buttons.push_back(new Button(settingsMenu, "BACK TO THE MAIN MENU", { ST_BUTTON_WIDTH * res.x, 2 * subHeaderHeight }, { headerPosition.left / 4 ,  headerButtom + subHeaderHeight * 18 }, EventType::OPEN_START_MENU));
-
     for (auto& button : buttons)
     {
         button->setTextSize(ST_BUTTON_TEXT_SIZE * res.y);
@@ -2134,7 +2297,7 @@ void Arkanoid::Game::resetWaitMenu(resolution res, Difficulty diff)
     waitMenu->setVisibility(false);
 
     auto* textField = new TextField;
-    textField->setAllProperties("Pause", totalProjectPath + "/Fonts/header.otf",
+    textField->setAllProperties("Pause", "header.otf",
         sf::Text::Bold, HEADER_TEXT_SIZE * res.y, HEADER_BORDERTHICKNESS,
         sf::Color::White, ColorCustomPink);
 
@@ -2178,7 +2341,8 @@ void Arkanoid::Game::resetGameField(resolution res, Difficulty diff)
 
     this->players.addPlayer(player);
     this->players.setParent(this);
-    this->gameField->statusBar->setData(player->getStatistics()); 
+    this->gameField->statusBar->setData(player->getStatistics());
+    this->gameField->statusBar->update(); 
 
     /*Init blocks*/
     float blockWidth = 0, blockHeight = 0;
@@ -2220,13 +2384,19 @@ void Arkanoid::Game::resetGameField(resolution res, Difficulty diff)
         {
             Block* block = new Block(gameField, res, { blockWidth, blockHeight }, { blockWidth * i + offsetX * (i + 1), blockHeight * j + offsetY * (j + 1) + STATUS_BAR_HEIGHT * res.y }, BlockState::NOT_ATTACKED);
             block->InitDefaultBonus(rng, unif);
+            int probability = unif(rng);
+            if (probability <= 10)
+            {
+                block->cantBreak = true;
+               // block->setColor(ColorCustomPink);
+            }
             gameField->blocks.addBlock(block);
             gameField->displayObjects.push_back(block);
         }
     }
-
     /*Init ball*/
-    Ball* ball = new Ball(gameField, res, sqrt(BALL_SQUARE * res.x * res.y), { BALL_WIDTH_INIT_OFFSET * res.x, BALL_HEIGHT_INIT_OFFSET * res.y }, sf::Color::Black, sf::Vector2f(BALL_SPEED_MID.x * res.x, BALL_SPEED_MID.y * res.y));
+    Ball* ball = new Ball(res, sqrt(BALL_SQUARE * res.x * res.y), { BALL_WIDTH_INIT_OFFSET * res.x, BALL_HEIGHT_INIT_OFFSET * res.y }, sf::Color::Black);
+    ball->setParent(gameField); 
     gameField->balls.addBall(ball);
     gameField->displayObjects.push_back(ball);
     gameField->movableObjects.push_back(ball);
@@ -2324,12 +2494,26 @@ void Arkanoid::Game::eventsHadler()
         {
             resolution res = *((resolution*)event.data->at(0));
             Difficulty diff = *((Difficulty*)event.data->at(1));
-            settings.setDifficulty(diff);
             settings.setResolution(res);
-
+            settings.setDifficulty(diff);
+            if (res.x == 1920 && res.y == 1080)
+            {
+                window->create(sf::VideoMode((int)res.x, (int)res.y), "Arkanoid", sf::Style::Fullscreen);
+                window->setPosition({ 0, 0 });
+                view = new sf::View(window->getDefaultView());
+                window->setVisible(true);
+                window->setVerticalSyncEnabled(true);
+            }
+            else 
+            {
+                window->create(sf::VideoMode((int)res.x, (int)res.y), "Arkanoid", sf::Style::Titlebar | sf::Style::Close);
+                window->setPosition({ 0, 0 });
+                view = new sf::View(window->getDefaultView());
+                window->setVisible(true);
+                window->setVerticalSyncEnabled(true);
+            }
             event.data->clear();
             delete event.data;
-
             this->reset();
             settingsMenu->setVisibility(true);
             break;
@@ -2374,6 +2558,11 @@ void Arkanoid::Game::eventsHadler()
             {
             Platform* platform = (Platform*)event.data->at(0); 
             Bonus* bonus = (Bonus*)event.data->at(1);
+            if (bonus->getBonusDescriptor() == BonusDescriptor::BONUS_SCORE_UP) 
+            {
+                sendEvent(&players, { SCORE_UP, event.data });
+                break;
+            }
             int* index = new int; 
             *index = players.getPlayerIndex(platform);
             BonusDescriptor* bd = new BonusDescriptor;
@@ -2392,8 +2581,8 @@ void Arkanoid::Game::eventsHadler()
             waitMenu->setVisibility(true);
             break;
         case LOAD_THE_GAME:
-            history->readData(this);
-            //history->from_json(this);
+            //history->readData(this);
+            history->from_json(this);
             gameField->setVisibility(true);
             break;
         default:

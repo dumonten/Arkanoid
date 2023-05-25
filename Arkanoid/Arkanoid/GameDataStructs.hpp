@@ -28,22 +28,19 @@
 #define ColorCustomOrange                  sf::Color(252, 179, 124)
 #define ColorCustomYellow                  sf::Color(240, 216, 117)
 
-const std::string totalProjectPath = "C:/Users/anila/OneDrive/Документы/GitHub/OOP-4-term/Arkanoid";
-const std::string settingsFileName = totalProjectPath + "settings.bin";
-const std::string historyFileName = totalProjectPath + "history.bin";
-
-
 enum GameState { ON, OFF };
 enum Difficulty { HARD, MEDIUM, LOW, ediffSize = 3};
 enum BlockState { CRASHED, MAX_ATTACKED, MID_ATTACKED, MIN_ATTACKED, NOT_ATTACKED};
 enum BtnState   { PRESSED, NORMAL, HOVERED};
 enum EventType {
     OPEN_SETTINGS,
+    OPEN_FULL_SCREEN, 
     OPEN_START_MENU,
     OPEN_GAME_FIELD,
     RESTART_OPEN_GAME_FIELD,
     OPEN_WAIT_MENU,
     QUIT,
+    CLOSE_MBOX, 
     LOAD_THE_GAME, 
     RES_CHANGE,
     DIFF_CHANGE,
@@ -72,7 +69,8 @@ enum EventType {
     BALL_SPEED_UP,
     BALL_SPEED_DOWN, 
     REFORM_AND_APPLY_BONUS, 
-    BONUS_UP
+    BONUS_UP, 
+    SCORE_UP
 };
 enum BonusDescriptor
 {
@@ -82,6 +80,7 @@ enum BonusDescriptor
     BONUS_PLATFORM_SPEED_UP,
     BONUS_BALL_SPEED_UP,
     BONUS_BALL_SPEED_DOWN,
+    BONUS_SCORE_UP, 
     ebonusSize = 6
 }; 
 
@@ -138,8 +137,9 @@ const std::map<std::string, Classes> classesNames =
 
 typedef sf::Vector2f resolution;
 const   std::vector<sf::Vector2f> mResolution
-{ 
+{
     {1920, 1000},
+    {1920, 1080}, 
     {800,   450}, 
     {1480,  720},
     {1560,  877},
@@ -179,7 +179,8 @@ const uint32_t BLOCK_NUM_HEIGHT_LOW    = 2;
 const float STATUS_BAR_BUTTON_WIDTH          = 0.05729;
 const float STATUS_BAR_BUTTON_HEIGHT         = (float)40 / 1000;
 const float STATUS_BAR_BUTTON_FONT_SIZE      = 0.0185;
-const float STATUS_BAR_BUTTON_TEXT_FONT_SIZE = 0.0185;
+const float MBOX_FONT_SIZE      = 0.025;
+const float STATUS_BAR_BUTTON_TEXT_FONT_SIZE = 0.020;
 const float STATUS_BAR_HEIGHT                = (float)60 / 1000;
 const float STATUS_BAR_TEXT_OFFSET_LEFT      = 0.104167;
 const float STATUS_BAR_TEXT_OFFSET_TOP       = 0.010416;
@@ -188,9 +189,9 @@ const float STATUS_BAR_BUTTON_OFFSET_TOP     = 0.00926;
 
 //GameField --- Ball 
 const float BALL_SQUARE = (float)(10 * 10)/(1920*1000);
-const sf::Vector2f BALL_SPEED_MID = { (float)5 / 1920, (float)8 / 1000 };
-const sf::Vector2f BALL_SPEED_HARD = { (float)8 / 1920, (float)10 / 1000 };
-const sf::Vector2f BALL_SPEED_LOW = { (float)5 / 1920, (float)5 / 1000 };
+const sf::Vector2f BALL_SPEED_MID = { (float)5 / 1920, (float)5 / 1000 };
+const sf::Vector2f BALL_SPEED_HARD = { (float)5 / 1920, (float)8 / 1000 };
+const sf::Vector2f BALL_SPEED_LOW = { (float)3 / 1920, (float)3 / 1000 };
 const float BALL_WIDTH_INIT_OFFSET = 0.5 - (float)5/1920;
 const float BALL_HEIGHT_INIT_OFFSET = 0.75;
 
@@ -200,8 +201,6 @@ const float PlATFORM_HEIGHT = (float)15 / 1000;
 const float PLATFORM_WIDTH_INIT_OFFSET = 0.5 - (float)PlATFORM_WIDTH / 2;
 const float PLATFORM_HEIGHT_INIT_OFFSET = 1 - (float)15 / 1000;
 const sf::Vector2f PLATFORM_SPEED = { (float)20 / 1920, 0 };
-
-
 
 //GameField
 const float MBOX_WIDTH  = (float)480/1920;
@@ -219,7 +218,7 @@ const std::string MWIN_TEXT = "Congratulations you are the WINNER!";
 
 //GameField --- Bonuses
 const uint32_t BONUS_PERCANTAGE_HARD   = 10;
-const uint32_t BONUS_PERCANTAGE_MEDIUM = 30;
+const uint32_t BONUS_PERCANTAGE_MEDIUM = 40;
 const uint32_t BONUS_PERCANTAGE_LOW    = 40;
 
 const int BONUS_MAX_BALLS_COUNT = 1; 
@@ -228,6 +227,8 @@ const int BONUS_MAX_BALLS_COUNT = 1;
 const std::string TEXT_FILE_GAME_PATH     = "C:/Users/anila/OneDrive/Документы/GitHub/OOP-4-term/Arkanoid/SaveFiles/gameData.txt"; 
 const std::string JSON_FILE_GAME_PATH     = "C:/Users/anila/OneDrive/Документы/GitHub/OOP-4-term/Arkanoid/SaveFiles/gameData.json"; 
 
+
+const sf::Vector2f BUTTON_MESSAGE_BOX_SIZE = { (float) 40 / 1920, (float) 35 / 1000 };
 
 
 const sf::Vector2f BONUS_SPEED = { 0, (float)20 / 1000 };

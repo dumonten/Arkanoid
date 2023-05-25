@@ -128,7 +128,8 @@ namespace Arkanoid
         virtual void setTexture(std::string path) 
         { 
             sf::Texture* texture = new sf::Texture; 
-            if (!(*texture).loadFromFile(path)) { std::cout << "error"; }
+            if (!(*texture).loadFromFile(path))
+                { std::cout << "error"; }
             ((sf::RectangleShape*)selfRect)->setTexture(texture, true); // texture is a sf::Texture
             //((sf::RectangleShape*)selfRect)->setTextureRect(rect);
         }
@@ -396,8 +397,9 @@ namespace Arkanoid
 
     class TextField  : public sf::Drawable
     {
-    private:
+    public: 
         sf::Text     text;
+    private:
         std::string  str;
         float        borderThickness;
         sf::Color    clrNormal, clrBorder;
@@ -555,19 +557,39 @@ namespace Arkanoid
 
     class Messagebox : public DisplayObject, public EventObject
     {
-    private:
-        sf::RenderWindow* window;
-        std::vector<TextField*>  textFields;
     public:
+        std::vector<Button*> menuItems;
+        std::vector<TextField*>  textFields;
+
         Messagebox(EventObject* parent, sf::Vector2f s, sf::Vector2f p, sf::Color color);
         Messagebox(sf::Vector2f s, sf::Vector2f p, sf::Color color);
 
         void eventsHandler() override;
-        void display();
+        void hide() override
+        {
+            DisplayObject::hide();
+            reliefButtons();
+        }
+        void reliefButtons()
+        {
+            for (auto& button : menuItems)
+            {
+                button->reset();
+            }
+        }
         void addTextField(TextField* txt) { textFields.push_back(txt); }
+        void addButton(Button* btn) { menuItems.push_back(btn); }
         void deleteText(const uint32_t i) { textFields.erase(textFields.begin() + i); }
-       
-        ~Messagebox(); 
+        void deleteButton(const uint32_t i) { menuItems.erase(menuItems.begin() + i); }
+        void draw(sf::RenderWindow* window, sf::View* view)const
+        {
+            window->draw(*selfRect); 
+            for (auto& textField : textFields)
+                window->draw(*textField);
+            for (const auto& button : menuItems)
+                window->draw(*button);
+        }
+        ~Messagebox();
     };
 
     class Menu : public DisplayObject, public EventObject
@@ -707,14 +729,12 @@ namespace Arkanoid
     public:
         Ball(EventObject* parent, sf::Vector2f s_parent, float radius, sf::Vector2f p, sf::Color c, sf::Vector2f sp);
         Ball(sf::Vector2f s_parent, float radius, sf::Vector2f p, sf::Color c, sf::Vector2f sp);
-      
+        Ball(sf::Vector2f s_parent, float radius, sf::Vector2f p, sf::Color c); 
         void reset()
         {
             setPosition(initPosition);
         }
         void eventsHandler() override; 
-        ~Ball();
-
         void increaseSpeedBonus() override
         {
             this->setSpeed({ (float)this->speed.x * BALL_CHANGE_SPEED_VALUE.x, (float)this->speed.y * BALL_CHANGE_SPEED_VALUE.y });
@@ -723,11 +743,12 @@ namespace Arkanoid
         {
             this->setSpeed({ (float)this->speed.x / BALL_CHANGE_SPEED_VALUE.x, (float)this->speed.y / BALL_CHANGE_SPEED_VALUE.y });
         }
+        ~Ball();
     };
   
     class Balls 
     {
-        friend class History;
+        friend class Proxy;
         friend class GameField;
     private:
         std::vector<Ball*> balls;
@@ -827,16 +848,22 @@ namespace Arkanoid
 
     class Bonus : public MovableObject
     {
-        friend class History; 
+        friend class Proxy; 
+    public: 
+        int bonusScoreValue = 0;
     private:
+        TextField* bonusScore = NULL;
         BonusDescriptor descriptor; 
     public:
+        void move()override;
+        void draw(sf::RenderTarget& target, sf::RenderStates states)const override; 
         Bonus(sf::Vector2f size, sf::Vector2f position) : MovableObject(size, position)
         {
             setSpeed({ BONUS_SPEED.x * Settings::getResolution().x,BONUS_SPEED.y * Settings::getResolution().y });
             descriptor = BonusDescriptor::BONUS_PLATFORM_SPEED_UP;
         }
         Bonus(sf::Vector2f s_parent, sf::Vector2f p_parent, BonusDescriptor d);
+        void setBonusScoreValue(int value) { bonusScoreValue = value; generateTextField(size, value); }
         void setBonusDescriptor(BonusDescriptor d) 
         { 
             std::string path = "";
@@ -844,41 +871,44 @@ namespace Arkanoid
             switch (descriptor)
             {
             case BONUS_PLATFORM_LENGTH_UP:
-                path = totalProjectPath + "/BonusIcons/PlatformLengthUp.png";
+                path = "PlatformLengthUp.png";
                 break;
             case BONUS_PLATFORM_LENGTH_DOWN:
-                path = totalProjectPath + "/BonusIcons/PlatformLengthDown.png";
+                path = "PlatformLengthDown.png";
                 break;
             case BONUS_PLATFORM_SPEED_DOWN:
-                path = totalProjectPath + "/BonusIcons/PlatformSpeedDown.png";
+                path = "PlatformSpeedDown.png";
                 break;
             case BONUS_PLATFORM_SPEED_UP:
-                path = totalProjectPath + "/BonusIcons/PlatformSpeedUp.png";
+                path = "PlatformSpeedUp.png";
                 break;
             case BONUS_BALL_SPEED_UP:
-                path = totalProjectPath + "/BonusIcons/BallSpeedUp.png";
+                path = "BallSpeedUp.png";
                 break;
             case BONUS_BALL_SPEED_DOWN:
-                path = totalProjectPath + "/BonusIcons/BallSpeedDown.png";
+                path = "BallSpeedDown.png";
                 break;
             default:
                 break;
             }
             if (path != "") setTexture(path);
         }
+        void generateTextField(sf::Vector2f blockSize, int score); 
         BonusDescriptor getBonusDescriptor()
         {
             return descriptor; 
         }
         ~Bonus() = default; 
     };
-
+    
     class Block : public DisplayObject, public EventObject
     {
         friend class GameField; 
         friend class Blocks; 
-        friend class History; 
-    private:
+        friend class Proxy; 
+    public: 
+        bool cantBreak = false;
+    private: 
         uint16_t  numOfLives;
         std::vector<Bonus* > bonuses; 
         BlockState state;
@@ -889,34 +919,13 @@ namespace Arkanoid
     public:
         Block(EventObject* parent, sf::Vector2f s_parent, sf::Vector2f s, sf::Vector2f p, BlockState st);
         Block(sf::Vector2f s_parent, sf::Vector2f s, sf::Vector2f p, BlockState st);
-        
         void eventsHandler() override;
-        void trigger();
-        void InitDefaultBonus(std::mt19937_64& rng, std::uniform_real_distribution<double>& unif)
+        void setColor(sf::Color color)
         {
-            int bound = 0;
-            switch (Settings::getDifficulty())
-            {
-            case HARD:
-                bound = BONUS_PERCANTAGE_HARD;
-                break;
-            case MEDIUM:
-                bound = BONUS_PERCANTAGE_MEDIUM;
-                break;
-            case LOW:
-                bound = BONUS_PERCANTAGE_LOW;
-                break;
-            default:
-                break;
-            }
-            int probability = unif(rng);
-            if (probability <= bound)
-            {
-                probability = (int)unif(rng) % BonusDescriptor::ebonusSize;
-                BonusDescriptor descr = BonusDescriptor(probability);
-                bonuses.push_back(new Bonus(size, position, descr));
-            }
+            selfRect->setFillColor(clrNotAttacked = color);
         }
+        void trigger();
+        void InitDefaultBonus(std::mt19937_64& rng, std::uniform_real_distribution<double>& unif); 
         uint16_t getLives() 
         {
             return numOfLives; 
@@ -930,7 +939,7 @@ namespace Arkanoid
 
     class Players : public EventObject 
     {
-        friend class History; 
+        friend class Proxy; 
         friend class Game; 
     private:
         std::vector<Player*> players;
@@ -968,7 +977,7 @@ namespace Arkanoid
 
     class Blocks
     {
-        friend class History;
+        friend class Proxy;
         friend class GameField;
     private:
         std::vector<Block*> blocks;
@@ -987,7 +996,7 @@ namespace Arkanoid
 
     class GameField : public DisplayObject, public EventObject
     {
-        friend class History;
+        friend class Proxy;
     public:
         static bool isFirstStart; 
         GameState  state;
@@ -1076,7 +1085,7 @@ namespace Arkanoid
 
     class Game : public EventObject
     {
-        friend class History; 
+        friend class Proxy; 
     private:
         sf::RenderWindow  *window;
         sf::View          *view;
@@ -1087,7 +1096,7 @@ namespace Arkanoid
         GameField         *gameField;
         Players           players;
 
-        History      *history; 
+        Proxy      *history; 
         Settings     settings;
         sf::Vector2f centerPosition;
     private:
@@ -1109,7 +1118,7 @@ namespace Arkanoid
         ~Game();
     };
 
-    class History
+    class Proxy
     {
     private:
         std::fstream textFileGame;
@@ -1130,7 +1139,7 @@ namespace Arkanoid
         }
 
     public:
-        History();
+        Proxy();
         
         void writeData(BonusesTimers bonusesTimers, Settings& settings, Players& players, Balls& balls, Blocks& blocks);
         void readData(Game* game);
@@ -1138,7 +1147,7 @@ namespace Arkanoid
         void to_json(BonusesTimers bonusesTimers,Settings& settings, Players& players, Balls& balls, Blocks& blocks);
         void from_json(Game* game);
 
-        ~History();
+        ~Proxy();
     };
 }
 #endif 

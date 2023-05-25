@@ -1,20 +1,29 @@
 {
     "balls": [
         {
-            "position_x": 1817.4952392578125,
-            "position_y": 559.3115234375,
+            "position_x": 1031.6611328125,
+            "position_y": 828.9199829101563,
             "size_x": 10.0,
             "size_y": 10.0,
-            "speed_x": 7.5,
-            "speed_y": -18.4320011138916,
+            "speed_x": 3.3333332538604736,
+            "speed_y": -7.999999046325684,
             "visibility": true
         }
     ],
     "blocks": [
         {
-            "bonuses": null,
+            "bonuses": [
+                {
+                    "descriptor": 3,
+                    "position_x": 21.33333396911621,
+                    "position_y": 68.16204071044922,
+                    "size_x": 102.4000015258789,
+                    "size_y": 45.707427978515625,
+                    "visibility": true
+                }
+            ],
             "lives": 1,
-            "num_of_bonuses": 0,
+            "num_of_bonuses": 1,
             "position_x": 8.533333778381348,
             "position_y": 68.16204071044922,
             "size_x": 128.0,
@@ -22,9 +31,18 @@
             "visibility": true
         },
         {
-            "bonuses": null,
+            "bonuses": [
+                {
+                    "descriptor": 3,
+                    "position_x": 21.33333396911621,
+                    "position_y": 133.4583740234375,
+                    "size_x": 102.4000015258789,
+                    "size_y": 45.707427978515625,
+                    "visibility": true
+                }
+            ],
             "lives": 1,
-            "num_of_bonuses": 0,
+            "num_of_bonuses": 1,
             "position_x": 8.533333778381348,
             "position_y": 133.4583740234375,
             "size_x": 128.0,
@@ -43,33 +61,33 @@
         },
         {
             "bonuses": null,
-            "lives": 0,
+            "lives": 1,
             "num_of_bonuses": 0,
             "position_x": 8.533333778381348,
             "position_y": 264.051025390625,
             "size_x": 128.0,
             "size_y": 57.13428497314453,
-            "visibility": false
+            "visibility": true
         },
         {
             "bonuses": null,
-            "lives": 0,
+            "lives": 1,
             "num_of_bonuses": 0,
             "position_x": 8.533333778381348,
             "position_y": 329.34735107421875,
             "size_x": 128.0,
             "size_y": 57.13428497314453,
-            "visibility": false
+            "visibility": true
         },
         {
             "bonuses": null,
-            "lives": 0,
+            "lives": 1,
             "num_of_bonuses": 0,
             "position_x": 8.533333778381348,
             "position_y": 394.6436767578125,
             "size_x": 128.0,
             "size_y": 57.13428497314453,
-            "visibility": false
+            "visibility": true
         },
         {
             "bonuses": null,
@@ -84,7 +102,7 @@
         {
             "bonuses": [
                 {
-                    "descriptor": 3,
+                    "descriptor": 5,
                     "position_x": 157.86666870117188,
                     "position_y": 133.4583740234375,
                     "size_x": 102.4000015258789,
@@ -103,9 +121,66 @@
         {
             "bonuses": [
                 {
+                    "descriptor": 2,
+                    "position_x": 157.86666870117188,
+                    "position_y": 198.75469970703125,
+                    "size_x": 102.4000015258789,
+                    "size_y": 45.707427978515625,
+                    "visibility": true
+                }
+            ],
+            "lives": 1,
+            "num_of_bonuses": 1,
+            "position_x": 145.06666564941406,
+            "position_y": 198.75469970703125,
+            "size_x": 128.0,
+            "size_y": 57.13428497314453,
+            "visibility": true
+        },
+        {
+            "bonuses": [
+                {
                     "descriptor": 1,
                     "position_x": 157.86666870117188,
-                    "position_y": 5878.7548828125,
+                    "position_y": 264.051025390625,
+                    "size_x": 102.4000015258789,
+                    "size_y": 45.707427978515625,
+                    "visibility": true
+                }
+            ],
+            "lives": 1,
+            "num_of_bonuses": 1,
+            "position_x": 145.06666564941406,
+            "position_y": 264.051025390625,
+            "size_x": 128.0,
+            "size_y": 57.13428497314453,
+            "visibility": true
+        },
+        {
+            "bonuses": [
+                {
+                    "descriptor": 1,
+                    "position_x": 157.86666870117188,
+                    "position_y": 329.34735107421875,
+                    "size_x": 102.4000015258789,
+                    "size_y": 45.707427978515625,
+                    "visibility": true
+                }
+            ],
+            "lives": 1,
+            "num_of_bonuses": 1,
+            "position_x": 145.06666564941406,
+            "position_y": 329.34735107421875,
+            "size_x": 128.0,
+            "size_y": 57.13428497314453,
+            "visibility": true
+        },
+        {
+            "bonuses": [
+                {
+                    "descriptor": 2,
+                    "position_x": 157.86666870117188,
+                    "position_y": 4074.6435546875,
                     "size_x": 102.4000015258789,
                     "size_y": 45.707427978515625,
                     "visibility": false
@@ -114,45 +189,24 @@
             "lives": 0,
             "num_of_bonuses": 1,
             "position_x": 145.06666564941406,
-            "position_y": 198.75469970703125,
-            "size_x": 128.0,
-            "size_y": 57.13428497314453,
-            "visibility": false
-        },
-        {
-            "bonuses": null,
-            "lives": 0,
-            "num_of_bonuses": 0,
-            "position_x": 145.06666564941406,
-            "position_y": 264.051025390625,
-            "size_x": 128.0,
-            "size_y": 57.13428497314453,
-            "visibility": false
-        },
-        {
-            "bonuses": null,
-            "lives": 0,
-            "num_of_bonuses": 0,
-            "position_x": 145.06666564941406,
-            "position_y": 329.34735107421875,
-            "size_x": 128.0,
-            "size_y": 57.13428497314453,
-            "visibility": false
-        },
-        {
-            "bonuses": null,
-            "lives": 0,
-            "num_of_bonuses": 0,
-            "position_x": 145.06666564941406,
             "position_y": 394.6436767578125,
             "size_x": 128.0,
             "size_y": 57.13428497314453,
             "visibility": false
         },
         {
-            "bonuses": null,
+            "bonuses": [
+                {
+                    "descriptor": 2,
+                    "position_x": 294.3999938964844,
+                    "position_y": 68.16204071044922,
+                    "size_x": 102.4000015258789,
+                    "size_y": 45.707427978515625,
+                    "visibility": true
+                }
+            ],
             "lives": 1,
-            "num_of_bonuses": 0,
+            "num_of_bonuses": 1,
             "position_x": 281.6000061035156,
             "position_y": 68.16204071044922,
             "size_x": 128.0,
@@ -180,33 +234,24 @@
             "visibility": true
         },
         {
-            "bonuses": [
-                {
-                    "descriptor": 1,
-                    "position_x": 294.3999938964844,
-                    "position_y": 7704.05078125,
-                    "size_x": 102.4000015258789,
-                    "size_y": 45.707427978515625,
-                    "visibility": false
-                }
-            ],
-            "lives": 0,
-            "num_of_bonuses": 1,
+            "bonuses": null,
+            "lives": 1,
+            "num_of_bonuses": 0,
             "position_x": 281.6000061035156,
             "position_y": 264.051025390625,
             "size_x": 128.0,
             "size_y": 57.13428497314453,
-            "visibility": false
+            "visibility": true
         },
         {
             "bonuses": null,
-            "lives": 0,
+            "lives": 1,
             "num_of_bonuses": 0,
             "position_x": 281.6000061035156,
             "position_y": 329.34735107421875,
             "size_x": 128.0,
             "size_y": 57.13428497314453,
-            "visibility": false
+            "visibility": true
         },
         {
             "bonuses": null,
@@ -221,7 +266,7 @@
         {
             "bonuses": [
                 {
-                    "descriptor": 4,
+                    "descriptor": 2,
                     "position_x": 430.9333190917969,
                     "position_y": 68.16204071044922,
                     "size_x": 102.4000015258789,
@@ -250,7 +295,7 @@
         {
             "bonuses": [
                 {
-                    "descriptor": 4,
+                    "descriptor": 5,
                     "position_x": 430.9333190917969,
                     "position_y": 198.75469970703125,
                     "size_x": 102.4000015258789,
@@ -267,59 +312,30 @@
             "visibility": true
         },
         {
-            "bonuses": [
-                {
-                    "descriptor": 5,
-                    "position_x": 430.9333190917969,
-                    "position_y": 15064.05078125,
-                    "size_x": 102.4000015258789,
-                    "size_y": 45.707427978515625,
-                    "visibility": false
-                }
-            ],
-            "lives": 0,
-            "num_of_bonuses": 1,
+            "bonuses": null,
+            "lives": 1,
+            "num_of_bonuses": 0,
             "position_x": 418.1333312988281,
             "position_y": 264.051025390625,
             "size_x": 128.0,
             "size_y": 57.13428497314453,
-            "visibility": false
-        },
-        {
-            "bonuses": null,
-            "lives": 0,
-            "num_of_bonuses": 0,
-            "position_x": 418.1333312988281,
-            "position_y": 329.34735107421875,
-            "size_x": 128.0,
-            "size_y": 57.13428497314453,
-            "visibility": false
+            "visibility": true
         },
         {
             "bonuses": [
                 {
-                    "descriptor": 3,
+                    "descriptor": 1,
                     "position_x": 430.9333190917969,
-                    "position_y": 40994.64453125,
+                    "position_y": 329.34735107421875,
                     "size_x": 102.4000015258789,
                     "size_y": 45.707427978515625,
-                    "visibility": false
+                    "visibility": true
                 }
             ],
-            "lives": 0,
+            "lives": 1,
             "num_of_bonuses": 1,
             "position_x": 418.1333312988281,
-            "position_y": 394.6436767578125,
-            "size_x": 128.0,
-            "size_y": 57.13428497314453,
-            "visibility": false
-        },
-        {
-            "bonuses": null,
-            "lives": 1,
-            "num_of_bonuses": 0,
-            "position_x": 554.6666870117188,
-            "position_y": 68.16204071044922,
+            "position_y": 329.34735107421875,
             "size_x": 128.0,
             "size_y": 57.13428497314453,
             "visibility": true
@@ -328,6 +344,44 @@
             "bonuses": null,
             "lives": 1,
             "num_of_bonuses": 0,
+            "position_x": 418.1333312988281,
+            "position_y": 394.6436767578125,
+            "size_x": 128.0,
+            "size_y": 57.13428497314453,
+            "visibility": true
+        },
+        {
+            "bonuses": [
+                {
+                    "descriptor": 5,
+                    "position_x": 567.4666748046875,
+                    "position_y": 68.16204071044922,
+                    "size_x": 102.4000015258789,
+                    "size_y": 45.707427978515625,
+                    "visibility": true
+                }
+            ],
+            "lives": 1,
+            "num_of_bonuses": 1,
+            "position_x": 554.6666870117188,
+            "position_y": 68.16204071044922,
+            "size_x": 128.0,
+            "size_y": 57.13428497314453,
+            "visibility": true
+        },
+        {
+            "bonuses": [
+                {
+                    "descriptor": 5,
+                    "position_x": 567.4666748046875,
+                    "position_y": 133.4583740234375,
+                    "size_x": 102.4000015258789,
+                    "size_y": 45.707427978515625,
+                    "visibility": true
+                }
+            ],
+            "lives": 1,
+            "num_of_bonuses": 1,
             "position_x": 554.6666870117188,
             "position_y": 133.4583740234375,
             "size_x": 128.0,
@@ -337,7 +391,7 @@
         {
             "bonuses": [
                 {
-                    "descriptor": 4,
+                    "descriptor": 0,
                     "position_x": 567.4666748046875,
                     "position_y": 198.75469970703125,
                     "size_x": 102.4000015258789,
@@ -358,39 +412,48 @@
                 {
                     "descriptor": 0,
                     "position_x": 567.4666748046875,
-                    "position_y": 4164.05078125,
+                    "position_y": 264.051025390625,
                     "size_x": 102.4000015258789,
                     "size_y": 45.707427978515625,
-                    "visibility": false
+                    "visibility": true
                 }
             ],
-            "lives": 0,
+            "lives": 1,
             "num_of_bonuses": 1,
             "position_x": 554.6666870117188,
             "position_y": 264.051025390625,
             "size_x": 128.0,
             "size_y": 57.13428497314453,
-            "visibility": false
+            "visibility": true
         },
         {
-            "bonuses": null,
-            "lives": 0,
-            "num_of_bonuses": 0,
+            "bonuses": [
+                {
+                    "descriptor": 3,
+                    "position_x": 567.4666748046875,
+                    "position_y": 329.34735107421875,
+                    "size_x": 102.4000015258789,
+                    "size_y": 45.707427978515625,
+                    "visibility": true
+                }
+            ],
+            "lives": 1,
+            "num_of_bonuses": 1,
             "position_x": 554.6666870117188,
             "position_y": 329.34735107421875,
             "size_x": 128.0,
             "size_y": 57.13428497314453,
-            "visibility": false
+            "visibility": true
         },
         {
             "bonuses": null,
-            "lives": 0,
+            "lives": 1,
             "num_of_bonuses": 0,
             "position_x": 554.6666870117188,
             "position_y": 394.6436767578125,
             "size_x": 128.0,
             "size_y": 57.13428497314453,
-            "visibility": false
+            "visibility": true
         },
         {
             "bonuses": null,
@@ -408,6 +471,26 @@
             "num_of_bonuses": 0,
             "position_x": 691.2000122070313,
             "position_y": 133.4583740234375,
+            "size_x": 128.0,
+            "size_y": 57.13428497314453,
+            "visibility": true
+        },
+        {
+            "bonuses": null,
+            "lives": 1,
+            "num_of_bonuses": 0,
+            "position_x": 691.2000122070313,
+            "position_y": 198.75469970703125,
+            "size_x": 128.0,
+            "size_y": 57.13428497314453,
+            "visibility": true
+        },
+        {
+            "bonuses": null,
+            "lives": 1,
+            "num_of_bonuses": 0,
+            "position_x": 691.2000122070313,
+            "position_y": 264.051025390625,
             "size_x": 128.0,
             "size_y": 57.13428497314453,
             "visibility": true
@@ -417,7 +500,7 @@
                 {
                     "descriptor": 4,
                     "position_x": 704.0,
-                    "position_y": 198.75469970703125,
+                    "position_y": 329.34735107421875,
                     "size_x": 102.4000015258789,
                     "size_y": 45.707427978515625,
                     "visibility": true
@@ -426,35 +509,24 @@
             "lives": 1,
             "num_of_bonuses": 1,
             "position_x": 691.2000122070313,
-            "position_y": 198.75469970703125,
+            "position_y": 329.34735107421875,
             "size_x": 128.0,
             "size_y": 57.13428497314453,
             "visibility": true
         },
         {
-            "bonuses": null,
+            "bonuses": [
+                {
+                    "descriptor": 5,
+                    "position_x": 704.0,
+                    "position_y": 1914.6436767578125,
+                    "size_x": 102.4000015258789,
+                    "size_y": 45.707427978515625,
+                    "visibility": false
+                }
+            ],
             "lives": 0,
-            "num_of_bonuses": 0,
-            "position_x": 691.2000122070313,
-            "position_y": 264.051025390625,
-            "size_x": 128.0,
-            "size_y": 57.13428497314453,
-            "visibility": false
-        },
-        {
-            "bonuses": null,
-            "lives": 0,
-            "num_of_bonuses": 0,
-            "position_x": 691.2000122070313,
-            "position_y": 329.34735107421875,
-            "size_x": 128.0,
-            "size_y": 57.13428497314453,
-            "visibility": false
-        },
-        {
-            "bonuses": null,
-            "lives": 0,
-            "num_of_bonuses": 0,
+            "num_of_bonuses": 1,
             "position_x": 691.2000122070313,
             "position_y": 394.6436767578125,
             "size_x": 128.0,
@@ -482,9 +554,18 @@
             "visibility": true
         },
         {
-            "bonuses": null,
+            "bonuses": [
+                {
+                    "descriptor": 0,
+                    "position_x": 840.5333251953125,
+                    "position_y": 198.75469970703125,
+                    "size_x": 102.4000015258789,
+                    "size_y": 45.707427978515625,
+                    "visibility": true
+                }
+            ],
             "lives": 1,
-            "num_of_bonuses": 0,
+            "num_of_bonuses": 1,
             "position_x": 827.7333374023438,
             "position_y": 198.75469970703125,
             "size_x": 128.0,
@@ -492,11 +573,31 @@
             "visibility": true
         },
         {
+            "bonuses": null,
+            "lives": 1,
+            "num_of_bonuses": 0,
+            "position_x": 827.7333374023438,
+            "position_y": 264.051025390625,
+            "size_x": 128.0,
+            "size_y": 57.13428497314453,
+            "visibility": true
+        },
+        {
+            "bonuses": null,
+            "lives": 1,
+            "num_of_bonuses": 0,
+            "position_x": 827.7333374023438,
+            "position_y": 329.34735107421875,
+            "size_x": 128.0,
+            "size_y": 57.13428497314453,
+            "visibility": true
+        },
+        {
             "bonuses": [
                 {
-                    "descriptor": 1,
+                    "descriptor": 3,
                     "position_x": 840.5333251953125,
-                    "position_y": 13164.05078125,
+                    "position_y": 8474.6435546875,
                     "size_x": 102.4000015258789,
                     "size_y": 45.707427978515625,
                     "visibility": false
@@ -504,26 +605,6 @@
             ],
             "lives": 0,
             "num_of_bonuses": 1,
-            "position_x": 827.7333374023438,
-            "position_y": 264.051025390625,
-            "size_x": 128.0,
-            "size_y": 57.13428497314453,
-            "visibility": false
-        },
-        {
-            "bonuses": null,
-            "lives": 0,
-            "num_of_bonuses": 0,
-            "position_x": 827.7333374023438,
-            "position_y": 329.34735107421875,
-            "size_x": 128.0,
-            "size_y": 57.13428497314453,
-            "visibility": false
-        },
-        {
-            "bonuses": null,
-            "lives": 0,
-            "num_of_bonuses": 0,
             "position_x": 827.7333374023438,
             "position_y": 394.6436767578125,
             "size_x": 128.0,
@@ -541,9 +622,18 @@
             "visibility": true
         },
         {
-            "bonuses": null,
+            "bonuses": [
+                {
+                    "descriptor": 5,
+                    "position_x": 977.066650390625,
+                    "position_y": 133.4583740234375,
+                    "size_x": 102.4000015258789,
+                    "size_y": 45.707427978515625,
+                    "visibility": true
+                }
+            ],
             "lives": 1,
-            "num_of_bonuses": 0,
+            "num_of_bonuses": 1,
             "position_x": 964.2666625976563,
             "position_y": 133.4583740234375,
             "size_x": 128.0,
@@ -580,33 +670,33 @@
             "visibility": true
         },
         {
-            "bonuses": [
-                {
-                    "descriptor": 4,
-                    "position_x": 977.066650390625,
-                    "position_y": 2629.347412109375,
-                    "size_x": 102.4000015258789,
-                    "size_y": 45.707427978515625,
-                    "visibility": false
-                }
-            ],
-            "lives": 0,
-            "num_of_bonuses": 1,
+            "bonuses": null,
+            "lives": 1,
+            "num_of_bonuses": 0,
             "position_x": 964.2666625976563,
             "position_y": 329.34735107421875,
             "size_x": 128.0,
             "size_y": 57.13428497314453,
-            "visibility": false
+            "visibility": true
         },
         {
-            "bonuses": null,
-            "lives": 0,
-            "num_of_bonuses": 0,
+            "bonuses": [
+                {
+                    "descriptor": 5,
+                    "position_x": 977.066650390625,
+                    "position_y": 394.6436767578125,
+                    "size_x": 102.4000015258789,
+                    "size_y": 45.707427978515625,
+                    "visibility": true
+                }
+            ],
+            "lives": 1,
+            "num_of_bonuses": 1,
             "position_x": 964.2666625976563,
             "position_y": 394.6436767578125,
             "size_x": 128.0,
             "size_y": 57.13428497314453,
-            "visibility": false
+            "visibility": true
         },
         {
             "bonuses": null,
@@ -630,59 +720,40 @@
         },
         {
             "bonuses": null,
-            "lives": 0,
+            "lives": 1,
             "num_of_bonuses": 0,
             "position_x": 1100.800048828125,
             "position_y": 198.75469970703125,
             "size_x": 128.0,
             "size_y": 57.13428497314453,
-            "visibility": false
-        },
-        {
-            "bonuses": [
-                {
-                    "descriptor": 2,
-                    "position_x": 1113.60009765625,
-                    "position_y": 21444.05078125,
-                    "size_x": 102.4000015258789,
-                    "size_y": 45.707427978515625,
-                    "visibility": false
-                }
-            ],
-            "lives": 0,
-            "num_of_bonuses": 1,
-            "position_x": 1100.800048828125,
-            "position_y": 264.051025390625,
-            "size_x": 128.0,
-            "size_y": 57.13428497314453,
-            "visibility": false
-        },
-        {
-            "bonuses": null,
-            "lives": 0,
-            "num_of_bonuses": 0,
-            "position_x": 1100.800048828125,
-            "position_y": 329.34735107421875,
-            "size_x": 128.0,
-            "size_y": 57.13428497314453,
-            "visibility": false
-        },
-        {
-            "bonuses": null,
-            "lives": 0,
-            "num_of_bonuses": 0,
-            "position_x": 1100.800048828125,
-            "position_y": 394.6436767578125,
-            "size_x": 128.0,
-            "size_y": 57.13428497314453,
-            "visibility": false
+            "visibility": true
         },
         {
             "bonuses": null,
             "lives": 1,
             "num_of_bonuses": 0,
-            "position_x": 1237.3333740234375,
-            "position_y": 68.16204071044922,
+            "position_x": 1100.800048828125,
+            "position_y": 264.051025390625,
+            "size_x": 128.0,
+            "size_y": 57.13428497314453,
+            "visibility": true
+        },
+        {
+            "bonuses": null,
+            "lives": 1,
+            "num_of_bonuses": 0,
+            "position_x": 1100.800048828125,
+            "position_y": 329.34735107421875,
+            "size_x": 128.0,
+            "size_y": 57.13428497314453,
+            "visibility": true
+        },
+        {
+            "bonuses": null,
+            "lives": 1,
+            "num_of_bonuses": 0,
+            "position_x": 1100.800048828125,
+            "position_y": 394.6436767578125,
             "size_x": 128.0,
             "size_y": 57.13428497314453,
             "visibility": true
@@ -690,9 +761,9 @@
         {
             "bonuses": [
                 {
-                    "descriptor": 1,
+                    "descriptor": 4,
                     "position_x": 1250.1334228515625,
-                    "position_y": 133.4583740234375,
+                    "position_y": 68.16204071044922,
                     "size_x": 102.4000015258789,
                     "size_y": 45.707427978515625,
                     "visibility": true
@@ -701,6 +772,16 @@
             "lives": 1,
             "num_of_bonuses": 1,
             "position_x": 1237.3333740234375,
+            "position_y": 68.16204071044922,
+            "size_x": 128.0,
+            "size_y": 57.13428497314453,
+            "visibility": true
+        },
+        {
+            "bonuses": null,
+            "lives": 1,
+            "num_of_bonuses": 0,
+            "position_x": 1237.3333740234375,
             "position_y": 133.4583740234375,
             "size_x": 128.0,
             "size_y": 57.13428497314453,
@@ -728,13 +809,13 @@
         },
         {
             "bonuses": null,
-            "lives": 0,
+            "lives": 1,
             "num_of_bonuses": 0,
             "position_x": 1237.3333740234375,
             "position_y": 329.34735107421875,
             "size_x": 128.0,
             "size_y": 57.13428497314453,
-            "visibility": false
+            "visibility": true
         },
         {
             "bonuses": null,
@@ -747,9 +828,18 @@
             "visibility": false
         },
         {
-            "bonuses": null,
+            "bonuses": [
+                {
+                    "descriptor": 0,
+                    "position_x": 1386.666748046875,
+                    "position_y": 68.16204071044922,
+                    "size_x": 102.4000015258789,
+                    "size_y": 45.707427978515625,
+                    "visibility": true
+                }
+            ],
             "lives": 1,
-            "num_of_bonuses": 0,
+            "num_of_bonuses": 1,
             "position_x": 1373.86669921875,
             "position_y": 68.16204071044922,
             "size_x": 128.0,
@@ -769,7 +859,7 @@
         {
             "bonuses": [
                 {
-                    "descriptor": 4,
+                    "descriptor": 5,
                     "position_x": 1386.666748046875,
                     "position_y": 198.75469970703125,
                     "size_x": 102.4000015258789,
@@ -786,21 +876,11 @@
             "visibility": true
         },
         {
-            "bonuses": null,
-            "lives": 1,
-            "num_of_bonuses": 0,
-            "position_x": 1373.86669921875,
-            "position_y": 264.051025390625,
-            "size_x": 128.0,
-            "size_y": 57.13428497314453,
-            "visibility": true
-        },
-        {
             "bonuses": [
                 {
                     "descriptor": 0,
                     "position_x": 1386.666748046875,
-                    "position_y": 329.34735107421875,
+                    "position_y": 264.051025390625,
                     "size_x": 102.4000015258789,
                     "size_y": 45.707427978515625,
                     "visibility": true
@@ -809,15 +889,34 @@
             "lives": 1,
             "num_of_bonuses": 1,
             "position_x": 1373.86669921875,
-            "position_y": 329.34735107421875,
+            "position_y": 264.051025390625,
             "size_x": 128.0,
             "size_y": 57.13428497314453,
             "visibility": true
         },
         {
             "bonuses": null,
-            "lives": 0,
+            "lives": 1,
             "num_of_bonuses": 0,
+            "position_x": 1373.86669921875,
+            "position_y": 329.34735107421875,
+            "size_x": 128.0,
+            "size_y": 57.13428497314453,
+            "visibility": true
+        },
+        {
+            "bonuses": [
+                {
+                    "descriptor": 5,
+                    "position_x": 1386.666748046875,
+                    "position_y": 10954.6435546875,
+                    "size_x": 102.4000015258789,
+                    "size_y": 45.707427978515625,
+                    "visibility": false
+                }
+            ],
+            "lives": 0,
+            "num_of_bonuses": 1,
             "position_x": 1373.86669921875,
             "position_y": 394.6436767578125,
             "size_x": 128.0,
@@ -825,9 +924,18 @@
             "visibility": false
         },
         {
-            "bonuses": null,
+            "bonuses": [
+                {
+                    "descriptor": 4,
+                    "position_x": 1523.2000732421875,
+                    "position_y": 68.16204071044922,
+                    "size_x": 102.4000015258789,
+                    "size_y": 45.707427978515625,
+                    "visibility": true
+                }
+            ],
             "lives": 1,
-            "num_of_bonuses": 0,
+            "num_of_bonuses": 1,
             "position_x": 1510.4000244140625,
             "position_y": 68.16204071044922,
             "size_x": 128.0,
@@ -835,9 +943,18 @@
             "visibility": true
         },
         {
-            "bonuses": null,
+            "bonuses": [
+                {
+                    "descriptor": 1,
+                    "position_x": 1523.2000732421875,
+                    "position_y": 133.4583740234375,
+                    "size_x": 102.4000015258789,
+                    "size_y": 45.707427978515625,
+                    "visibility": true
+                }
+            ],
             "lives": 1,
-            "num_of_bonuses": 0,
+            "num_of_bonuses": 1,
             "position_x": 1510.4000244140625,
             "position_y": 133.4583740234375,
             "size_x": 128.0,
@@ -846,70 +963,49 @@
         },
         {
             "bonuses": null,
-            "lives": 0,
+            "lives": 1,
             "num_of_bonuses": 0,
             "position_x": 1510.4000244140625,
             "position_y": 198.75469970703125,
             "size_x": 128.0,
             "size_y": 57.13428497314453,
-            "visibility": false
+            "visibility": true
         },
         {
-            "bonuses": null,
-            "lives": 0,
-            "num_of_bonuses": 0,
+            "bonuses": [
+                {
+                    "descriptor": 4,
+                    "position_x": 1523.2000732421875,
+                    "position_y": 264.051025390625,
+                    "size_x": 102.4000015258789,
+                    "size_y": 45.707427978515625,
+                    "visibility": true
+                }
+            ],
+            "lives": 1,
+            "num_of_bonuses": 1,
             "position_x": 1510.4000244140625,
             "position_y": 264.051025390625,
             "size_x": 128.0,
             "size_y": 57.13428497314453,
-            "visibility": false
+            "visibility": true
         },
         {
             "bonuses": null,
-            "lives": 0,
+            "lives": 1,
             "num_of_bonuses": 0,
             "position_x": 1510.4000244140625,
             "position_y": 329.34735107421875,
             "size_x": 128.0,
             "size_y": 57.13428497314453,
-            "visibility": false
+            "visibility": true
         },
         {
             "bonuses": null,
-            "lives": 0,
+            "lives": 1,
             "num_of_bonuses": 0,
             "position_x": 1510.4000244140625,
             "position_y": 394.6436767578125,
-            "size_x": 128.0,
-            "size_y": 57.13428497314453,
-            "visibility": false
-        },
-        {
-            "bonuses": null,
-            "lives": 1,
-            "num_of_bonuses": 0,
-            "position_x": 1646.933349609375,
-            "position_y": 68.16204071044922,
-            "size_x": 128.0,
-            "size_y": 57.13428497314453,
-            "visibility": true
-        },
-        {
-            "bonuses": null,
-            "lives": 1,
-            "num_of_bonuses": 0,
-            "position_x": 1646.933349609375,
-            "position_y": 133.4583740234375,
-            "size_x": 128.0,
-            "size_y": 57.13428497314453,
-            "visibility": true
-        },
-        {
-            "bonuses": null,
-            "lives": 1,
-            "num_of_bonuses": 0,
-            "position_x": 1646.933349609375,
-            "position_y": 198.75469970703125,
             "size_x": 128.0,
             "size_y": 57.13428497314453,
             "visibility": true
@@ -919,34 +1015,73 @@
                 {
                     "descriptor": 3,
                     "position_x": 1659.7333984375,
-                    "position_y": 23304.05078125,
+                    "position_y": 68.16204071044922,
                     "size_x": 102.4000015258789,
                     "size_y": 45.707427978515625,
-                    "visibility": false
+                    "visibility": true
                 }
             ],
-            "lives": 0,
+            "lives": 1,
+            "num_of_bonuses": 1,
+            "position_x": 1646.933349609375,
+            "position_y": 68.16204071044922,
+            "size_x": 128.0,
+            "size_y": 57.13428497314453,
+            "visibility": true
+        },
+        {
+            "bonuses": null,
+            "lives": 1,
+            "num_of_bonuses": 0,
+            "position_x": 1646.933349609375,
+            "position_y": 133.4583740234375,
+            "size_x": 128.0,
+            "size_y": 57.13428497314453,
+            "visibility": true
+        },
+        {
+            "bonuses": null,
+            "lives": 1,
+            "num_of_bonuses": 0,
+            "position_x": 1646.933349609375,
+            "position_y": 198.75469970703125,
+            "size_x": 128.0,
+            "size_y": 57.13428497314453,
+            "visibility": true
+        },
+        {
+            "bonuses": [
+                {
+                    "descriptor": 0,
+                    "position_x": 1659.7333984375,
+                    "position_y": 264.051025390625,
+                    "size_x": 102.4000015258789,
+                    "size_y": 45.707427978515625,
+                    "visibility": true
+                }
+            ],
+            "lives": 1,
             "num_of_bonuses": 1,
             "position_x": 1646.933349609375,
             "position_y": 264.051025390625,
             "size_x": 128.0,
             "size_y": 57.13428497314453,
-            "visibility": false
+            "visibility": true
         },
         {
             "bonuses": null,
-            "lives": 0,
+            "lives": 1,
             "num_of_bonuses": 0,
             "position_x": 1646.933349609375,
             "position_y": 329.34735107421875,
             "size_x": 128.0,
             "size_y": 57.13428497314453,
-            "visibility": false
+            "visibility": true
         },
         {
             "bonuses": [
                 {
-                    "descriptor": 3,
+                    "descriptor": 1,
                     "position_x": 1659.7333984375,
                     "position_y": 394.6436767578125,
                     "size_x": 102.4000015258789,
@@ -963,18 +1098,9 @@
             "visibility": true
         },
         {
-            "bonuses": [
-                {
-                    "descriptor": 0,
-                    "position_x": 1796.2667236328125,
-                    "position_y": 68.16204071044922,
-                    "size_x": 102.4000015258789,
-                    "size_y": 45.707427978515625,
-                    "visibility": true
-                }
-            ],
+            "bonuses": null,
             "lives": 1,
-            "num_of_bonuses": 1,
+            "num_of_bonuses": 0,
             "position_x": 1783.4666748046875,
             "position_y": 68.16204071044922,
             "size_x": 128.0,
@@ -1002,9 +1128,18 @@
             "visibility": true
         },
         {
-            "bonuses": null,
+            "bonuses": [
+                {
+                    "descriptor": 0,
+                    "position_x": 1796.2667236328125,
+                    "position_y": 264.051025390625,
+                    "size_x": 102.4000015258789,
+                    "size_y": 45.707427978515625,
+                    "visibility": true
+                }
+            ],
             "lives": 1,
-            "num_of_bonuses": 0,
+            "num_of_bonuses": 1,
             "position_x": 1783.4666748046875,
             "position_y": 264.051025390625,
             "size_x": 128.0,
@@ -1012,9 +1147,18 @@
             "visibility": true
         },
         {
-            "bonuses": null,
+            "bonuses": [
+                {
+                    "descriptor": 0,
+                    "position_x": 1796.2667236328125,
+                    "position_y": 329.34735107421875,
+                    "size_x": 102.4000015258789,
+                    "size_y": 45.707427978515625,
+                    "visibility": true
+                }
+            ],
             "lives": 1,
-            "num_of_bonuses": 0,
+            "num_of_bonuses": 1,
             "position_x": 1783.4666748046875,
             "position_y": 329.34735107421875,
             "size_x": 128.0,
@@ -1034,8 +1178,8 @@
     ],
     "bonuses_timers": [
         {
-            "bonus_descriptor": 4,
-            "max_time": 1.4389679431915283,
+            "bonus_descriptor": 5,
+            "max_time": 2.447643995285034,
             "player_index": 0
         }
     ],
@@ -1046,11 +1190,11 @@
     "players": [
         {
             "name": "Player_1",
-            "num_of_bonuses": 7,
-            "num_of_crashed_blocks": 38,
-            "num_of_lives": 3,
+            "num_of_bonuses": 4,
+            "num_of_crashed_blocks": 7,
+            "num_of_lives": 2,
             "platform": {
-                "position_x": 1660.0,
+                "position_x": 1026.666259765625,
                 "position_y": 985.0,
                 "size_x": 180.0,
                 "size_y": 15.0,
@@ -1058,7 +1202,7 @@
                 "speed_y": 0.0,
                 "visibility": true
             },
-            "score": 570
+            "score": 105
         }
     ],
     "settings": {
