@@ -1,928 +1,1591 @@
-settings: 1920x1000 MEDIUM
+settings: 1920x1080 MEDIUM
 
 
 
 players: num: 1
 name: Player_1
-num_of_lives: 2
-score: 105
-num_of_bonuses: 4
-num_of_crashed_blocks: 7
+num_of_lives: 3
+score: 48
+num_of_bonuses: 1
+num_of_crashed_blocks: 3
 platform: 
-	position_x: 1026.67
-	position_y: 985
-	size_x: 180
-	size_y: 15
-	speed_x: 20
-	speed_y: 0
+	position_x: 1000.000000
+	position_y: 1063.800049
+	size_x: 180.000000
+	size_y: 16.199999
+	speed_x: 20.000000
+	speed_y: 0.000000
 	visibility: 1
 
 
 
 balls: num: 1
-position_x: 1031.66
-position_y: 828.92
-size_x: 10
-size_y: 10
-speed_x: 3.33333
-speed_y: -8
+position_x: 1289.222290
+position_y: 642.620605
+size_x: 10.392304
+size_y: 10.392304
+speed_x: -5.000000
+speed_y: 9.599999
 visibility: 1
 
 
 
 blocks: num: 84
-position_x: 8.53333
-position_y: 68.162
-size_x: 128
-size_y: 57.1343
+position_x: 8.533334
+position_y: 73.615097
+size_x: 128.000000
+size_y: 61.705715
 lives: 1
 visibility: 1
+cant_break: 0
 bonuses: num: 1
-	position_x: 21.3333
-	position_y: 68.162
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 3
-
-position_x: 8.53333
-position_y: 133.458
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 1
-	position_x: 21.3333
-	position_y: 133.458
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 3
-
-position_x: 8.53333
-position_y: 198.755
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 8.53333
-position_y: 264.051
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 8.53333
-position_y: 329.347
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 8.53333
-position_y: 394.644
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 145.067
-position_y: 68.162
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 145.067
-position_y: 133.458
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 1
-	position_x: 157.867
-	position_y: 133.458
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 5
-
-position_x: 145.067
-position_y: 198.755
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 1
-	position_x: 157.867
-	position_y: 198.755
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 2
-
-position_x: 145.067
-position_y: 264.051
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 1
-	position_x: 157.867
-	position_y: 264.051
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 1
-
-position_x: 145.067
-position_y: 329.347
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 1
-	position_x: 157.867
-	position_y: 329.347
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 1
-
-position_x: 145.067
-position_y: 394.644
-size_x: 128
-size_y: 57.1343
-lives: 0
-visibility: 0
-bonuses: num: 1
-	position_x: 157.867
-	position_y: 4074.64
-	size_x: 102.4
-	size_y: 45.7074
+	position_x: 21.333334
+	position_y: 73.615097
+	size_x: 102.400002
+	size_y: 49.364574
 	visibility: 0
-	descriptor: 2
+	descriptor: 6
+	bonuses_score_value: 17
 
-position_x: 281.6
-position_y: 68.162
-size_x: 128
-size_y: 57.1343
+position_x: 8.533334
+position_y: 144.135925
+size_x: 128.000000
+size_y: 61.705715
 lives: 1
 visibility: 1
+cant_break: 0
 bonuses: num: 1
-	position_x: 294.4
-	position_y: 68.162
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 2
-
-position_x: 281.6
-position_y: 133.458
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 281.6
-position_y: 198.755
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 281.6
-position_y: 264.051
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 281.6
-position_y: 329.347
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 281.6
-position_y: 394.644
-size_x: 128
-size_y: 57.1343
-lives: 0
-visibility: 0
-bonuses: num: 0
-
-position_x: 418.133
-position_y: 68.162
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 1
-	position_x: 430.933
-	position_y: 68.162
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 2
-
-position_x: 418.133
-position_y: 133.458
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 418.133
-position_y: 198.755
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 1
-	position_x: 430.933
-	position_y: 198.755
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 5
-
-position_x: 418.133
-position_y: 264.051
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 418.133
-position_y: 329.347
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 1
-	position_x: 430.933
-	position_y: 329.347
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 1
-
-position_x: 418.133
-position_y: 394.644
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 554.667
-position_y: 68.162
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 1
-	position_x: 567.467
-	position_y: 68.162
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 5
-
-position_x: 554.667
-position_y: 133.458
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 1
-	position_x: 567.467
-	position_y: 133.458
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 5
-
-position_x: 554.667
-position_y: 198.755
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 1
-	position_x: 567.467
-	position_y: 198.755
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 0
-
-position_x: 554.667
-position_y: 264.051
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 1
-	position_x: 567.467
-	position_y: 264.051
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 0
-
-position_x: 554.667
-position_y: 329.347
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 1
-	position_x: 567.467
-	position_y: 329.347
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 3
-
-position_x: 554.667
-position_y: 394.644
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 691.2
-position_y: 68.162
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 691.2
-position_y: 133.458
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 691.2
-position_y: 198.755
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 691.2
-position_y: 264.051
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 691.2
-position_y: 329.347
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 1
-	position_x: 704
-	position_y: 329.347
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 4
-
-position_x: 691.2
-position_y: 394.644
-size_x: 128
-size_y: 57.1343
-lives: 0
-visibility: 0
-bonuses: num: 1
-	position_x: 704
-	position_y: 1914.64
-	size_x: 102.4
-	size_y: 45.7074
+	position_x: 21.333334
+	position_y: 144.135925
+	size_x: 102.400002
+	size_y: 49.364574
 	visibility: 0
-	descriptor: 5
+	descriptor: 6
+	bonuses_score_value: 25
 
-position_x: 827.733
-position_y: 68.162
-size_x: 128
-size_y: 57.1343
+position_x: 8.533334
+position_y: 214.656738
+size_x: 128.000000
+size_y: 61.705715
 lives: 1
 visibility: 1
-bonuses: num: 0
-
-position_x: 827.733
-position_y: 133.458
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 827.733
-position_y: 198.755
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
+cant_break: 0
 bonuses: num: 1
-	position_x: 840.533
-	position_y: 198.755
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 0
+	position_x: 21.333334
+	position_y: 214.656738
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 13
 
-position_x: 827.733
-position_y: 264.051
-size_x: 128
-size_y: 57.1343
+position_x: 8.533334
+position_y: 285.177551
+size_x: 128.000000
+size_y: 61.705715
 lives: 1
 visibility: 1
-bonuses: num: 0
+cant_break: 0
+bonuses: num: 2
+	position_x: 21.333334
+	position_y: 285.177551
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 1
+	bonuses_score_value: 0
+	position_x: 21.333334
+	position_y: 285.177551
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 16
 
-position_x: 827.733
-position_y: 329.347
-size_x: 128
-size_y: 57.1343
+position_x: 8.533334
+position_y: 355.698364
+size_x: 128.000000
+size_y: 61.705715
 lives: 1
 visibility: 1
-bonuses: num: 0
-
-position_x: 827.733
-position_y: 394.644
-size_x: 128
-size_y: 57.1343
-lives: 0
-visibility: 0
+cant_break: 0
 bonuses: num: 1
-	position_x: 840.533
-	position_y: 8474.64
-	size_x: 102.4
-	size_y: 45.7074
+	position_x: 21.333334
+	position_y: 355.698364
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 17
+
+position_x: 8.533334
+position_y: 426.219177
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 1
+bonuses: num: 1
+	position_x: 21.333334
+	position_y: 426.219177
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 27
+
+position_x: 145.066666
+position_y: 73.615097
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 157.866669
+	position_y: 73.615097
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 12
+
+position_x: 145.066666
+position_y: 144.135925
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 157.866669
+	position_y: 144.135925
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 17
+
+position_x: 145.066666
+position_y: 214.656738
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 2
+	position_x: 157.866669
+	position_y: 214.656738
+	size_x: 102.400002
+	size_y: 49.364574
 	visibility: 0
 	descriptor: 3
+	bonuses_score_value: 0
+	position_x: 157.866669
+	position_y: 214.656738
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 12
 
-position_x: 964.267
-position_y: 68.162
-size_x: 128
-size_y: 57.1343
+position_x: 145.066666
+position_y: 285.177551
+size_x: 128.000000
+size_y: 61.705715
 lives: 1
 visibility: 1
-bonuses: num: 0
-
-position_x: 964.267
-position_y: 133.458
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 1
-	position_x: 977.067
-	position_y: 133.458
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 5
-
-position_x: 964.267
-position_y: 198.755
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 964.267
-position_y: 264.051
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 1
-	position_x: 977.067
-	position_y: 264.051
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
+cant_break: 0
+bonuses: num: 2
+	position_x: 157.866669
+	position_y: 285.177551
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
 	descriptor: 0
+	bonuses_score_value: 0
+	position_x: 157.866669
+	position_y: 285.177551
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 29
 
-position_x: 964.267
-position_y: 329.347
-size_x: 128
-size_y: 57.1343
+position_x: 145.066666
+position_y: 355.698364
+size_x: 128.000000
+size_y: 61.705715
 lives: 1
 visibility: 1
-bonuses: num: 0
-
-position_x: 964.267
-position_y: 394.644
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 1
-	position_x: 977.067
-	position_y: 394.644
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 5
-
-position_x: 1100.8
-position_y: 68.162
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 1100.8
-position_y: 133.458
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 1100.8
-position_y: 198.755
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 1100.8
-position_y: 264.051
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 1100.8
-position_y: 329.347
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 1100.8
-position_y: 394.644
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 1237.33
-position_y: 68.162
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 1
-	position_x: 1250.13
-	position_y: 68.162
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 4
-
-position_x: 1237.33
-position_y: 133.458
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 1237.33
-position_y: 198.755
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 1237.33
-position_y: 264.051
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 1237.33
-position_y: 329.347
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 1237.33
-position_y: 394.644
-size_x: 128
-size_y: 57.1343
-lives: 0
-visibility: 0
-bonuses: num: 0
-
-position_x: 1373.87
-position_y: 68.162
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 1
-	position_x: 1386.67
-	position_y: 68.162
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
+cant_break: 0
+bonuses: num: 2
+	position_x: 157.866669
+	position_y: 355.698364
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
 	descriptor: 0
+	bonuses_score_value: 0
+	position_x: 157.866669
+	position_y: 355.698364
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 25
 
-position_x: 1373.87
-position_y: 133.458
-size_x: 128
-size_y: 57.1343
+position_x: 145.066666
+position_y: 426.219177
+size_x: 128.000000
+size_y: 61.705715
 lives: 1
 visibility: 1
-bonuses: num: 0
-
-position_x: 1373.87
-position_y: 198.755
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
+cant_break: 0
 bonuses: num: 1
-	position_x: 1386.67
-	position_y: 198.755
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 5
+	position_x: 157.866669
+	position_y: 426.219177
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 23
 
-position_x: 1373.87
-position_y: 264.051
-size_x: 128
-size_y: 57.1343
+position_x: 281.600006
+position_y: 73.615097
+size_x: 128.000000
+size_y: 61.705715
 lives: 1
 visibility: 1
+cant_break: 0
 bonuses: num: 1
-	position_x: 1386.67
-	position_y: 264.051
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
+	position_x: 294.399994
+	position_y: 73.615097
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 15
+
+position_x: 281.600006
+position_y: 144.135925
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 294.399994
+	position_y: 144.135925
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 26
+
+position_x: 281.600006
+position_y: 214.656738
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 294.399994
+	position_y: 214.656738
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 23
+
+position_x: 281.600006
+position_y: 285.177551
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 1
+bonuses: num: 1
+	position_x: 294.399994
+	position_y: 285.177551
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 11
+
+position_x: 281.600006
+position_y: 355.698364
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 294.399994
+	position_y: 355.698364
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 19
+
+position_x: 281.600006
+position_y: 426.219177
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 2
+	position_x: 294.399994
+	position_y: 426.219177
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 2
+	bonuses_score_value: 0
+	position_x: 294.399994
+	position_y: 426.219177
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 18
+
+position_x: 418.133331
+position_y: 73.615097
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 1
+bonuses: num: 2
+	position_x: 430.933319
+	position_y: 73.615097
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
 	descriptor: 0
+	bonuses_score_value: 0
+	position_x: 430.933319
+	position_y: 73.615097
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 20
 
-position_x: 1373.87
-position_y: 329.347
-size_x: 128
-size_y: 57.1343
+position_x: 418.133331
+position_y: 144.135925
+size_x: 128.000000
+size_y: 61.705715
 lives: 1
 visibility: 1
-bonuses: num: 0
-
-position_x: 1373.87
-position_y: 394.644
-size_x: 128
-size_y: 57.1343
-lives: 0
-visibility: 0
+cant_break: 0
 bonuses: num: 1
-	position_x: 1386.67
-	position_y: 10954.6
-	size_x: 102.4
-	size_y: 45.7074
+	position_x: 430.933319
+	position_y: 144.135925
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 26
+
+position_x: 418.133331
+position_y: 214.656738
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 2
+	position_x: 430.933319
+	position_y: 214.656738
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 2
+	bonuses_score_value: 0
+	position_x: 430.933319
+	position_y: 214.656738
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 21
+
+position_x: 418.133331
+position_y: 285.177551
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 430.933319
+	position_y: 285.177551
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 25
+
+position_x: 418.133331
+position_y: 355.698364
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 430.933319
+	position_y: 355.698364
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 21
+
+position_x: 418.133331
+position_y: 426.219177
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 430.933319
+	position_y: 426.219177
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 13
+
+position_x: 554.666687
+position_y: 73.615097
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 567.466675
+	position_y: 73.615097
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 26
+
+position_x: 554.666687
+position_y: 144.135925
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 567.466675
+	position_y: 144.135925
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 26
+
+position_x: 554.666687
+position_y: 214.656738
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 2
+	position_x: 567.466675
+	position_y: 214.656738
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 3
+	bonuses_score_value: 0
+	position_x: 567.466675
+	position_y: 214.656738
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 20
+
+position_x: 554.666687
+position_y: 285.177551
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 2
+	position_x: 567.466675
+	position_y: 285.177551
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 0
+	bonuses_score_value: 0
+	position_x: 567.466675
+	position_y: 285.177551
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 26
+
+position_x: 554.666687
+position_y: 355.698364
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 567.466675
+	position_y: 355.698364
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 22
+
+position_x: 554.666687
+position_y: 426.219177
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 567.466675
+	position_y: 426.219177
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 12
+
+position_x: 691.200012
+position_y: 73.615097
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 2
+	position_x: 704.000000
+	position_y: 73.615097
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 3
+	bonuses_score_value: 0
+	position_x: 704.000000
+	position_y: 73.615097
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 11
+
+position_x: 691.200012
+position_y: 144.135925
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 2
+	position_x: 704.000000
+	position_y: 144.135925
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 2
+	bonuses_score_value: 0
+	position_x: 704.000000
+	position_y: 144.135925
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 22
+
+position_x: 691.200012
+position_y: 214.656738
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 704.000000
+	position_y: 214.656738
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 20
+
+position_x: 691.200012
+position_y: 285.177551
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 2
+	position_x: 704.000000
+	position_y: 285.177551
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 1
+	bonuses_score_value: 0
+	position_x: 704.000000
+	position_y: 285.177551
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 26
+
+position_x: 691.200012
+position_y: 355.698364
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 2
+	position_x: 704.000000
+	position_y: 355.698364
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 1
+	bonuses_score_value: 0
+	position_x: 704.000000
+	position_y: 355.698364
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 26
+
+position_x: 691.200012
+position_y: 426.219177
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 2
+	position_x: 704.000000
+	position_y: 426.219177
+	size_x: 102.400002
+	size_y: 49.364574
 	visibility: 0
 	descriptor: 5
+	bonuses_score_value: 0
+	position_x: 704.000000
+	position_y: 426.219177
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 21
 
-position_x: 1510.4
-position_y: 68.162
-size_x: 128
-size_y: 57.1343
+position_x: 827.733337
+position_y: 73.615097
+size_x: 128.000000
+size_y: 61.705715
 lives: 1
 visibility: 1
-bonuses: num: 1
-	position_x: 1523.2
-	position_y: 68.162
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 4
-
-position_x: 1510.4
-position_y: 133.458
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 1
-	position_x: 1523.2
-	position_y: 133.458
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 1
-
-position_x: 1510.4
-position_y: 198.755
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 1510.4
-position_y: 264.051
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 1
-	position_x: 1523.2
-	position_y: 264.051
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 4
-
-position_x: 1510.4
-position_y: 329.347
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 1510.4
-position_y: 394.644
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 1646.93
-position_y: 68.162
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 1
-	position_x: 1659.73
-	position_y: 68.162
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
+cant_break: 0
+bonuses: num: 2
+	position_x: 840.533325
+	position_y: 73.615097
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
 	descriptor: 3
+	bonuses_score_value: 0
+	position_x: 840.533325
+	position_y: 73.615097
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 13
 
-position_x: 1646.93
-position_y: 133.458
-size_x: 128
-size_y: 57.1343
+position_x: 827.733337
+position_y: 144.135925
+size_x: 128.000000
+size_y: 61.705715
 lives: 1
 visibility: 1
-bonuses: num: 0
+cant_break: 0
+bonuses: num: 2
+	position_x: 840.533325
+	position_y: 144.135925
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 3
+	bonuses_score_value: 0
+	position_x: 840.533325
+	position_y: 144.135925
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 11
 
-position_x: 1646.93
-position_y: 198.755
-size_x: 128
-size_y: 57.1343
+position_x: 827.733337
+position_y: 214.656738
+size_x: 128.000000
+size_y: 61.705715
 lives: 1
 visibility: 1
-bonuses: num: 0
-
-position_x: 1646.93
-position_y: 264.051
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
+cant_break: 0
 bonuses: num: 1
-	position_x: 1659.73
-	position_y: 264.051
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 0
+	position_x: 840.533325
+	position_y: 214.656738
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 11
 
-position_x: 1646.93
-position_y: 329.347
-size_x: 128
-size_y: 57.1343
+position_x: 827.733337
+position_y: 285.177551
+size_x: 128.000000
+size_y: 61.705715
 lives: 1
 visibility: 1
-bonuses: num: 0
-
-position_x: 1646.93
-position_y: 394.644
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
+cant_break: 0
 bonuses: num: 1
-	position_x: 1659.73
-	position_y: 394.644
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
+	position_x: 840.533325
+	position_y: 285.177551
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 22
+
+position_x: 827.733337
+position_y: 355.698364
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 2
+	position_x: 840.533325
+	position_y: 355.698364
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
 	descriptor: 1
+	bonuses_score_value: 0
+	position_x: 840.533325
+	position_y: 355.698364
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 17
 
-position_x: 1783.47
-position_y: 68.162
-size_x: 128
-size_y: 57.1343
+position_x: 827.733337
+position_y: 426.219177
+size_x: 128.000000
+size_y: 61.705715
 lives: 1
 visibility: 1
-bonuses: num: 0
-
-position_x: 1783.47
-position_y: 133.458
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 1783.47
-position_y: 198.755
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
-bonuses: num: 0
-
-position_x: 1783.47
-position_y: 264.051
-size_x: 128
-size_y: 57.1343
-lives: 1
-visibility: 1
+cant_break: 0
 bonuses: num: 1
-	position_x: 1796.27
-	position_y: 264.051
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 0
+	position_x: 840.533325
+	position_y: 426.219177
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 10
 
-position_x: 1783.47
-position_y: 329.347
-size_x: 128
-size_y: 57.1343
+position_x: 964.266663
+position_y: 73.615097
+size_x: 128.000000
+size_y: 61.705715
 lives: 1
 visibility: 1
+cant_break: 0
 bonuses: num: 1
-	position_x: 1796.27
-	position_y: 329.347
-	size_x: 102.4
-	size_y: 45.7074
-	visibility: 1
-	descriptor: 0
+	position_x: 977.066650
+	position_y: 73.615097
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 11
 
-position_x: 1783.47
-position_y: 394.644
-size_x: 128
-size_y: 57.1343
+position_x: 964.266663
+position_y: 144.135925
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 2
+	position_x: 977.066650
+	position_y: 144.135925
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 0
+	bonuses_score_value: 0
+	position_x: 977.066650
+	position_y: 144.135925
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 25
+
+position_x: 964.266663
+position_y: 214.656738
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 2
+	position_x: 977.066650
+	position_y: 214.656738
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 5
+	bonuses_score_value: 0
+	position_x: 977.066650
+	position_y: 214.656738
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 20
+
+position_x: 964.266663
+position_y: 285.177551
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 2
+	position_x: 977.066650
+	position_y: 285.177551
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 4
+	bonuses_score_value: 0
+	position_x: 977.066650
+	position_y: 285.177551
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 11
+
+position_x: 964.266663
+position_y: 355.698364
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 1
+bonuses: num: 1
+	position_x: 977.066650
+	position_y: 355.698364
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 17
+
+position_x: 964.266663
+position_y: 426.219177
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 977.066650
+	position_y: 426.219177
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 15
+
+position_x: 1100.800049
+position_y: 73.615097
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 1113.600098
+	position_y: 73.615097
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 15
+
+position_x: 1100.800049
+position_y: 144.135925
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 1113.600098
+	position_y: 144.135925
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 29
+
+position_x: 1100.800049
+position_y: 214.656738
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 1113.600098
+	position_y: 214.656738
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 11
+
+position_x: 1100.800049
+position_y: 285.177551
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 1113.600098
+	position_y: 285.177551
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 21
+
+position_x: 1100.800049
+position_y: 355.698364
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 1113.600098
+	position_y: 355.698364
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 25
+
+position_x: 1100.800049
+position_y: 426.219177
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 1113.600098
+	position_y: 426.219177
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 25
+
+position_x: 1237.333374
+position_y: 73.615097
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 1
+bonuses: num: 2
+	position_x: 1250.133423
+	position_y: 73.615097
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 2
+	bonuses_score_value: 0
+	position_x: 1250.133423
+	position_y: 73.615097
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 10
+
+position_x: 1237.333374
+position_y: 144.135925
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 1250.133423
+	position_y: 144.135925
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 13
+
+position_x: 1237.333374
+position_y: 214.656738
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 2
+	position_x: 1250.133423
+	position_y: 214.656738
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 4
+	bonuses_score_value: 0
+	position_x: 1250.133423
+	position_y: 214.656738
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 13
+
+position_x: 1237.333374
+position_y: 285.177551
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 1250.133423
+	position_y: 285.177551
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 21
+
+position_x: 1237.333374
+position_y: 355.698364
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 2
+	position_x: 1250.133423
+	position_y: 355.698364
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 0
+	bonuses_score_value: 0
+	position_x: 1250.133423
+	position_y: 355.698364
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 24
+
+position_x: 1237.333374
+position_y: 426.219177
+size_x: 128.000000
+size_y: 61.705715
 lives: 0
 visibility: 0
-bonuses: num: 0
+cant_break: 0
+bonuses: num: 2
+	position_x: 1250.133423
+	position_y: 5761.434082
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 0
+	bonuses_score_value: 0
+	position_x: 1250.133423
+	position_y: 4773.432129
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 25
 
-bonusesTimers: num: 1
-player_index: 0
-bonus_descriptor: 5
-max_time: 2.44764
+position_x: 1373.866699
+position_y: 73.615097
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 1386.666748
+	position_y: 73.615097
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 11
+
+position_x: 1373.866699
+position_y: 144.135925
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 1386.666748
+	position_y: 144.135925
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 27
+
+position_x: 1373.866699
+position_y: 214.656738
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 2
+	position_x: 1386.666748
+	position_y: 214.656738
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 2
+	bonuses_score_value: 0
+	position_x: 1386.666748
+	position_y: 214.656738
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 11
+
+position_x: 1373.866699
+position_y: 285.177551
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 1386.666748
+	position_y: 285.177551
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 24
+
+position_x: 1373.866699
+position_y: 355.698364
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 1386.666748
+	position_y: 355.698364
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 14
+
+position_x: 1373.866699
+position_y: 426.219177
+size_x: 128.000000
+size_y: 61.705715
+lives: 0
+visibility: 0
+cant_break: 0
+bonuses: num: 2
+	position_x: 1386.666748
+	position_y: 771.818909
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 1
+	descriptor: 4
+	bonuses_score_value: 0
+	position_x: 1386.666748
+	position_y: 707.818909
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 1
+	descriptor: 6
+	bonuses_score_value: 26
+
+position_x: 1510.400024
+position_y: 73.615097
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 1
+bonuses: num: 1
+	position_x: 1523.200073
+	position_y: 73.615097
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 10
+
+position_x: 1510.400024
+position_y: 144.135925
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 1523.200073
+	position_y: 144.135925
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 15
+
+position_x: 1510.400024
+position_y: 214.656738
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 1523.200073
+	position_y: 214.656738
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 13
+
+position_x: 1510.400024
+position_y: 285.177551
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 2
+	position_x: 1523.200073
+	position_y: 285.177551
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 2
+	bonuses_score_value: 0
+	position_x: 1523.200073
+	position_y: 285.177551
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 15
+
+position_x: 1510.400024
+position_y: 355.698364
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 1523.200073
+	position_y: 355.698364
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 21
+
+position_x: 1510.400024
+position_y: 426.219177
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 1
+bonuses: num: 2
+	position_x: 1523.200073
+	position_y: 426.219177
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 0
+	bonuses_score_value: 0
+	position_x: 1523.200073
+	position_y: 426.219177
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 26
+
+position_x: 1646.933350
+position_y: 73.615097
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 1659.733398
+	position_y: 73.615097
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 25
+
+position_x: 1646.933350
+position_y: 144.135925
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 1659.733398
+	position_y: 144.135925
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 19
+
+position_x: 1646.933350
+position_y: 214.656738
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 2
+	position_x: 1659.733398
+	position_y: 214.656738
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 4
+	bonuses_score_value: 0
+	position_x: 1659.733398
+	position_y: 214.656738
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 20
+
+position_x: 1646.933350
+position_y: 285.177551
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 1659.733398
+	position_y: 285.177551
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 24
+
+position_x: 1646.933350
+position_y: 355.698364
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 1659.733398
+	position_y: 355.698364
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 12
+
+position_x: 1646.933350
+position_y: 426.219177
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 1659.733398
+	position_y: 426.219177
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 29
+
+position_x: 1783.466675
+position_y: 73.615097
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 1796.266724
+	position_y: 73.615097
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 19
+
+position_x: 1783.466675
+position_y: 144.135925
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 1796.266724
+	position_y: 144.135925
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 26
+
+position_x: 1783.466675
+position_y: 214.656738
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 2
+	position_x: 1796.266724
+	position_y: 214.656738
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 1
+	bonuses_score_value: 0
+	position_x: 1796.266724
+	position_y: 214.656738
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 17
+
+position_x: 1783.466675
+position_y: 285.177551
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 1796.266724
+	position_y: 285.177551
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 13
+
+position_x: 1783.466675
+position_y: 355.698364
+size_x: 128.000000
+size_y: 61.705715
+lives: 1
+visibility: 1
+cant_break: 0
+bonuses: num: 1
+	position_x: 1796.266724
+	position_y: 355.698364
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 23
+
+position_x: 1783.466675
+position_y: 426.219177
+size_x: 128.000000
+size_y: 61.705715
+lives: 0
+visibility: 0
+cant_break: 0
+bonuses: num: 1
+	position_x: 1796.266724
+	position_y: 2731.820801
+	size_x: 102.400002
+	size_y: 49.364574
+	visibility: 0
+	descriptor: 6
+	bonuses_score_value: 23
+
+bonusesTimers: num: 0
 
 
 

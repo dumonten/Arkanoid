@@ -15,6 +15,8 @@
 #include <thread>
 #include <regex>
 
+
+/*Colors*/
 #define ColorCustomBlue                    sf::Color(28,19,145)
 #define ColorCustomLightBlue               sf::Color(141,222,251,255)
 #define ColorCustomPink                    sf::Color(251, 143, 184)
@@ -23,16 +25,18 @@
 #define ColorCustomDarkBlue                sf::Color(9,6,49)
 #define ColorCustomMidPurpleBlueLight      sf::Color(112, 146, 190)
 #define ColorCustomMidPurpleBlueDark       sf::Color(69, 104, 152)
-#define ColorCustomMidPurpleBlueUltraDark  sf::Color(45, 68, 100)
+#define ColorCustomMidPurpleBlueUltraDark  sf::Color(31, 46, 67)
 #define ColorCustomRed                     sf::Color(240, 70, 79)
 #define ColorCustomOrange                  sf::Color(252, 179, 124)
 #define ColorCustomYellow                  sf::Color(240, 216, 117)
 
-enum GameState { ON, OFF };
-enum Difficulty { HARD, MEDIUM, LOW, ediffSize = 3};
+
+/*Enums*/
+enum GameState  { ON, OFF };
+enum Difficulty { IMPOSSIBLE, HARD, MEDIUM, LOW, KID, ediffSize = 5 };
 enum BlockState { CRASHED, MAX_ATTACKED, MID_ATTACKED, MIN_ATTACKED, NOT_ATTACKED};
 enum BtnState   { PRESSED, NORMAL, HOVERED};
-enum EventType {
+enum EventType  {
     OPEN_SETTINGS,
     OPEN_FULL_SCREEN, 
     OPEN_START_MENU,
@@ -151,9 +155,9 @@ const   std::vector<sf::Vector2f> mResolution
 
 const float cps = 16; 
 //StartMenu
-const float S_BUTTON_WIDTH           = 0.2343;
-const float S_BUTTON_HEIGHT          = 0.0556;
-const float S_BUTTON_BORDERTHICKNESS = 1;
+const float S_BUTTON_WIDTH           = 0.2343f;
+const float S_BUTTON_HEIGHT          = 0.0556f;
+const float S_BUTTON_BORDERTHICKNESS = 1.0f;
 const float HEADER_TEXT_SIZE         = (float)150/1080;
 const float HEADER_BORDERTHICKNESS   = 6;
 
@@ -167,39 +171,46 @@ const float SUB_HEADER_BORDERTHICKNESS = 0;
 //GameField
 //GameField --- Block
 
-const uint32_t BLOCK_NUM_WIDTH_HARD    = 20;
-const uint32_t BLOCK_NUM_WIDTH_MEDIUM  = 15;
-const uint32_t BLOCK_NUM_WIDTH_LOW     = 3;
+const uint32_t BLOCK_NUM_WIDTH_IMPOSSIBLE = 25;
+const uint32_t BLOCK_NUM_WIDTH_HARD = 20;
+const uint32_t BLOCK_NUM_WIDTH_MEDIUM = 15;
+const uint32_t BLOCK_NUM_WIDTH_LOW = 7;
+const uint32_t BLOCK_NUM_WIDTH_KID = 3;
 
-const uint32_t BLOCK_NUM_HEIGHT_HARD   = 10;
+const uint32_t BLOCK_NUM_HEIGHT_IMPOSSIBLE = 15;
+const uint32_t BLOCK_NUM_HEIGHT_HARD = 10;
 const uint32_t BLOCK_NUM_HEIGHT_MEDIUM = 7;
-const uint32_t BLOCK_NUM_HEIGHT_LOW    = 2;
+const uint32_t BLOCK_NUM_HEIGHT_LOW = 5;
+const uint32_t BLOCK_NUM_HEIGHT_KID = 2;
 
 //GameField --- StatusBar
-const float STATUS_BAR_BUTTON_WIDTH          = 0.05729;
+const float STATUS_BAR_BUTTON_WIDTH          = 0.05729f;
 const float STATUS_BAR_BUTTON_HEIGHT         = (float)40 / 1000;
-const float STATUS_BAR_BUTTON_FONT_SIZE      = 0.0185;
-const float MBOX_FONT_SIZE      = 0.025;
-const float STATUS_BAR_BUTTON_TEXT_FONT_SIZE = 0.020;
+const float STATUS_BAR_BUTTON_FONT_SIZE      = 0.0185f;
+const float MBOX_FONT_SIZE      = 0.025f;
+const float STATUS_BAR_BUTTON_TEXT_FONT_SIZE = 0.020f;
 const float STATUS_BAR_HEIGHT                = (float)60 / 1000;
-const float STATUS_BAR_TEXT_OFFSET_LEFT      = 0.104167;
-const float STATUS_BAR_TEXT_OFFSET_TOP       = 0.010416;
-const float STATUS_BAR_BUTTON_OFFSET_LEFT    = 0.014;
-const float STATUS_BAR_BUTTON_OFFSET_TOP     = 0.00926;
+const float STATUS_BAR_TEXT_OFFSET_LEFT      = 0.104167f;
+const float STATUS_BAR_TEXT_OFFSET_TOP       = 0.010416f;
+const float STATUS_BAR_BUTTON_OFFSET_LEFT    = 0.014f;
+const float STATUS_BAR_BUTTON_OFFSET_TOP     = 0.00926f;
 
 //GameField --- Ball 
-const float BALL_SQUARE = (float)(10 * 10)/(1920*1000);
+const float BALL_RADIUS = 5.0f; 
+const float BALL_SQUARE = (float)(4 * BALL_RADIUS * BALL_RADIUS)/(1920*1000);
+const sf::Vector2f BALL_SPEED_IMPOSSIBLE = { (float)7 / 1920, (float)10 / 1000 };
 const sf::Vector2f BALL_SPEED_MID = { (float)5 / 1920, (float)5 / 1000 };
 const sf::Vector2f BALL_SPEED_HARD = { (float)5 / 1920, (float)8 / 1000 };
 const sf::Vector2f BALL_SPEED_LOW = { (float)3 / 1920, (float)3 / 1000 };
-const float BALL_WIDTH_INIT_OFFSET = 0.5 - (float)5/1920;
+const sf::Vector2f BALL_SPEED_KID = { (float)2 / 1920, (float)2 / 1000 };
+const float BALL_WIDTH_INIT_OFFSET = 0.5f - (float)(BALL_RADIUS / 1920);
 const float BALL_HEIGHT_INIT_OFFSET = 0.75;
 
 //GameField --- Platform 
 const float PlATFORM_WIDTH  = (float)180 / 1920;
 const float PlATFORM_HEIGHT = (float)15 / 1000;
 const float PLATFORM_WIDTH_INIT_OFFSET = 0.5 - (float)PlATFORM_WIDTH / 2;
-const float PLATFORM_HEIGHT_INIT_OFFSET = 1 - (float)15 / 1000;
+const float PLATFORM_HEIGHT_INIT_OFFSET = 1 - (float)PlATFORM_HEIGHT;
 const sf::Vector2f PLATFORM_SPEED = { (float)20 / 1920, 0 };
 
 //GameField
@@ -217,9 +228,11 @@ const std::string MEND_TEXT = "All players are dead! You lose. Try again";
 const std::string MWIN_TEXT = "Congratulations you are the WINNER!";
 
 //GameField --- Bonuses
-const uint32_t BONUS_PERCANTAGE_HARD   = 10;
-const uint32_t BONUS_PERCANTAGE_MEDIUM = 40;
-const uint32_t BONUS_PERCANTAGE_LOW    = 40;
+const uint32_t BONUS_PERCANTAGE_HARD = 10;
+const uint32_t BONUS_PERCANTAGE_MEDIUM = 41;
+const uint32_t BONUS_PERCANTAGE_LOW = 42;
+const uint32_t BONUS_PERCANTAGE_KID = 40;
+const uint32_t BONUS_PERCANTAGE_IMPOSSIBLE = 5;
 
 const int BONUS_MAX_BALLS_COUNT = 1; 
 
@@ -237,7 +250,7 @@ const sf::Vector2f BALL_CHANGE_SPEED_VALUE = { 1.5f, 1.2f };
 const sf::Vector2f PLATFORM_CHANGE_LENGTH_VALUE = { 2.0f, 1.0f }; //90 è 360
 const sf::Vector2f PLATFORM_CHANGE_SPEED_VALUE  = { 1.5f, 1.0f }; //13,3 è 30
 
-const float BONUS_MAX_TIME = 4; //in sec
+const float BONUS_MAX_TIME = 5; //in sec
 
 
 
